@@ -1,0 +1,10 @@
+<div class="switcher" [ngSwitch]="elem">
+    <input *ngSwitchCase='"input"' placeholder="INPUT">
+    <textarea *ngSwitchCase='"textarea"' placeholder="TEXTAREA"></textarea>
+    <button *ngSwitchCase='"button"'>Button</button>
+    <div *ngSwitchCase='"labelCheck"'>
+      <label>Label</label>
+      <input type="checkbox">
+    </div>
+    <select *ngSwitchCase='"select"'>Button<option>Some value</option></select>
+</div>

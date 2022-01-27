@@ -1,0 +1,14 @@
+::-webkit-input-placeholder {
+    text-align: center;
+}
+
+
+.switcher {
+    margin: 10px auto 10px auto;
+    display: block;
+}
+
+textarea {
+    resize: none;
+}
+

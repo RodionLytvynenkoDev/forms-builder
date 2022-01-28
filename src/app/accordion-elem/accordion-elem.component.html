@@ -22,7 +22,8 @@
         [attr.aria-labelledby]="'accordion-header-' + index"
         *ngIf="index && elemInd=='labelCheck'">
           {{elemInd}}<br>
-          Width: <input type="text" placeholder="%, em, rem, px, vh etc." ><br>
+          Width: <input type="text" placeholder="%, em, rem, px, vh etc." 
+          [(ngModel)]="widthInputElem" (ngModelChange)="widthElemChange($event)"><br>
           Height: <input><br>
           Required: <input type="checkbox"><br>
           Font Size: <input><br>
@@ -61,7 +62,7 @@
         *ngIf="index && (elemInd=='input' || elemInd=='textarea')">
           {{elemInd}}<br>
           Placeholder: <input><br>
-          Width: <input [(ngModel)]="widthInputElem" (ngModelChange)="widthElemChange($event)"><br>
+          Width: <input><br>
           Height: <input><br>
           Required: <input type="checkbox"><br>
           Border Style: <input><br>

@@ -39,6 +39,9 @@ export class FormComponent {
     
 */
 
+//[style.width]="elemWidth.length > 0 ? elemWidth : '60%'"
+  widthInputElem = "";  
+
   formWidth: string = ""
   formHeight: string = ""
   formBorder: string = ""

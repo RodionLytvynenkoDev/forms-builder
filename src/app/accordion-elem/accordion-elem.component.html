@@ -1,4 +1,4 @@
-<cdk-accordion class="example-accordion">
+<cdk-accordion class="example-accordion" >
     <cdk-accordion-item
       *ngFor="let item of items; let index = index;"
       #accordionItem="cdkAccordionItem"
@@ -20,10 +20,57 @@
         [style.display]="accordionItem.expanded ? '' : 'none'"
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
-        *ngIf="index">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Perferendis
-        excepturi incidunt ipsum deleniti labore, tempore non nam doloribus blanditiis
-        veritatis illo autem iure aliquid ullam rem tenetur deserunt velit culpa?
+        *ngIf="index && elemInd=='labelCheck'">
+          {{elemInd}}<br>
+          Width: <input type="text" placeholder="%, em, rem, px, vh etc." ><br>
+          Height: <input><br>
+          Required: <input type="checkbox"><br>
+          Font Size: <input><br>
+          Font Weight: <select><option>normal</option><option>bold</option></select><br/>
+          <div>
+            Color Input: rgb(<input>,<input>,<input>)
+          </div>
+          
+        
+      </div>
+      <div
+        class="example-accordion-item-body"
+        role="region"
+        [style.display]="accordionItem.expanded ? '' : 'none'"
+        [attr.id]="'accordion-body-' + index"
+        [attr.aria-labelledby]="'accordion-header-' + index"
+        *ngIf="index && (elemInd=='button' || elemInd=='select')">
+          {{elemInd}}<br>
+          Width: <input><br>
+          Height: <input><br>
+          Border Style: <input><br>
+          Font Size: <input><br>
+          Font Weight: <select><option>normal</option><option>bold</option></select><br/>
+          <div>
+            Color Input: rgb(<input>,<input>,<input>)
+          </div>
+          
+        
+      </div>
+      <div
+        class="example-accordion-item-body"
+        role="region"
+        [style.display]="accordionItem.expanded ? '' : 'none'"
+        [attr.id]="'accordion-body-' + index"
+        [attr.aria-labelledby]="'accordion-header-' + index"
+        *ngIf="index && (elemInd=='input' || elemInd=='textarea')">
+          {{elemInd}}<br>
+          Placeholder: <input><br>
+          Width: <input [(ngModel)]="widthInputElem" (ngModelChange)="widthElemChange($event)"><br>
+          Height: <input><br>
+          Required: <input type="checkbox"><br>
+          Border Style: <input><br>
+          Font Size: <input><br>
+          Font Weight: <select><option>normal</option><option>bold</option></select><br/>
+          <div>
+            Color Input: rgb(<input>,<input>,<input>)
+          </div>
+        
       </div>
       <div
         class="example-accordion-item-body"
@@ -32,8 +79,11 @@
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
         *ngIf="!index">
-        Width: <input type="text" [(ngModel)]="widthInputForm" (ngModelChange)="widthFormChange($event)">
-        Height: <input type="text" [(ngModel)]="heightInputForm" (ngModelChange)="heightFormChange($event)">
+          Width: <input type="text" placeholder="%, em, rem, px, vh etc." [(ngModel)]="widthInputForm" (ngModelChange)="widthFormChange($event)"><br/>
+          Height: <input type="text" placeholder="%, em, rem, px, vh etc." [(ngModel)]="heightInputForm" (ngModelChange)="heightFormChange($event)"><br/>
+          Border: <input type="text" placeholder="Input type, color and width" [(ngModel)]="borderInputForm" (ngModelChange)="borderFormChange($event)"><br/>
+          Bg: <input type="text" placeholder="Color" [(ngModel)]="bgInputForm" (ngModelChange)="bgFormChange($event)">
+        
       </div>
       
     </cdk-accordion-item>

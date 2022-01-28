@@ -25,6 +25,30 @@ export class AccordionElemComponent {
     this.heightInputForm = model;
     this.heightInputFormChange.emit(model);
   }
+  @Input() borderInputForm:string = "";
+  @Output() borderInputFormChange = new EventEmitter<string>();
+  borderFormChange(model: string){
+         
+    this.borderInputForm = model;
+    this.borderInputFormChange.emit(model);
+  }
+
+  @Input() bgInputForm:string = "";
+  @Output() bgInputFormChange = new EventEmitter<string>();
+  bgFormChange(model: string){    
+    this.bgInputForm = model;
+    this.bgInputFormChange.emit(model);
+  }
+
+  @Input() widthInputElem:string = "";
+  @Output() widthInputElemChange = new EventEmitter<string>();
+  widthElemChange(model: string){
+         
+    this.widthInputElem = model;
+    this.widthInputElemChange.emit(model);
+  }
+
+  @Input() elemInd: string
   
   
 }

@@ -6,15 +6,11 @@ import {
 
 import {
   Component,
-  OnInit,
-  ViewChild,
-  ViewContainerRef,
-  ComponentFactoryResolver,
-  TemplateRef,
-  ElementRef,
-  Input
+  Input,
+  Output,
+  EventEmitter
 } from '@angular/core';
-import { CdkDragStart, CdkDragMove, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'form',
@@ -45,6 +41,13 @@ export class FormComponent {
 
   formWidth: string = ""
   formHeight: string = ""
+  formBorder: string = ""
+  formBg: string = ""
+  elemWidth: string = ""
+
+  title: string
+  
+
   draggableFields = [
     "input", 
     "textarea", 
@@ -56,6 +59,16 @@ export class FormComponent {
   formFields = [
     
   ];
+
+  public elemInd: string
+  getIndex(i) {
+    this.elemInd = this.formFields[i]
+    console.log(i)
+  }
+
+  
+
+  
   
 
 
@@ -75,6 +88,8 @@ export class FormComponent {
       console.log(this.formFields)
     }
   }
+
+  
 
  /* moved(event: CdkDragMove) {
     // Check if stored HTML field is as same as current field

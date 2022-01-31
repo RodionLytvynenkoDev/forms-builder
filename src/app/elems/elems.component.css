@@ -6,9 +6,43 @@
 .switcher {
     margin: 10px auto 10px auto;
     display: block;
+    min-width: 100%;
+    min-height: 100%;
 }
 
 textarea {
     resize: none;
+    min-width: 100%;
+    min-height: 100%;
 }
 
+input {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+button {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+select {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.myLabel {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.myLabel input {
+    min-width: auto;
+}
+
+* {
+    box-sizing: border-box;
+  }
+  

@@ -9,6 +9,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
   styleUrls: ['accordion-elem.component.css'],
 })
 export class AccordionElemComponent {
+  
   items = ['Form Settings', 'Element settings'];
   expandedIndex = 0;
   @Input() widthInputForm:string = "";
@@ -49,6 +50,7 @@ export class AccordionElemComponent {
   }
 
   @Input() elemInd: string
+  @Input() elemId: number
   
   
 }

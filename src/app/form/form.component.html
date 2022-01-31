@@ -5,6 +5,7 @@
     [(borderInputForm)]="formBorder" 
     [(bgInputForm)]="formBg"
     [(elemInd)]="elemInd"
+    [(elemId)]="elemId"
     [(widthInputElem)]="elemWidth" >
   </accordion>
 </div>
@@ -16,7 +17,9 @@
     
     <div cdkDropList #formElems="cdkDropList" [cdkDropListData]="formFields" [cdkDropListConnectedTo]="htmlElems"
       class="list-sect2" (cdkDropListDropped)="drop($event)" >
-      <elems class="list-item" *ngFor="let item of formFields; let i = index" cdkDragBoundary=".sect2" cdkDrag (click)="getIndex(i)" elem={{item}}></elems>
+      <elems class="list-item" *ngFor="let item of formFields; let i = index" cdkDragBoundary=".sect2" cdkDrag (click)="getIndex(i)" elem={{item}}>
+        <ng-template [ngIf]></ng-template>
+      </elems>
     </div>
 
   </div>

@@ -64,8 +64,10 @@ export class FormComponent {
   ];
 
   public elemInd: string
+  public elemId: number
   getIndex(i) {
     this.elemInd = this.formFields[i]
+    this.elemId = i
     console.log(i)
   }
 

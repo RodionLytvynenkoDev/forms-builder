@@ -12,12 +12,33 @@ import {
 } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
+import { Store } from '@ngrx/store';
+import { ElementStyle } from '../reducers/actionsReducers/reducer.component';
+import { defineElemAction, defineIdAction } from '../reducers/actionsReducers/action.component';
+
 @Component({
   selector: 'form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent {
+
+  private currentStateElement:ElementStyle={
+    id: 0,
+    elem: "",
+    style: {
+        'elemWidth': "",
+        'elemHeight': "",
+        'elemPlaceholder': "",
+        'elemRequired': "",
+        'elemBorder': "",
+        'elemFontSize': "",
+        'elemFontWeight': "",
+        'elemColorInput1': 0,
+        'elemColorInput2': 0,
+        'elemColorInput3': 0
+    }
+  }
 
 
 /*  @ViewChild('virtualContainer', {read: ViewContainerRef, static: false})
@@ -49,6 +70,8 @@ export class FormComponent {
   elemWidth: string = ""
 
   title: string
+  constructor(private store$: Store<ElementStyle>){
+  }
   
 
   draggableFields = [
@@ -65,9 +88,12 @@ export class FormComponent {
 
   public elemInd: string
   public elemId: number
-  getIndex(i) {
+  getIndex(i: number) {
     this.elemInd = this.formFields[i]
     this.elemId = i
+    this.store$.dispatch(new defineIdAction({id:i}))
+    this.store$.dispatch(new defineElemAction({elem:this.formFields[i]}))
+ 
     console.log(i)
   }
 

@@ -1,4 +1,8 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { ElementStyle } from '../reducers/actionsReducers/reducer.component';
+import {selectElementStyleElem, selectElementStyleId} from '../reducers/actionsReducers/selector.component'
 
 /**
  * @title Accordion overview
@@ -9,6 +13,13 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
   styleUrls: ['accordion-elem.component.css'],
 })
 export class AccordionElemComponent {
+
+  constructor(private store$: Store<ElementStyle>){
+  }
+
+  public elementKey$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
+  public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
+  
   
   items = ['Form Settings', 'Element settings'];
   expandedIndex = 0;

@@ -21,8 +21,8 @@
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
         *ngIf="index && elemInd=='labelCheck'">
-          {{elemInd}}<br>
-          Id: {{elemId}}<br>
+          {{(elem$ | async)}}<br>
+          Id: {{elementKey$ | async}}<br>
           Width: <input type="text" placeholder="%, em, rem, px, vh etc." 
           [(ngModel)]="widthInputElem" (ngModelChange)="widthElemChange($event)"><br>
           Height: <input><br>
@@ -42,8 +42,8 @@
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
         *ngIf="index && (elemInd=='button' || elemInd=='select')">
-          {{elemInd}}<br>
-          Id: {{elemId}}<br>
+          {{elem$ | async}}<br>
+          Id: {{elementKey$ | async}}<br>
           Width: <input><br>
           Height: <input><br>
           Border Style: <input><br>
@@ -62,8 +62,8 @@
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
         *ngIf="index && (elemInd=='input' || elemInd=='textarea')">
-          {{elemInd}}<br>
-          Id: {{elemId}}<br>
+          {{elem$ | async}}<br>
+          Id: {{elementKey$ | async}}<br>
           Placeholder: <input><br>
           Width: <input><br>
           Height: <input><br>

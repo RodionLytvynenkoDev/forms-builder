@@ -12,9 +12,11 @@ import {
 } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
-import { Store } from '@ngrx/store';
-import { ElementStyle } from '../reducers/actionsReducers/reducer.component';
+import { select, Store } from '@ngrx/store';
+import { ElementStyle, StylingState } from '../reducers/actionsReducers/reducer.component';
 import { defineElemAction, defineIdAction } from '../reducers/actionsReducers/action.component';
+import { Observable } from 'rxjs';
+import { selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../reducers/actionsReducers/selector.component';
 
 @Component({
   selector: 'form',
@@ -22,6 +24,13 @@ import { defineElemAction, defineIdAction } from '../reducers/actionsReducers/ac
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent {
+
+  public elementId$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
+  public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
+  public style$: Observable<StylingState> = this.store$.pipe(select(selectElementStyleStyle));
+
+  constructor(private store$: Store<ElementStyle>){
+  }
 
   private currentStateElement:ElementStyle={
     id: 0,
@@ -34,9 +43,7 @@ export class FormComponent {
         'elemBorder': "",
         'elemFontSize': "",
         'elemFontWeight': "",
-        'elemColorInput1': 0,
-        'elemColorInput2': 0,
-        'elemColorInput3': 0
+        'elemColorInput': ""
     }
   }
 
@@ -70,7 +77,20 @@ export class FormComponent {
   elemWidth: string = ""
 
   title: string
-  constructor(private store$: Store<ElementStyle>){
+  
+  ngOnInit():void{
+
+    this.elem$.subscribe((element)=>{
+      this.currentStateElement.elem=element;
+    })
+    this.elementId$.subscribe((id) => {
+      this.currentStateElement.id = id
+    })
+    this.style$.subscribe((style) => {
+      this.currentStateElement.style = style
+
+    })
+    
   }
   
 
@@ -91,10 +111,11 @@ export class FormComponent {
   getIndex(i: number) {
     this.elemInd = this.formFields[i]
     this.elemId = i
+    this.store$.subscribe(x => console.log(x))
     this.store$.dispatch(new defineIdAction({id:i}))
     this.store$.dispatch(new defineElemAction({elem:this.formFields[i]}))
- 
-    console.log(i)
+    
+    
   }
 
   

@@ -4,10 +4,12 @@
 
 
 .switcher {
-    margin: 10px auto 10px auto;
+    margin: auto auto;
     display: block;
     min-width: 100%;
     min-height: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
 textarea {

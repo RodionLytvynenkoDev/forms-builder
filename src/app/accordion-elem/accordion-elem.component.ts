@@ -1,8 +1,9 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ElementStyle } from '../reducers/actionsReducers/reducer.component';
-import {selectElementStyleElem, selectElementStyleId} from '../reducers/actionsReducers/selector.component'
+import { defineAllAction } from '../reducers/actionsReducers/action.component';
+import { ElementStyle, StylingState } from '../reducers/actionsReducers/reducer.component';
+import {selectElementStyleElem, selectElementStyleId, selectElementStyleStyle} from '../reducers/actionsReducers/selector.component'
 
 /**
  * @title Accordion overview
@@ -13,12 +14,130 @@ import {selectElementStyleElem, selectElementStyleId} from '../reducers/actionsR
   styleUrls: ['accordion-elem.component.css'],
 })
 export class AccordionElemComponent {
-
+  
+  
+  public elementId$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
+  public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
+  public style$: Observable<StylingState> = this.store$.pipe(select(selectElementStyleStyle));
   constructor(private store$: Store<ElementStyle>){
   }
 
-  public elementKey$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
-  public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
+  widthh = ""
+  inputWidth(value) {
+    this.altObj = Object.assign({}, this.currentStateElement.style);
+    this.widthh = value
+    this.altObj.elemWidth = this.widthh
+    this.currentStateElement.style = this.altObj
+    this.store$.dispatch(new defineAllAction({id: this.currentStateElement.id, elem: this.currentStateElement.elem, style: this.currentStateElement.style}))
+    this.store$.subscribe(x => console.log(x))
+  }
+
+  heightt = ""
+  inputHeight(value) {
+    this.altObj = Object.assign({}, this.currentStateElement.style);
+    this.heightt = value
+    this.altObj.elemHeight = this.heightt
+    this.currentStateElement.style = this.altObj
+    this.store$.dispatch(new defineAllAction({id: this.currentStateElement.id, elem: this.currentStateElement.elem, style: this.currentStateElement.style}))
+    this.store$.subscribe(x => console.log(x))
+  }
+
+  required = ""
+  inputReq(value) {
+    this.altObj = Object.assign({}, this.currentStateElement.style);
+
+    this.required = value
+    this.altObj.elemRequired = this.required
+    this.currentStateElement.style = this.altObj
+    this.store$.dispatch(new defineAllAction({id: this.currentStateElement.id, elem: this.currentStateElement.elem, style: this.currentStateElement.style}))
+    this.store$.subscribe(x => console.log(x))
+  }
+
+  fontSizee = ""
+  inputFont(value) {
+    this.altObj = Object.assign({}, this.currentStateElement.style);
+    this.fontSizee = value
+    this.altObj.elemFontSize = this.fontSizee
+    this.currentStateElement.style = this.altObj
+    this.store$.dispatch(new defineAllAction({id: this.currentStateElement.id, elem: this.currentStateElement.elem, style: this.currentStateElement.style}))
+    this.store$.subscribe(x => console.log(x))
+  }
+
+  fontWeight = ""
+  inputWeight(value) {
+    this.altObj = Object.assign({}, this.currentStateElement.style);
+
+    this.fontWeight = value
+    this.altObj.elemFontWeight = this.fontWeight
+    this.currentStateElement.style = this.altObj
+    this.store$.dispatch(new defineAllAction({id: this.currentStateElement.id, elem: this.currentStateElement.elem, style: this.currentStateElement.style}))
+    this.store$.subscribe(x => console.log(x))
+  }
+
+  colorr = ""
+  inputColor(value) {
+    this.altObj = Object.assign({}, this.currentStateElement.style);
+
+    this.colorr = value
+    this.altObj.elemColorInput = this.colorr
+    this.currentStateElement.style = this.altObj
+    this.store$.dispatch(new defineAllAction({id: this.currentStateElement.id, elem: this.currentStateElement.elem, style: this.currentStateElement.style}))
+    this.store$.subscribe(x => console.log(x))
+  }
+
+  borderStyle = ""
+  inputBorder(value) {
+    this.altObj = Object.assign({}, this.currentStateElement.style);
+    this.borderStyle = value
+    this.altObj.elemFontSize = this.borderStyle
+    this.currentStateElement.style = this.altObj
+    this.store$.dispatch(new defineAllAction({id: this.currentStateElement.id, elem: this.currentStateElement.elem, style: this.currentStateElement.style}))
+    this.store$.subscribe(x => console.log(x))
+  }
+
+  placeholderr = ""
+  inputPlaceholder(value) {
+    this.altObj = Object.assign({}, this.currentStateElement.style);
+    this.placeholderr = value
+    this.altObj.elemFontSize = this.placeholderr
+    this.currentStateElement.style = this.altObj
+    this.store$.dispatch(new defineAllAction({id: this.currentStateElement.id, elem: this.currentStateElement.elem, style: this.currentStateElement.style}))
+    this.store$.subscribe(x => console.log(x))
+  }
+
+
+  private currentStateElement:ElementStyle={
+    id: 0,
+    elem: "",
+    style: {
+      elemWidth: "",
+      elemHeight: "",
+      elemPlaceholder: "",
+      elemRequired: "",
+      elemBorder: "",
+      elemFontSize: "",
+      elemFontWeight: "",
+      elemColorInput: ""
+    }
+  }
+
+  altObj = Object.assign({}, this.currentStateElement.style);
+
+
+  ngOnInit():void{
+
+    this.elem$.subscribe((element)=>{
+      this.currentStateElement.elem=element;
+    })
+    this.elementId$.subscribe((id) => {
+      this.currentStateElement.id = id
+    })
+    this.style$.subscribe((style) => {
+      this.currentStateElement.style = style
+
+    })
+    
+  }
   
   
   items = ['Form Settings', 'Element settings'];
@@ -60,8 +179,4 @@ export class AccordionElemComponent {
     this.widthInputElemChange.emit(model);
   }
 
-  @Input() elemInd: string
-  @Input() elemId: number
-  
-  
 }

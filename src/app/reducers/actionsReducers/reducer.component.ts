@@ -3,16 +3,14 @@ import { defineAll, defineElem, defineId, defineStyle, selectAction  } from "./a
 export const ElementStyles = 'style'
 
 export interface StylingState {
-    'elemWidth': string,
-    'elemHeight': string,
-    'elemPlaceholder': string,
-    'elemRequired': string,
-    'elemBorder': string,
-    'elemFontSize': string,
-    'elemFontWeight': string,
-    'elemColorInput1': number,
-    'elemColorInput2': number,
-    'elemColorInput3': number
+    elemWidth: string,
+    elemHeight: string,
+    elemPlaceholder: string,
+    elemRequired: string,
+    elemBorder: string,
+    elemFontSize: string,
+    elemFontWeight: string,
+    elemColorInput: string
 }
 
 export interface ElementStyle {
@@ -25,16 +23,14 @@ const initialState: ElementStyle = {
     id: 0,
     elem: "",
     style: {
-        'elemWidth': "",
-        'elemHeight': "",
-        'elemPlaceholder': "",
-        'elemRequired': "",
-        'elemBorder': "",
-        'elemFontSize': "",
-        'elemFontWeight': "",
-        'elemColorInput1': 0,
-        'elemColorInput2': 0,
-        'elemColorInput3': 0
+        elemWidth: "",
+        elemHeight: "",
+        elemPlaceholder: "",
+        elemRequired: "",
+        elemBorder: "",
+        elemFontSize: "",
+        elemFontWeight: "",
+        elemColorInput: ""
     }
 }
 

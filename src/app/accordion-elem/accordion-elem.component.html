@@ -20,18 +20,16 @@
         [style.display]="accordionItem.expanded ? '' : 'none'"
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
-        *ngIf="index && elemInd=='labelCheck'">
-          {{(elem$ | async)}}<br>
-          Id: {{elementKey$ | async}}<br>
-          Width: <input type="text" placeholder="%, em, rem, px, vh etc." 
-          [(ngModel)]="widthInputElem" (ngModelChange)="widthElemChange($event)"><br>
-          Height: <input><br>
-          Required: <input type="checkbox"><br>
-          Font Size: <input><br>
-          Font Weight: <select><option>normal</option><option>bold</option></select><br/>
-          <div>
-            Color Input: rgb(<input>,<input>,<input>)
-          </div>
+        *ngIf="index && currentStateElement.elem=='labelCheck'">
+          {{(currentStateElement.elem)}}<br>
+          Id: {{elementId$ | async}}<br>
+          Width: <input type="text" placeholder="%, em, rem, px, vh etc." #elementWidth (input)="inputWidth(elementWidth.value)" [value]="widthh"><br>
+          Height: <input type="text" placeholder="%, em, rem, px, vh etc." #elementHeight (input)="inputHeight(elementHeight.value)" [value]="heightt"><br>
+          Required: <select #req (change)="inputReq(req.value)" [value]="required"><option>Required</option><option>Nope</option> </select><br/>
+          Font Size: <input #fontSize (input)="inputFont(fontSize.value)" [value]="fontSizee"><br>
+          Font Weight: <select #weight (change)="inputWeight(weight.value)" [value]="fontWeight"><option>normal</option><option>bold</option></select><br/>
+          Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr">
+          <div><button>Set</button></div>
           
         
       </div>
@@ -41,18 +39,16 @@
         [style.display]="accordionItem.expanded ? '' : 'none'"
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
-        *ngIf="index && (elemInd=='button' || elemInd=='select')">
-          {{elem$ | async}}<br>
-          Id: {{elementKey$ | async}}<br>
-          Width: <input><br>
-          Height: <input><br>
-          Border Style: <input><br>
-          Font Size: <input><br>
-          Font Weight: <select><option>normal</option><option>bold</option></select><br/>
-          <div>
-            Color Input: rgb(<input>,<input>,<input>)
-          </div>
-          
+        *ngIf="index && (currentStateElement.elem=='button' || currentStateElement.elem=='select')">
+          {{currentStateElement.elem}}<br>
+          Id: {{elementId$ | async}}<br>
+          Width: <input type="text" placeholder="%, em, rem, px, vh etc." #elementWidth (input)="inputWidth(elementWidth.value)" [value]="widthh"><br>
+          Height: <input type="text" placeholder="%, em, rem, px, vh etc." #elementHeight (input)="inputHeight(elementHeight.value)" [value]="heightt"><br>
+          Border Style: <input #border (input)="inputBorder(border.value)" [value]="borderStyle"><br>
+          Font Size: <input #fontSize (input)="inputFont(fontSize.value)" [value]="fontSizee"><br>
+          Font Weight: <select #weight (change)="inputWeight(weight.value)" [value]="fontWeight"><option>normal</option><option>bold</option></select><br/>
+          Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr">
+          <div><button>Set</button></div>
         
       </div>
       <div
@@ -61,19 +57,18 @@
         [style.display]="accordionItem.expanded ? '' : 'none'"
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
-        *ngIf="index && (elemInd=='input' || elemInd=='textarea')">
-          {{elem$ | async}}<br>
-          Id: {{elementKey$ | async}}<br>
-          Placeholder: <input><br>
-          Width: <input><br>
-          Height: <input><br>
-          Required: <input type="checkbox"><br>
-          Border Style: <input><br>
-          Font Size: <input><br>
-          Font Weight: <select><option>normal</option><option>bold</option></select><br/>
-          <div>
-            Color Input: rgb(<input>,<input>,<input>)
-          </div>
+        *ngIf="index && (currentStateElement.elem=='input' || currentStateElement.elem=='textarea')">
+          {{currentStateElement.elem}}<br>
+          Id: {{elementId$ | async}}<br>
+          Placeholder: <input #placeholder (input)="inputPlaceholder(placeholder.value)" [value]="placeholderr"><br>
+          Width: <input type="text" placeholder="%, em, rem, px, vh etc." #elementWidth (input)="inputWidth(elementWidth.value)" [value]="widthh"><br>
+          Height: <input type="text" placeholder="%, em, rem, px, vh etc." #elementHeight (input)="inputHeight(elementHeight.value)" [value]="heightt"><br>
+          Required: <select #req (change)="inputReq(req.value)" [value]="required"><option>Required</option><option>Nope</option> </select><br/>
+          Border Style: <input #border (input)="inputBorder(border.value)" [value]="borderStyle"><br>
+          Font Size: <input #fontSize (input)="inputFont(fontSize.value)" [value]="fontSizee"><br>
+          Font Weight: <select #weight (change)="inputWeight(weight.value)" [value]="fontWeight"><option>normal</option><option>bold</option></select><br/>
+          Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr">
+          <div><button>Set</button></div>
         
       </div>
       <div
@@ -86,7 +81,7 @@
           Width: <input type="text" placeholder="%, em, rem, px, vh etc." [(ngModel)]="widthInputForm" (ngModelChange)="widthFormChange($event)"><br/>
           Height: <input type="text" placeholder="%, em, rem, px, vh etc." [(ngModel)]="heightInputForm" (ngModelChange)="heightFormChange($event)"><br/>
           Border: <input type="text" placeholder="Input type, color and width" [(ngModel)]="borderInputForm" (ngModelChange)="borderFormChange($event)"><br/>
-          Bg: <input type="text" placeholder="Color" [(ngModel)]="bgInputForm" (ngModelChange)="bgFormChange($event)">
+          Bg: <input type="text" placeholder="Color" [(ngModel)]="bgInputForm" (ngModelChange)="bgFormChange($event)"><br>
         
       </div>
       

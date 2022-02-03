@@ -32,7 +32,8 @@
 .example-accordion-item-body {
   padding: 16px;
   text-align: center;
-  white-space: pre
+
+  line-height: 2;
   
 }
 

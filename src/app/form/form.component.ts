@@ -1,14 +1,5 @@
 import {
-  CdkPortalOutlet,
-  ComponentPortal,
-  PortalInjector
-} from '@angular/cdk/portal';
-
-import {
   Component,
-  Input,
-  Output,
-  EventEmitter
 } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -25,6 +16,14 @@ import { selectElementStyleElem, selectElementStyleId, selectElementStyleStyle }
 })
 export class FormComponent {
 
+  getIndex(i: number) {
+    this.elemInd = this.formFields[i]
+    this.elemId = i
+    console.log(this.elemId)
+    this.store$.dispatch(new defineIdAction({id:i}))
+    this.store$.dispatch(new defineElemAction({elem:this.formFields[i]}))
+  }
+
   public elementId$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
   public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
   public style$: Observable<StylingState> = this.store$.pipe(select(selectElementStyleStyle));
@@ -36,14 +35,14 @@ export class FormComponent {
     id: 0,
     elem: "",
     style: {
-        'elemWidth': "",
-        'elemHeight': "",
-        'elemPlaceholder': "",
-        'elemRequired': "",
-        'elemBorder': "",
-        'elemFontSize': "",
-        'elemFontWeight': "",
-        'elemColorInput': ""
+        elemWidth: "",
+        elemHeight: "",
+        elemPlaceholder: "",
+        elemRequired: "",
+        elemBorder: "",
+        elemFontSize: "",
+        elemFontWeight: "",
+        elemColorInput: ""
     }
   }
 
@@ -68,15 +67,12 @@ export class FormComponent {
 */
 
 //[style.width]="elemWidth.length > 0 ? elemWidth : '60%'"
-  widthInputElem = "";  
+ 
 
   formWidth: string = ""
   formHeight: string = ""
   formBorder: string = ""
   formBg: string = ""
-  elemWidth: string = ""
-
-  title: string
   
   ngOnInit():void{
 
@@ -108,28 +104,14 @@ export class FormComponent {
 
   public elemInd: string
   public elemId: number
-  getIndex(i: number) {
-    this.elemInd = this.formFields[i]
-    this.elemId = i
-    this.store$.subscribe(x => console.log(x))
-    this.store$.dispatch(new defineIdAction({id:i}))
-    this.store$.dispatch(new defineElemAction({elem:this.formFields[i]}))
-    
-    
-  }
 
   
-
-  
-  
-
 
   /*dragStart(event: CdkDragStart) {
     this._currentIndex = this.draggableFields.indexOf(event.source.data); // Get index of dragged type
     this._currentField = this.child.nativeElement.children[this._currentIndex]; // Store HTML field
     console.log(this._currentIndex)
   }*/
-
 
   drop(event: CdkDragDrop<string[]>): void {
     if (event.previousContainer === event.container) {
@@ -141,7 +123,6 @@ export class FormComponent {
     }
   }
 
-  
 
  /* moved(event: CdkDragMove) {
     // Check if stored HTML field is as same as current field

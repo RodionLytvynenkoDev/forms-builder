@@ -25,11 +25,11 @@
           Id: {{elementId$ | async}}<br>
           Width: <input type="text" placeholder="%, em, rem, px, vh etc." #elementWidth (input)="inputWidth(elementWidth.value)" [value]="widthh"><br>
           Height: <input type="text" placeholder="%, em, rem, px, vh etc." #elementHeight (input)="inputHeight(elementHeight.value)" [value]="heightt"><br>
-          Required: <select #req (change)="inputReq(req.value)" [value]="required"><option>Required</option><option>Nope</option> </select><br/>
+          Required: <select #req (change)="inputReq(req.value)" [value]="required"><option>Nope</option><option>required</option> </select><br/>
           Font Size: <input #fontSize (input)="inputFont(fontSize.value)" [value]="fontSizee"><br>
           Font Weight: <select #weight (change)="inputWeight(weight.value)" [value]="fontWeight"><option>normal</option><option>bold</option></select><br/>
           Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr">
-          <div><button>Set</button></div>
+          <!--<div><button>Set</button></div>-->
           
         
       </div>
@@ -48,8 +48,7 @@
           Font Size: <input #fontSize (input)="inputFont(fontSize.value)" [value]="fontSizee"><br>
           Font Weight: <select #weight (change)="inputWeight(weight.value)" [value]="fontWeight"><option>normal</option><option>bold</option></select><br/>
           Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr">
-          <div><button>Set</button></div>
-        
+          <!--<div><button>Set</button></div>-->
       </div>
       <div
         class="example-accordion-item-body"
@@ -63,12 +62,12 @@
           Placeholder: <input #placeholder (input)="inputPlaceholder(placeholder.value)" [value]="placeholderr"><br>
           Width: <input type="text" placeholder="%, em, rem, px, vh etc." #elementWidth (input)="inputWidth(elementWidth.value)" [value]="widthh"><br>
           Height: <input type="text" placeholder="%, em, rem, px, vh etc." #elementHeight (input)="inputHeight(elementHeight.value)" [value]="heightt"><br>
-          Required: <select #req (change)="inputReq(req.value)" [value]="required"><option>Required</option><option>Nope</option> </select><br/>
+          Required: <select #req (change)="inputReq(req.value)" [value]="required"><option>Nope</option><option>required</option></select><br/>
           Border Style: <input #border (input)="inputBorder(border.value)" [value]="borderStyle"><br>
           Font Size: <input #fontSize (input)="inputFont(fontSize.value)" [value]="fontSizee"><br>
           Font Weight: <select #weight (change)="inputWeight(weight.value)" [value]="fontWeight"><option>normal</option><option>bold</option></select><br/>
           Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr">
-          <div><button>Set</button></div>
+          <!--<div><button>Set</button></div>-->
         
       </div>
       <div

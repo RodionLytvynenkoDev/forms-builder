@@ -1,6 +1,7 @@
-import { defineAll, defineElem, defineId, defineStyle, selectAction  } from "./action.component";
+import { defineAll, defineElem, defineId, defineStyle, selectAction, currId, currIdAction  } from "./action.component";
 
 export const ElementStyles = 'style'
+
 
 export interface StylingState {
     elemWidth: string,
@@ -15,12 +16,15 @@ export interface StylingState {
 
 export interface ElementStyle {
     id: number,
+    currId: number
     elem: string,
     style: StylingState
 }
 
+
 const initialState: ElementStyle = {
     id: 0,
+    currId: null,
     elem: "",
     style: {
         elemWidth: "",
@@ -34,6 +38,7 @@ const initialState: ElementStyle = {
     }
 }
 
+
 export const ElementStyleReducer = (state = initialState, action: selectAction) => {
 
     switch (action.type){
@@ -41,6 +46,11 @@ export const ElementStyleReducer = (state = initialState, action: selectAction) 
             return{
                 ...state,
                 id: action.payload.id
+            }
+        case currId:
+            return{
+                ...state,
+                currId: action.payload.currId
             }
         case defineElem:
             return {
@@ -56,6 +66,7 @@ export const ElementStyleReducer = (state = initialState, action: selectAction) 
             return{
                 ...state,
                 id: action.payload.id,
+                currId: action.payload.currId,
                 elem: action.payload.elem,
                 style: action.payload.style
             }

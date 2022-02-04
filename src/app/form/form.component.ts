@@ -1,11 +1,11 @@
 import {
-  Component,
+  Component, OnChanges,
 } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { select, Store } from '@ngrx/store';
 import { ElementStyle, StylingState } from '../reducers/actionsReducers/reducer.component';
-import { defineElemAction, defineIdAction } from '../reducers/actionsReducers/action.component';
+import { currIdAction, defineElemAction, defineIdAction, defineStyleAction } from '../reducers/actionsReducers/action.component';
 import { Observable } from 'rxjs';
 import { selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../reducers/actionsReducers/selector.component';
 
@@ -16,14 +16,6 @@ import { selectElementStyleElem, selectElementStyleId, selectElementStyleStyle }
 })
 export class FormComponent {
 
-  getIndex(i: number) {
-    this.elemInd = this.formFields[i]
-    this.elemId = i
-    console.log(this.elemId)
-    this.store$.dispatch(new defineIdAction({id:i}))
-    this.store$.dispatch(new defineElemAction({elem:this.formFields[i]}))
-  }
-
   public elementId$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
   public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
   public style$: Observable<StylingState> = this.store$.pipe(select(selectElementStyleStyle));
@@ -33,6 +25,7 @@ export class FormComponent {
 
   private currentStateElement:ElementStyle={
     id: 0,
+    currId: 0,
     elem: "",
     style: {
         elemWidth: "",
@@ -84,7 +77,6 @@ export class FormComponent {
     })
     this.style$.subscribe((style) => {
       this.currentStateElement.style = style
-
     })
     
   }
@@ -99,11 +91,24 @@ export class FormComponent {
   ];
 
   formFields = [
-    
+     
   ];
 
   public elemInd: string
   public elemId: number
+  public counter: number = -1
+
+  getIndex(i: number) {
+    this.elemId = i
+    this.elemInd = this.formFields[i]
+    
+    console.log(this.elemId)
+    this.store$.dispatch(new currIdAction({currId:i}))
+    this.store$.dispatch(new defineIdAction({id:i}))
+    this.store$.dispatch(new defineElemAction({elem:this.formFields[i]}))
+    this.store$.dispatch(new defineStyleAction({style:this.currentStateElement.style}))
+    this.store$.subscribe(x => console.log(x))
+  }
 
   
 
@@ -120,6 +125,8 @@ export class FormComponent {
 
       this.formFields.splice(event.currentIndex, 0, event.previousContainer.data[event.previousIndex])
       console.log(this.formFields)
+      console.log(event.currentIndex)
+      
     }
   }
 

@@ -3,9 +3,15 @@ import { StylingState, ElementStyle } from "./reducer.component";
 
 const selectElementStyleFeature = createFeatureSelector<ElementStyle>('style')
 
+
 export const selectElementStyleId = createSelector(
     selectElementStyleFeature,
     (state: ElementStyle): number => state.id
+);
+
+export const selectCurrElementId = createSelector(
+    selectElementStyleFeature,
+    (state: ElementStyle): number => state.currId
 );
 
 export const selectElementStyleElem = createSelector(

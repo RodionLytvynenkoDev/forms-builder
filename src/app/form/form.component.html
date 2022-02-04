@@ -1,6 +1,8 @@
 
 <div class="sect1">
-  <accordion [(widthInputForm)]="formWidth" 
+  <accordion 
+  
+  [(widthInputForm)]="formWidth" 
     [(heightInputForm)]="formHeight" 
     [(borderInputForm)]="formBorder" 
     [(bgInputForm)]="formBg">
@@ -12,18 +14,18 @@
     [style.border]="formBorder.length > 0 ? formBorder : '#000 solid 2px'"
     [style.backgroundColor]="formBg.length > 0 ? formBg : '#fff'">
     
-    <div cdkDropList #formElems="cdkDropList" [cdkDropListData]="formFields" [cdkDropListConnectedTo]="htmlElems"
+    <div cdkDropList #formElems="cdkDropList" [cdkDropListData]="formFields"  [cdkDropListConnectedTo]="htmlElems"
       class="list-sect2" (cdkDropListDropped)="drop($event)" >
       <elems 
       
-      class="list-item" *ngFor="let item of formFields; let i = index" cdkDragBoundary=".sect2" cdkDrag (click)="getIndex(i)" elem={{item}}>
+      class="list-item" *ngFor="let item of formFields; let i = index" cdkDragPlaceholder cdkDragBoundary=".sect2" cdkDrag (click)="getIndex(i)" elem={{item}}>
       </elems>
     </div>
 
   </div>
   
   <div cdkDropList cdkDropListOrientation="horizontal" #htmlElems="cdkDropList" [cdkDropListData]="draggableFields"
-  [cdkDropListConnectedTo]="formElems" (cdkDropListDropped)="drop($event)" class="sect3">
+  [cdkDropListConnectedTo]="formElems" (cdkDropListDropped)="drop($event)" cdkDragPlaceholder class="sect3">
   
     <elems class="htmlElem" *ngFor="let item of draggableFields" cdkDragBoundary=".sect2" cdkDrag elem={{item}}></elems>
   </div>

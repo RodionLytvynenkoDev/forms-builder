@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 
 export interface State {
   [ElementStyles]: ElementStyle
+  
 }
 
 export const reducers: ActionReducerMap<State> = {

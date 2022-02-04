@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { defineAllAction, defineStyleAction } from '../reducers/actionsReducers/action.component';
+import { defineAllAction, defineElemAction, defineIdAction, defineStyleAction } from '../reducers/actionsReducers/action.component';
 import { ElementStyle, StylingState } from '../reducers/actionsReducers/reducer.component';
 import {selectElementStyleElem, selectElementStyleId, selectElementStyleStyle} from '../reducers/actionsReducers/selector.component'
 
@@ -14,6 +14,8 @@ import {selectElementStyleElem, selectElementStyleId, selectElementStyleStyle} f
   styleUrls: ['accordion-elem.component.css'],
 })
 export class AccordionElemComponent {
+
+  
   
   public elementId$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
   public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
@@ -27,7 +29,9 @@ export class AccordionElemComponent {
     this.widthh = value
     this.altObj.elemWidth = this.widthh
     this.currentStateElement.style = this.altObj
-    this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style}))
+    this.store$.dispatch(new defineIdAction({id: this.currentStateElement.id}))
+    this.store$.dispatch(new defineElemAction({elem: this.currentStateElement.elem}))
+    this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style }))
     this.store$.subscribe(x => console.log(x))
   }
 
@@ -107,6 +111,7 @@ export class AccordionElemComponent {
 
   public currentStateElement:ElementStyle={
     id: 0,
+    currId: null,
     elem: "",
     style: {
       elemWidth: "",

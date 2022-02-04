@@ -1,5 +1,5 @@
 <div class="switcher"  [ngSwitch]="elem" >
-    <input *ngSwitchCase='"input"'
+    <input *ngSwitchCase='"input"' [id] = 0
     [style.border]="currentStateElement.style.elemBorder.length > 0 ? currentStateElement.style.elemBorder : ''"
     [style.width]="currentStateElement.style.elemWidth.length > 0 ? currentStateElement.style.elemWidth : '100%'"
     [style.height]="currentStateElement.style.elemHeight.length > 0 ? currentStateElement.style.elemHeight : '50%'"
@@ -9,7 +9,7 @@
     placeholder={{currentStateElement.style.elemPlaceholder}} 
     [required]="currentStateElement.style.elemRequired==='required'"
     >
-    <textarea *ngSwitchCase='"textarea"' 
+    <textarea *ngSwitchCase='"textarea"'  
     [style.border]="currentStateElement.style.elemBorder.length > 0 ? currentStateElement.style.elemBorder : ''"
     [style.width]="currentStateElement.style.elemWidth.length > 0 ? currentStateElement.style.elemWidth : '100%'"
     [style.height]="currentStateElement.style.elemHeight.length > 0 ? currentStateElement.style.elemHeight : '100%'"
@@ -18,7 +18,7 @@
     [style.color]="currentStateElement.style.elemColorInput.length > 0 ? currentStateElement.style.elemColorInput : '100%'" 
     placeholder={{currentStateElement.style.elemPlaceholder}} 
     [required]="currentStateElement.style.elemRequired==='required'"></textarea>
-    <button
+    <button 
     [style.border]="currentStateElement.style.elemBorder.length > 0 ? currentStateElement.style.elemBorder : ''"
     [style.width]="currentStateElement.style.elemWidth.length > 0 ? currentStateElement.style.elemWidth : '100%'"
     [style.height]="currentStateElement.style.elemHeight.length > 0 ? currentStateElement.style.elemHeight : '100%'"
@@ -33,11 +33,11 @@
     [style.font-size]="currentStateElement.style.elemFontSize.length > 0 ? currentStateElement.style.elemFontSize : '100%'" 
     [style.font-weight]="currentStateElement.style.elemFontWeight.length > 0 ? currentStateElement.style.elemFontWeight : '100%'"
     [style.color]="currentStateElement.style.elemColorInput.length > 0 ? currentStateElement.style.elemColorInput : '100%'"
-    class="myLabel" *ngSwitchCase='"labelCheck"'>
+    class="myLabel" *ngSwitchCase='"labelCheck"' >
       <input type="checkbox" id='myCheckbox' [required]="currentStateElement.style.elemRequired==='required'">
       <label for="myCheckbox">Label</label>
     </div>
-    <select
+    <select 
     [style.border]="currentStateElement.style.elemBorder.length > 0 ? currentStateElement.style.elemBorder : ''"
     [style.width]="currentStateElement.style.elemWidth.length > 0 ? currentStateElement.style.elemWidth : '100%'"
     [style.height]="currentStateElement.style.elemHeight.length > 0 ? currentStateElement.style.elemHeight : '100%'"

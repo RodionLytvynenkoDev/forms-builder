@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import { selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../reducers/actionsReducers/selector.component';
 
 @Component({
-  selector: 'form',
+  selector: 'form-project',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
 })
@@ -68,7 +68,7 @@ export class FormComponent {
   formBg: string = ""
   
   ngOnInit():void{
-
+    
     this.elem$.subscribe((element)=>{
       this.currentStateElement.elem=element;
     })
@@ -96,16 +96,17 @@ export class FormComponent {
 
   public elemInd: string
   public elemId: number
-  public counter: number = -1
+  public counter: number = 0
 
   getIndex(i: number) {
     this.elemId = i
-    this.elemInd = this.formFields[i]
-    
+    this.elemInd = this.formFields[i].elem
     console.log(this.elemId)
+    console.log(this.formFields[i])
+    
+    this.store$.dispatch(new defineIdAction({id:this.formFields[i].id}))
     this.store$.dispatch(new currIdAction({currId:i}))
-    this.store$.dispatch(new defineIdAction({id:i}))
-    this.store$.dispatch(new defineElemAction({elem:this.formFields[i]}))
+    this.store$.dispatch(new defineElemAction({elem:this.formFields[i].elem}))
     this.store$.dispatch(new defineStyleAction({style:this.currentStateElement.style}))
     this.store$.subscribe(x => console.log(x))
   }
@@ -123,9 +124,10 @@ export class FormComponent {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
 
-      this.formFields.splice(event.currentIndex, 0, event.previousContainer.data[event.previousIndex])
+      this.formFields.splice(event.currentIndex, 0, {elem:event.previousContainer.data[event.previousIndex],id:this.counter++})
       console.log(this.formFields)
       console.log(event.currentIndex)
+      
       
     }
   }

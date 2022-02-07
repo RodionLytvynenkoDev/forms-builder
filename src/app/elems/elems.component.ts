@@ -13,6 +13,7 @@ export class ElemsComponent implements OnChanges{
   
   @Input() elemId: number
   @Input() elem: any
+  @Input() id: number
 
   
 
@@ -58,15 +59,7 @@ export class ElemsComponent implements OnChanges{
   }
 
 
-  ngOnChanges(changes: SimpleChanges) :void {
-    
-    this.style$.subscribe((style) => {
-      console.log(this.currentState.id, "++++")
-      if (this.currentState.elem === this.elem )
-        this.currentStateElement.style = style     
-    })
-
-  }
+  
 
   ngOnInit():void{
     this.elem$.subscribe((elem) => {
@@ -79,7 +72,22 @@ export class ElemsComponent implements OnChanges{
     this.currId$.subscribe((currId) => {
       this.currentId = currId
     })
+
     
+
+    
+    
+  }
+  ngOnChanges(changes: SimpleChanges) :void {
+    this.style$.subscribe((style) => {
+      console.log(this.currentState, "++++")
+      console.log(this.currentState.id == this.id, this.currentState.id, this.id, "0000")
+      console.log(style)
+      if (this.currentState.id == this.id)
+        this.currentStateElement.style = style   
+    })
+    
+
   }
   
 }

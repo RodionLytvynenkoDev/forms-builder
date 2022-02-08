@@ -6,6 +6,7 @@
     [style.font-size]="currentStateElement.style.elemFontSize.length > 0 ? currentStateElement.style.elemFontSize : '100%'" 
     [style.font-weight]="currentStateElement.style.elemFontWeight.length > 0 ? currentStateElement.style.elemFontWeight : '100%'"
     [style.color]="currentStateElement.style.elemColorInput.length > 0 ? currentStateElement.style.elemColorInput : '100%'"
+    [style.background-color]="currentStateElement.style.elemBg.length > 0 ? currentStateElement.style.elemBg : 'none'"
     placeholder={{currentStateElement.style.elemPlaceholder}} 
     [required]="currentStateElement.style.elemRequired==='required'"
     >
@@ -16,6 +17,7 @@
     [style.font-size]="currentStateElement.style.elemFontSize.length > 0 ? currentStateElement.style.elemFontSize : '100%'" 
     [style.font-weight]="currentStateElement.style.elemFontWeight.length > 0 ? currentStateElement.style.elemFontWeight : '100%'"
     [style.color]="currentStateElement.style.elemColorInput.length > 0 ? currentStateElement.style.elemColorInput : '100%'" 
+    [style.background-color]="currentStateElement.style.elemBg.length > 0 ? currentStateElement.style.elemBg : 'none'"
     placeholder={{currentStateElement.style.elemPlaceholder}} 
     [required]="currentStateElement.style.elemRequired==='required'"></textarea>
     <button 
@@ -25,14 +27,16 @@
     [style.font-size]="currentStateElement.style.elemFontSize.length > 0 ? currentStateElement.style.elemFontSize : '100%'" 
     [style.font-weight]="currentStateElement.style.elemFontWeight.length > 0 ? currentStateElement.style.elemFontWeight : '100%'"
     [style.color]="currentStateElement.style.elemColorInput.length > 0 ? currentStateElement.style.elemColorInput : '100%'" 
+    [style.background-color]="currentStateElement.style.elemBg.length > 0 ? currentStateElement.style.elemBg : 'none'"
     *ngSwitchCase='"button"'>Button</button>
     <div 
     [style.border]="currentStateElement.style.elemBorder.length > 0 ? currentStateElement.style.elemBorder : ''"
     [style.width]="currentStateElement.style.elemWidth.length > 0 ? currentStateElement.style.elemWidth : '100%'"
-    [style.height]="currentStateElement.style.elemHeight.length > 0 ? currentStateElement.style.elemHeight : '100%'"
-    [style.font-size]="currentStateElement.style.elemFontSize.length > 0 ? currentStateElement.style.elemFontSize : '100%'" 
+    [style.height]="currentStateElement.style.elemHeight.length > 0 ? currentStateElement.style.elemHeight : '50%'"
+    [style.font-size]="currentStateElement.style.elemFontSize.length > 0 ? currentStateElement.style.elemFontSize : 'large'" 
     [style.font-weight]="currentStateElement.style.elemFontWeight.length > 0 ? currentStateElement.style.elemFontWeight : '100%'"
     [style.color]="currentStateElement.style.elemColorInput.length > 0 ? currentStateElement.style.elemColorInput : '100%'"
+    [style.background-color]="currentStateElement.style.elemBg.length > 0 ? currentStateElement.style.elemBg : 'none'"
     class="myLabel" *ngSwitchCase='"labelCheck"' >
       <input type="checkbox" id='myCheckbox' [required]="currentStateElement.style.elemRequired==='required'">
       <label for="myCheckbox">Label</label>
@@ -44,5 +48,6 @@
     [style.font-size]="currentStateElement.style.elemFontSize.length > 0 ? currentStateElement.style.elemFontSize : '100%'" 
     [style.font-weight]="currentStateElement.style.elemFontWeight.length > 0 ? currentStateElement.style.elemFontWeight : '100%'"
     [style.color]="currentStateElement.style.elemColorInput.length > 0 ? currentStateElement.style.elemColorInput : '100%'" 
+    [style.background-color]="currentStateElement.style.elemBg.length > 0 ? currentStateElement.style.elemBg : 'none'"
     *ngSwitchCase='"select"'>Button<option>Some value</option></select>
 </div>

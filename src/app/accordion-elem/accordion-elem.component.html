@@ -28,7 +28,8 @@
           Required: <select #req (change)="inputReq(req.value)" [value]="required"><option>Nope</option><option>required</option> </select><br/>
           Font Size: <input #fontSize (input)="inputFont(fontSize.value)" [value]="fontSizee"><br>
           Font Weight: <select #weight (change)="inputWeight(weight.value)" [value]="fontWeight"><option>normal</option><option>bold</option></select><br/>
-          Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr">
+          Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr"><br>
+          Background: <input type="color" #bgColor (change)="inputBg(bgColor.value)" [value]="backgroundd">
           <!--<div><button>Set</button></div>-->
           
         
@@ -47,7 +48,8 @@
           Border Style: <input #border (input)="inputBorder(border.value)" [value]="borderStyle"><br>
           Font Size: <input #fontSize (input)="inputFont(fontSize.value)" [value]="fontSizee"><br>
           Font Weight: <select #weight (change)="inputWeight(weight.value)" [value]="fontWeight"><option>normal</option><option>bold</option></select><br/>
-          Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr">
+          Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr"><br>
+          Background: <input type="color" #bgColor (change)="inputBg(bgColor.value)" [value]="backgroundd">
           <!--<div><button>Set</button></div>-->
       </div>
       <div
@@ -66,7 +68,8 @@
           Border Style: <input #border (input)="inputBorder(border.value)" [value]="borderStyle"><br>
           Font Size: <input #fontSize (input)="inputFont(fontSize.value)" [value]="fontSizee"><br>
           Font Weight: <select #weight (change)="inputWeight(weight.value)" [value]="fontWeight"><option>normal</option><option>bold</option></select><br/>
-          Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr">
+          Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr"><br>
+          Background: <input type="color" #bgColor (change)="inputBg(bgColor.value)" [value]="backgroundd">
           <!--<div><button>Set</button></div>-->
         
       </div>
@@ -80,7 +83,7 @@
           Width: <input type="text" placeholder="%, em, rem, px, vh etc." [(ngModel)]="widthInputForm" (ngModelChange)="widthFormChange($event)"><br/>
           Height: <input type="text" placeholder="%, em, rem, px, vh etc." [(ngModel)]="heightInputForm" (ngModelChange)="heightFormChange($event)"><br/>
           Border: <input type="text" placeholder="Input type, color and width" [(ngModel)]="borderInputForm" (ngModelChange)="borderFormChange($event)"><br/>
-          Bg: <input type="text" placeholder="Color" [(ngModel)]="bgInputForm" (ngModelChange)="bgFormChange($event)"><br>
+          Bg: <input type="color" placeholder="Color" [(ngModel)]="bgInputForm" (ngModelChange)="bgFormChange($event)"><br>
         
       </div>
       

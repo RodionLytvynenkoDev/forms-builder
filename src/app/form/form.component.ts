@@ -35,7 +35,8 @@ export class FormComponent {
         elemBorder: "",
         elemFontSize: "",
         elemFontWeight: "",
-        elemColorInput: ""
+        elemColorInput: "",
+        elemBg: ""
     }
   }
 

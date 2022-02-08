@@ -88,6 +88,17 @@ export class AccordionElemComponent {
     this.store$.subscribe(x => console.log(x))
   }
 
+  backgroundd = ""
+  inputBg(value: string) {
+    this.altObj = Object.assign({}, this.currentStateElement.style);
+
+    this.backgroundd = value
+    this.altObj.elemBg = this.backgroundd
+    this.currentStateElement.style = this.altObj
+    this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style}))
+    this.store$.subscribe(x => console.log(x))
+  }
+
   borderStyle = ""
   inputBorder(value: string) {
     this.altObj = Object.assign({}, this.currentStateElement.style);
@@ -121,7 +132,8 @@ export class AccordionElemComponent {
       elemBorder: "",
       elemFontSize: "",
       elemFontWeight: "",
-      elemColorInput: ""
+      elemColorInput: "",
+      elemBg: ""
     }
   }
 

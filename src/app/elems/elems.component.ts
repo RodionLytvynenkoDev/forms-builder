@@ -39,7 +39,8 @@ export class ElemsComponent implements OnChanges{
       elemBorder: "",
       elemFontSize: "",
       elemFontWeight: "",
-      elemColorInput: ""
+      elemColorInput: "",
+      elemBg: ""
     }
   }
   public currentState:ElementStyle={
@@ -54,7 +55,8 @@ export class ElemsComponent implements OnChanges{
       elemBorder: "",
       elemFontSize: "",
       elemFontWeight: "",
-      elemColorInput: ""
+      elemColorInput: "",
+      elemBg: ""
     }
   }
 

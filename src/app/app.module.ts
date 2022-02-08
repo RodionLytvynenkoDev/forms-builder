@@ -13,11 +13,8 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
-// used to create fake backend
-import { fakeBackendProvider } from './_helpers';
-
 import { AppComponent } from './app.component';
-import { appRoutingModule } from './app.routing';
+import { AppRoutingModule } from './app.routing.module';
 import { reducers, metaReducers } from './reducers';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { HomeComponent } from './home';
@@ -25,13 +22,14 @@ import { LoginComponent } from '../login';
 import { FormComponent } from './form/form.component';
 import { ElemsComponent } from './elems/elems.component';
 import {AccordionElemComponent} from './accordion-elem/accordion-elem.component';
+import {FormatPipe} from './form/format.pipe'
 
 @NgModule({
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         FormsModule, 
-       StoreModule.forRoot(reducers, {metaReducers}), 
+        StoreModule.forRoot(reducers, {metaReducers}), 
         StoreModule.forRoot({}, {}),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }), 
         EffectsModule.forRoot([]), StoreModule.forRoot(reducers, {metaReducers}),
@@ -39,20 +37,18 @@ import {AccordionElemComponent} from './accordion-elem/accordion-elem.component'
         CdkAccordionModule, 
         PortalModule,
         HttpClientModule,
-        appRoutingModule
+        AppRoutingModule,
+        
     ],
     declarations: [
         AppComponent,
         HomeComponent,
         LoginComponent,
-       FormComponent, ElemsComponent, AccordionElemComponent
+       FormComponent, ElemsComponent, AccordionElemComponent, FormatPipe
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-
-        // provider used to create fake backend
-        fakeBackendProvider
+        { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
     ],
     bootstrap: [AppComponent]
 })

@@ -18,5 +18,4 @@ export class HomeComponent {
             this.users = users;
         });
     }
-    
 }

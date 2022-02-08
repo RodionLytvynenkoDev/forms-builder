@@ -11,7 +11,8 @@ export interface StylingState {
     elemBorder: string,
     elemFontSize: string,
     elemFontWeight: string,
-    elemColorInput: string
+    elemColorInput: string,
+    elemBg: string
 }
 
 export interface ElementStyle {
@@ -34,7 +35,8 @@ const initialState: ElementStyle = {
         elemBorder: "",
         elemFontSize: "",
         elemFontWeight: "",
-        elemColorInput: ""
+        elemColorInput: "",
+        elemBg: ""
     }
 }
 

@@ -1,5 +1,7 @@
 ﻿const config = require('config.json');
 const jwt = require('jsonwebtoken');
+const { from, pipe } = require('rxjs');
+const {filter} = require('rxjs/operators')
 
 // users hardcoded for simplicity, store in a db for production applications
 let users = [{ id: 1, username: 'test', password: 'test'}, { id: 2, username: 'Rod', password: '123'}];
@@ -27,7 +29,13 @@ async function authenticate({ username, password }) {
 }
 
 async function register({ username, password }) {
-
+    source = from(users)
+    if (source.pipe(filter(e => e.username === username).length) > 0) {
+        throw 'User with this username already exists'
+    }
+    /*if (users.filter(e => e.username === username).length > 0) {
+        throw 'User with this username already exists'
+      }*/
 	users.push({id: counter++, username: username, password: password});
 	
 

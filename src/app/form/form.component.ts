@@ -6,7 +6,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { select, Store } from '@ngrx/store';
 import { ElementStyle, StylingState } from '../reducers/actionsReducers/reducer.component';
 import { currIdAction, defineElemAction, defineIdAction, defineStyleAction } from '../reducers/actionsReducers/action.component';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil, pipe, of, tap } from 'rxjs';
 import { selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../reducers/actionsReducers/selector.component';
 
 @Component({
@@ -67,19 +67,27 @@ export class FormComponent {
   formHeight: string = ""
   formBorder: string = ""
   formBg: string = ""
-  
+  notifier = new Subject()
   ngOnInit():void{
     
-    this.elem$.subscribe((element)=>{
+    this.elem$.pipe(takeUntil(this.notifier))
+    .subscribe((element)=>{
       this.currentStateElement.elem=element;
     })
-    this.elementId$.subscribe((id) => {
+    this.elementId$.pipe(takeUntil(this.notifier))
+    .subscribe((id) => {
       this.currentStateElement.id = id
     })
-    this.style$.subscribe((style) => {
+    this.style$.pipe(takeUntil(this.notifier))
+    .subscribe((style) => {
       this.currentStateElement.style = style
     })
     
+  }
+
+  ngOnDestroy() {
+    this.notifier.next(true)
+    this.notifier.complete()
   }
   
 
@@ -124,7 +132,7 @@ export class FormComponent {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-
+      const tapUsage = of(this.formFields).pipe(tap(val => console.log("Previous: ", val)))
       this.formFields.splice(event.currentIndex, 0, {elem:event.previousContainer.data[event.previousIndex],id:this.counter++})
       console.log(this.formFields)
       console.log(event.currentIndex)

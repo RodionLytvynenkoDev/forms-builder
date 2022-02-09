@@ -1,6 +1,6 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, of, Subject, takeUntil, pipe } from 'rxjs';
 import { defineAllAction, defineElemAction, defineIdAction, defineStyleAction } from '../reducers/actionsReducers/action.component';
 import { ElementStyle, StylingState } from '../reducers/actionsReducers/reducer.component';
 import {selectElementStyleElem, selectElementStyleId, selectElementStyleStyle} from '../reducers/actionsReducers/selector.component'
@@ -15,7 +15,7 @@ import {selectElementStyleElem, selectElementStyleId, selectElementStyleStyle} f
 })
 export class AccordionElemComponent {
 
-  
+  notifier = new Subject()
   
   public elementId$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
   public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
@@ -23,16 +23,18 @@ export class AccordionElemComponent {
   constructor(private store$: Store<ElementStyle>){
   }
 
+  
+  
   widthh = ""
   inputWidth(value: string) {
+    
     this.altObj = Object.assign({}, this.currentStateElement.style);
     this.widthh = value
     this.altObj.elemWidth = this.widthh
     this.currentStateElement.style = this.altObj
-    this.store$.dispatch(new defineIdAction({id: this.currentStateElement.id}))
-    this.store$.dispatch(new defineElemAction({elem: this.currentStateElement.elem}))
     this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style }))
-    this.store$.subscribe(x => console.log(x))
+    this.store$.pipe(takeUntil(this.notifier))
+    .subscribe(x => console.log(x))
   }
 
   heightt = ""
@@ -42,7 +44,8 @@ export class AccordionElemComponent {
     this.altObj.elemHeight = this.heightt
     this.currentStateElement.style = this.altObj
     this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style}))
-    this.store$.subscribe(x => console.log(x))
+    this.store$.pipe(takeUntil(this.notifier))
+    .subscribe(x => console.log(x))
   }
 
   required = ""
@@ -53,7 +56,8 @@ export class AccordionElemComponent {
     this.altObj.elemRequired = this.required
     this.currentStateElement.style = this.altObj
     this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style}))
-    this.store$.subscribe(x => console.log(x))
+    this.store$.pipe(takeUntil(this.notifier))
+    .subscribe(x => console.log(x))
   }
 
   fontSizee = ""
@@ -63,7 +67,8 @@ export class AccordionElemComponent {
     this.altObj.elemFontSize = this.fontSizee
     this.currentStateElement.style = this.altObj
     this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style}))
-    this.store$.subscribe(x => console.log(x))
+    this.store$.pipe(takeUntil(this.notifier))
+    .subscribe(x => console.log(x))
   }
 
   fontWeight = ""
@@ -74,7 +79,8 @@ export class AccordionElemComponent {
     this.altObj.elemFontWeight = this.fontWeight
     this.currentStateElement.style = this.altObj
     this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style}))
-    this.store$.subscribe(x => console.log(x))
+    this.store$.pipe(takeUntil(this.notifier))
+    .subscribe(x => console.log(x))
   }
 
   colorr = ""
@@ -85,7 +91,8 @@ export class AccordionElemComponent {
     this.altObj.elemColorInput = this.colorr
     this.currentStateElement.style = this.altObj
     this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style}))
-    this.store$.subscribe(x => console.log(x))
+    this.store$.pipe(takeUntil(this.notifier))
+    .subscribe(x => console.log(x))
   }
 
   backgroundd = ""
@@ -96,7 +103,8 @@ export class AccordionElemComponent {
     this.altObj.elemBg = this.backgroundd
     this.currentStateElement.style = this.altObj
     this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style}))
-    this.store$.subscribe(x => console.log(x))
+    this.store$.pipe(takeUntil(this.notifier))
+    .subscribe(x => console.log(x))
   }
 
   borderStyle = ""
@@ -106,7 +114,8 @@ export class AccordionElemComponent {
     this.altObj.elemBorder = this.borderStyle
     this.currentStateElement.style = this.altObj
     this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style}))
-    this.store$.subscribe(x => console.log(x))
+    this.store$.pipe(takeUntil(this.notifier))
+    .subscribe(x => console.log(x))
   }
 
   placeholderr = ""
@@ -116,7 +125,8 @@ export class AccordionElemComponent {
     this.altObj.elemPlaceholder = this.placeholderr
     this.currentStateElement.style = this.altObj
     this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style}))
-    this.store$.subscribe(x => console.log(x))
+    this.store$.pipe(takeUntil(this.notifier))
+    .subscribe(x => console.log(x))
   }
 
 
@@ -139,16 +149,19 @@ export class AccordionElemComponent {
 
   altObj = Object.assign({}, this.currentStateElement.style);
 
-
+  
   ngOnInit():void{
 
-    this.elem$.subscribe((element)=>{
+    this.elem$.pipe(takeUntil(this.notifier))
+    .subscribe((element)=>{
       this.currentStateElement.elem=element;
     })
-    this.elementId$.subscribe((id) => {
+    this.elementId$.pipe(takeUntil(this.notifier))
+    .subscribe((id) => {
       this.currentStateElement.id = id
     })
-    this.style$.subscribe((style) => {
+    this.style$.pipe(takeUntil(this.notifier))
+    .subscribe((style) => {
       this.currentStateElement.style = style
     })
     

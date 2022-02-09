@@ -1,4 +1,4 @@
-import { defineAll, defineElem, defineId, defineStyle, selectAction, currId, currIdAction  } from "./action.component";
+import { actionTypes, selectAction } from "./action.component";
 
 export const ElementStyles = 'style'
 
@@ -44,27 +44,27 @@ const initialState: ElementStyle = {
 export const ElementStyleReducer = (state = initialState, action: selectAction) => {
 
     switch (action.type){
-        case defineId:
+        case actionTypes.defineId:
             return{
                 ...state,
                 id: action.payload.id
             }
-        case currId:
+        case actionTypes.currId:
             return{
                 ...state,
                 currId: action.payload.currId
             }
-        case defineElem:
+        case actionTypes.defineElem:
             return {
                 ...state,
                 elem: action.payload.elem
             }
-        case defineStyle:
+        case actionTypes.defineStyle:
             return{
                 ...state,
                 style: action.payload.style
             }
-        case defineAll:
+        case actionTypes.defineAll:
             return{
                 ...state,
                 id: action.payload.id,

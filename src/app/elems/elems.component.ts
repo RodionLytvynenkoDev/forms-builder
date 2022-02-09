@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { ElementStyle, StylingState } from '../reducers/actionsReducers/reducer.component';
 import { selectCurrElementId, selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../reducers/actionsReducers/selector.component';
 
@@ -61,17 +61,20 @@ export class ElemsComponent implements OnChanges{
   }
 
 
-  
+  notifier = new Subject()
 
   ngOnInit():void{
-    this.elem$.subscribe((elem) => {
+    this.elem$.pipe(takeUntil(this.notifier))
+    .subscribe((elem) => {
       this.currentState.elem = elem
     })
     
-    this.id$.subscribe((id) => {
+    this.id$.pipe(takeUntil(this.notifier))
+    .subscribe((id) => {
       this.currentState.id = id
     })
-    this.currId$.subscribe((currId) => {
+    this.currId$.pipe(takeUntil(this.notifier))
+    .subscribe((currId) => {
       this.currentId = currId
     })
 
@@ -81,7 +84,8 @@ export class ElemsComponent implements OnChanges{
     
   }
   ngOnChanges(changes: SimpleChanges) :void {
-    this.style$.subscribe((style) => {
+    this.style$.pipe(takeUntil(this.notifier))
+    .subscribe((style) => {
       console.log(this.currentState, "++++")
       console.log(this.currentState.id == this.id, this.currentState.id, this.id, "0000")
       console.log(style)
@@ -90,6 +94,10 @@ export class ElemsComponent implements OnChanges{
     })
     
 
+  }
+  ngOnDestroy() {
+    this.notifier.next(true)
+    this.notifier.complete()
   }
   
 }

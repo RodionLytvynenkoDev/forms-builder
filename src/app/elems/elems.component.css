@@ -13,9 +13,7 @@
     text-align: var(--perfect_align);
 }
 
-.switcher button {
-    border: none
-}
+
 
 .switcher textarea {
     resize: none;
@@ -55,4 +53,3 @@
     --invalid_input: linear-gradient(to right, pink, lightgreen);
     --invalid_input_border: 2px dashed red;
 }
-  

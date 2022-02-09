@@ -22,7 +22,7 @@ import { LoginComponent } from '../login';
 import { FormComponent } from './form/form.component';
 import { ElemsComponent } from './elems/elems.component';
 import {AccordionElemComponent} from './accordion-elem/accordion-elem.component';
-import {FormatPipe} from './form/format.pipe'
+import {FormatPipe} from './home/format.pipe'
 
 @NgModule({
     imports: [

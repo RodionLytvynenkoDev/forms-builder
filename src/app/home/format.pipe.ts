@@ -4,8 +4,8 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'format'
 })
 export class FormatPipe implements PipeTransform {
-  transform(value: number, args?: any): string {
+  transform(value: string, args?: any): string {
       
-    return "Available elements amount: "+value;
+    return "Welcome, "+value+"!";
   }
 }

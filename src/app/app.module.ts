@@ -23,7 +23,7 @@ import { FormComponent } from './forms/home/form/form.component';
 import { ElemsComponent } from './forms/home/form/elems/elems.component';
 import {AccordionElemComponent} from './forms/home/form/accordion-elem/accordion-elem.component';
 import {FormatPipe} from '../app/forms/home/format.pipe'
-import {LoginError} from '../app/auth/login/login-error.component'
+//import {LoginError} from '../app/auth/login/login-error.component'
 
 @NgModule({
     imports: [
@@ -45,7 +45,7 @@ import {LoginError} from '../app/auth/login/login-error.component'
         AppComponent,
         HomeComponent,
         LoginComponent,
-       FormComponent, ElemsComponent, AccordionElemComponent, FormatPipe, LoginError
+       FormComponent, ElemsComponent, AccordionElemComponent, FormatPipe, //LoginError
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -10,7 +10,7 @@ import { LoginError } from './login-error.component';
 @Component({ templateUrl: 'login.component.html',
             styleUrls: ['login.component.css'] })
 export class LoginComponent implements OnInit {
-    @ViewChild(CdkPortalOutlet) host: CdkPortalOutlet;
+    //@ViewChild(CdkPortalOutlet) host: CdkPortalOutlet;
     loginForm: FormGroup;
     loading = false;
     submitted = false;
@@ -28,10 +28,10 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    project() {
+    /*project() {
         const portal = new ComponentPortal(LoginError);
         this.host.attachComponentPortal(portal);
-    }
+    }*/
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
 
     onSubmit(event) {
-        this.project()
+        //this.project()
         if (event.submitter.name == "login") {
             this.submitted = true;
 

@@ -8,7 +8,7 @@ import { Inject } from '@angular/core';
   `
 })
 export class LoginError {
-  errors: string[];
+  errors = "123";
   
   //constructor( private  errors: string[]) {}
 }

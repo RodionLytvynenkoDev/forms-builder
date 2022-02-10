@@ -29,13 +29,13 @@ async function authenticate({ username, password }) {
 }
 
 async function register({ username, password }) {
-    source = from(users)
+    /*source = from(users)
     if (source.pipe(filter(e => e.username === username).length) > 0) {
         throw 'User with this username already exists'
-    }
-    /*if (users.filter(e => e.username === username).length > 0) {
+    }*/
+    if (users.filter(e => e.username === username).length > 0) {
         throw 'User with this username already exists'
-      }*/
+      }
 	users.push({id: counter++, username: username, password: password});
 	
 

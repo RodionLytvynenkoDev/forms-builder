@@ -6,7 +6,7 @@ import {
   MetaReducer
 } from '@ngrx/store';
 import {ElementStyle, ElementStyleReducer, ElementStyles} from './actionsReducers/reducer.component'
-import { environment } from '../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 
 export interface State {
   [ElementStyles]: ElementStyle

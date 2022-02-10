@@ -69,17 +69,32 @@
           <!--<div><button>Set</button></div>-->
         
       </div>
-      <div
+      <div [formGroup] = "parameters"
         class="example-accordion-item-body"
         role="region"
         [style.display]="accordionItem.expanded ? '' : 'none'"
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
         *ngIf="!index">
-          Width: <input type="text" placeholder="%, em, rem, px, vh etc." [(ngModel)]="widthInputForm" (ngModelChange)="widthFormChange($event)"><br/>
-          Height: <input type="text" placeholder="%, em, rem, px, vh etc." [(ngModel)]="heightInputForm" (ngModelChange)="heightFormChange($event)"><br/>
-          Border: <input type="text" placeholder="Input type, color and width" [(ngModel)]="borderInputForm" (ngModelChange)="borderFormChange($event)"><br/>
-          Bg: <input type="color" placeholder="Color" [(ngModel)]="bgInputForm" (ngModelChange)="bgFormChange($event)"><br>
+          Width: <input 
+            formControlName="width"
+            type="text" 
+            placeholder="%, em, rem, px, vh etc."><br/>
+          Height: <input 
+            formControlName="height" 
+             
+            type="text" 
+            placeholder="em, rem, px, vh etc."><br/>
+          Border: <input
+            formControlName="border" 
+            
+            type="text" 
+            ><br/>
+          Bg: <input
+            formControlName="background" 
+            
+            type="color" 
+            ><br>
         
       </div>
       

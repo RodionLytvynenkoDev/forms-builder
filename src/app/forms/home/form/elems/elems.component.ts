@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { ElementStyle, StylingState } from '../reducers/actionsReducers/reducer.component';
-import { selectCurrElementId, selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../reducers/actionsReducers/selector.component';
+import { ElementStyle, StylingState } from '../../../../forms/home/form/reducers/actionsReducers/reducer.component';
+import { selectCurrElementId, selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../../../../forms/home/form/reducers/actionsReducers/selector.component';
 
 @Component({
   selector: 'elems',

@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AuthenticationService } from '../app/_services';
+import { AuthenticationService } from '../_services';
+import { CdkPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
+import { LoginError } from './login-error.component';
 
 @Component({ templateUrl: 'login.component.html',
             styleUrls: ['login.component.css'] })
 export class LoginComponent implements OnInit {
+    @ViewChild(CdkPortalOutlet) host: CdkPortalOutlet;
     loginForm: FormGroup;
     loading = false;
     submitted = false;
@@ -25,6 +28,11 @@ export class LoginComponent implements OnInit {
         }
     }
 
+    project() {
+        const portal = new ComponentPortal(LoginError);
+        this.host.attachComponentPortal(portal);
+    }
+
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
@@ -38,6 +46,7 @@ export class LoginComponent implements OnInit {
     get f() { return this.loginForm.controls; }
 
     onSubmit(event) {
+        this.project()
         if (event.submitter.name == "login") {
             this.submitted = true;
 

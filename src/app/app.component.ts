@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthenticationService } from './_services';
-import { User } from './_models';
+import { AuthenticationService } from '../app/auth/_services';
+import { User } from '../app/auth/_models';
 import { Subject } from 'rxjs';
 
 @Component({ selector: 'app', 

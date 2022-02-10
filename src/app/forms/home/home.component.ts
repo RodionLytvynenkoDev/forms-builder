@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { first } from 'rxjs/operators';
 
-import { User } from '../_models';
-import { UserService, AuthenticationService } from '../_services';
+import { User } from '../../auth/_models';
+import { UserService, AuthenticationService } from '../../auth/_services';
 
 @Component({ templateUrl: 'home.component.html',
             styleUrls: ['home.component.css'] })

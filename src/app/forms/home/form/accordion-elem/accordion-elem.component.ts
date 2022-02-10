@@ -1,9 +1,10 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import {Component, Input, Output, EventEmitter, forwardRef} from '@angular/core';
+import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable, of, Subject, takeUntil, pipe } from 'rxjs';
-import { defineAllAction, defineElemAction, defineIdAction, defineStyleAction } from '../reducers/actionsReducers/action.component';
-import { ElementStyle, StylingState } from '../reducers/actionsReducers/reducer.component';
-import {selectElementStyleElem, selectElementStyleId, selectElementStyleStyle} from '../reducers/actionsReducers/selector.component'
+import { defineAllAction, defineElemAction, defineIdAction, defineStyleAction } from '../../../../forms/home/form/reducers/actionsReducers/action.component';
+import { ElementStyle, StylingState } from '../../../../forms/home/form/reducers/actionsReducers/reducer.component';
+import {selectElementStyleElem, selectElementStyleId, selectElementStyleStyle} from '../../../../forms/home/form/reducers/actionsReducers/selector.component'
 
 /**
  * @title Accordion overview
@@ -12,16 +13,29 @@ import {selectElementStyleElem, selectElementStyleId, selectElementStyleStyle} f
   selector: 'accordion',
   templateUrl: 'accordion-elem.component.html',
   styleUrls: ['accordion-elem.component.css'],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => AccordionElemComponent),
+    multi: true,
+  }],
 })
-export class AccordionElemComponent {
-
+export class AccordionElemComponent implements ControlValueAccessor {
+  parameters: FormGroup
+  
   notifier = new Subject()
   
   public elementId$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
   public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
   public style$: Observable<StylingState> = this.store$.pipe(select(selectElementStyleStyle));
-  constructor(private store$: Store<ElementStyle>){
+  constructor(private store$: Store<ElementStyle>, fb: FormBuilder){
+    this.parameters = fb.group({
+      width:['100%'],
+      height: ['100%'],
+      border: ['#000 solid 2px'],
+      background: ['#fff']
+    });
   }
+  
 
   
   
@@ -170,34 +184,35 @@ export class AccordionElemComponent {
   
   items = ['Form Settings', 'Element settings'];
   expandedIndex = 0;
-  @Input() widthInputForm:string = "";
-  @Output() widthInputFormChange = new EventEmitter<string>();
-  widthFormChange(model: string){
-         
-    this.widthInputForm = model;
-    this.widthInputFormChange.emit(model);
-  }
-  @Input() heightInputForm:string = "";
-  @Output() heightInputFormChange = new EventEmitter<string>();
-  heightFormChange(model: string){
-         
-    this.heightInputForm = model;
-    this.heightInputFormChange.emit(model);
-  }
-  @Input() borderInputForm:string = "";
-  @Output() borderInputFormChange = new EventEmitter<string>();
-  borderFormChange(model: string){
-         
-    this.borderInputForm = model;
-    this.borderInputFormChange.emit(model);
+  width = 0
+  height = 0
+  border = 0
+  background = 0
+  disabled = false;
+  private onChange = (value: any) => {};
+  private onTouched = () => {};
+
+  registerOnChange(fn: (value: any) => void) {
+    this.parameters.valueChanges.subscribe(fn);
   }
 
-  @Input() bgInputForm:string = "";
-  @Output() bgInputFormChange = new EventEmitter<string>();
-  bgFormChange(model: string){    
-    this.bgInputForm = model;
-    this.bgInputFormChange.emit(model);
+  registerOnTouched() {
+    
   }
 
+  writeValue(value: any) {
+    if(value) {
+        this.parameters.setValue(value);
+    }
+  }
+
+  updateValue(insideValue: any) {
+    this.width = insideValue; // html
+    this.height = insideValue; // html
+    this.border = insideValue; // html
+    this.background = insideValue; // html
+    this.onChange(insideValue); // уведомить Forms API
+    this.onTouched();
+  }
 
 }

@@ -4,10 +4,11 @@ import {
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 import { select, Store } from '@ngrx/store';
-import { ElementStyle, StylingState } from '../reducers/actionsReducers/reducer.component';
-import { currIdAction, defineElemAction, defineIdAction, defineStyleAction } from '../reducers/actionsReducers/action.component';
+import { ElementStyle, StylingState } from '../../../forms/home/form/reducers/actionsReducers/reducer.component';
+import { currIdAction, defineElemAction, defineIdAction, defineStyleAction } from '../../../forms/home/form/reducers/actionsReducers/action.component';
 import { Observable, Subject, takeUntil, pipe, of, tap } from 'rxjs';
-import { selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../reducers/actionsReducers/selector.component';
+import { selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../../../forms/home/form/reducers/actionsReducers/selector.component';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'form-project',
@@ -16,11 +17,18 @@ import { selectElementStyleElem, selectElementStyleId, selectElementStyleStyle }
 })
 export class FormComponent {
 
+  form: FormGroup
+
+
   public elementId$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
   public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
   public style$: Observable<StylingState> = this.store$.pipe(select(selectElementStyleStyle));
 
-  constructor(private store$: Store<ElementStyle>){
+  constructor(private store$: Store<ElementStyle>, fb: FormBuilder){
+    this.form = fb.group({
+      parameters: [{width: '', height:'', border: '', background: ''}]
+      
+    });
   }
 
   private currentStateElement:ElementStyle={
@@ -63,12 +71,11 @@ export class FormComponent {
 //[style.width]="elemWidth.length > 0 ? elemWidth : '60%'"
  
 
-  formWidth: string = ""
-  formHeight: string = ""
-  formBorder: string = ""
-  formBg: string = ""
+  
   notifier = new Subject()
   ngOnInit():void{
+
+    
     
     this.elem$.pipe(takeUntil(this.notifier))
     .subscribe((element)=>{
@@ -89,6 +96,7 @@ export class FormComponent {
     this.notifier.next(true)
     this.notifier.complete()
   }
+  
   
 
   draggableFields = [

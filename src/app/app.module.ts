@@ -15,14 +15,15 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
-import { reducers, metaReducers } from './reducers';
-import { JwtInterceptor, ErrorInterceptor } from './_helpers';
-import { HomeComponent } from './home';
-import { LoginComponent } from '../login';
-import { FormComponent } from './form/form.component';
-import { ElemsComponent } from './elems/elems.component';
-import {AccordionElemComponent} from './accordion-elem/accordion-elem.component';
-import {FormatPipe} from './home/format.pipe'
+import { reducers, metaReducers } from '../app/forms/home/form/reducers';
+import { JwtInterceptor, ErrorInterceptor } from './auth/_helpers';
+import { HomeComponent } from '../app/forms/home';
+import { LoginComponent } from './auth/login';
+import { FormComponent } from './forms/home/form/form.component';
+import { ElemsComponent } from './forms/home/form/elems/elems.component';
+import {AccordionElemComponent} from './forms/home/form/accordion-elem/accordion-elem.component';
+import {FormatPipe} from '../app/forms/home/format.pipe'
+import {LoginError} from '../app/auth/login/login-error.component'
 
 @NgModule({
     imports: [
@@ -44,7 +45,7 @@ import {FormatPipe} from './home/format.pipe'
         AppComponent,
         HomeComponent,
         LoginComponent,
-       FormComponent, ElemsComponent, AccordionElemComponent, FormatPipe
+       FormComponent, ElemsComponent, AccordionElemComponent, FormatPipe, LoginError
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

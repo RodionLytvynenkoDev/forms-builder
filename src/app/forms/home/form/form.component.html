@@ -1,18 +1,14 @@
 
 <div class="sect1">
-  <accordion 
-  
-  [(widthInputForm)]="formWidth" 
-    [(heightInputForm)]="formHeight" 
-    [(borderInputForm)]="formBorder" 
-    [(bgInputForm)]="formBg">
-  </accordion>
+  <form [formGroup]="form" >
+    <accordion formControlName="parameters"></accordion>
+  </form>
 </div>
   
-  <div class="sect2" [style.width]="formWidth.length > 0 ? formWidth : '60%'" 
-    [style.height]="formHeight.length > 0 ? formHeight : '60%'" 
-    [style.border]="formBorder.length > 0 ? formBorder : '#000 solid 2px'"
-    [style.backgroundColor]="formBg.length > 0 ? formBg : '#fff'">
+  <div class="sect2" [style.width]="form.value.parameters.width ? form.value.parameters.width : '60%'" 
+    [style.height]="form.value.parameters.height ? form.value.parameters.height : '60%'" 
+    [style.border]="form.value.parameters.border  ? form.value.parameters.border : '#000 solid 2px'"
+    [style.backgroundColor]="form.value.parameters.background  ? form.value.parameters.background : '#fff'">
     
     <div cdkDropList #formElems="cdkDropList" [cdkDropListData]="formFields"  [cdkDropListConnectedTo]="htmlElems"
       class="list-sect2" (cdkDropListDropped)="drop($event)" >

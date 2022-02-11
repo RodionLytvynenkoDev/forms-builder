@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
@@ -11,6 +11,22 @@ import { LoginError } from './login-error.component';
             styleUrls: ['login.component.css'] })
 export class LoginComponent implements OnInit {
     //@ViewChild(CdkPortalOutlet) host: CdkPortalOutlet;
+    /*@ViewChild('virtualContainer', {read: ViewContainerRef, static: false})
+    virtualContainer: ViewContainerRef;
+
+    @ViewChild('virtualContainer', {read: CdkPortalOutlet, static: false})
+    virtualPortalOutlet: CdkPortalOutlet;
+
+    @ViewChild('customTemplate', {static: false})
+    customTemplate: TemplateRef<any>;
+    
+
+    renderTemplate() {
+        this.virtualContainer.clear();
+        this.virtualContainer.createEmbeddedView(this.customTemplate, {
+            name: 'Cat Bobby'
+        });
+    }*/
     loginForm: FormGroup;
     loading = false;
     submitted = false;

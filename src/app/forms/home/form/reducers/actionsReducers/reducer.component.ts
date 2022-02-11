@@ -4,15 +4,15 @@ export const ElementStyles = 'style'
 
 
 export interface StylingState {
-    elemWidth: string,
-    elemHeight: string,
-    elemPlaceholder: string,
-    elemRequired: string,
-    elemBorder: string,
-    elemFontSize: string,
-    elemFontWeight: string,
-    elemColorInput: string,
-    elemBg: string
+    'width': string,
+    'height': string,
+    'placeholder': string,
+    'required': string,
+    'border': string,
+    'font-size': string,
+    'font-weight': string,
+    'color': string,
+    'background-color': string
 }
 
 export interface ElementStyle {
@@ -23,20 +23,20 @@ export interface ElementStyle {
 }
 
 
-const initialState: ElementStyle = {
+export const initialState: ElementStyle = {
     id: 0,
     currId: null,
     elem: "",
     style: {
-        elemWidth: "",
-        elemHeight: "",
-        elemPlaceholder: "",
-        elemRequired: "",
-        elemBorder: "",
-        elemFontSize: "",
-        elemFontWeight: "",
-        elemColorInput: "",
-        elemBg: ""
+        'width': "",
+        'height': "",
+        'placeholder': "",
+        'required': "",
+        'border': "",
+        'font-size': "",
+        'font-weight': "",
+        'color': "",
+        'background-color': ""
     }
 }
 

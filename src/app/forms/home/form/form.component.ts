@@ -1,5 +1,6 @@
 import {
-  Component, OnChanges,
+  ChangeDetectionStrategy,
+  Component, OnChanges, TemplateRef, ViewChild, ViewContainerRef,
 } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
@@ -9,11 +10,13 @@ import { currIdAction, defineElemAction, defineIdAction, defineStyleAction } fro
 import { Observable, Subject, takeUntil, pipe, of, tap } from 'rxjs';
 import { selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../../../forms/home/form/reducers/actionsReducers/selector.component';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { CdkPortalOutlet } from '@angular/cdk/portal';
 
 @Component({
   selector: 'form-project',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormComponent {
 
@@ -36,20 +39,20 @@ export class FormComponent {
     currId: 0,
     elem: "",
     style: {
-        elemWidth: "",
-        elemHeight: "",
-        elemPlaceholder: "",
-        elemRequired: "",
-        elemBorder: "",
-        elemFontSize: "",
-        elemFontWeight: "",
-        elemColorInput: "",
-        elemBg: ""
+    'width': "",
+    'height': "",
+    'placeholder': "",
+    'required': "",
+    'border': "",
+    'font-size': "",
+    'font-weight': "",
+    'color': "",
+    'background-color': ""
     }
   }
 
 
-/*  @ViewChild('virtualContainer', {read: ViewContainerRef, static: false})
+ /* @ViewChild('virtualContainer', {read: ViewContainerRef, static: false})
     virtualContainer: ViewContainerRef;
 
     @ViewChild('virtualContainer', {read: CdkPortalOutlet, static: false})
@@ -60,23 +63,16 @@ export class FormComponent {
     
 
     renderTemplate() {
-//        this.virtualContainer.clear();
+        this.virtualContainer.clear();
         this.virtualContainer.createEmbeddedView(this.customTemplate, {
             name: 'Cat Bobby'
         });
-    }
-    
-*/
-
-//[style.width]="elemWidth.length > 0 ? elemWidth : '60%'"
- 
+    }*/
 
   
   notifier = new Subject()
   ngOnInit():void{
 
-    
-    
     this.elem$.pipe(takeUntil(this.notifier))
     .subscribe((element)=>{
       this.currentStateElement.elem=element;
@@ -96,8 +92,6 @@ export class FormComponent {
     this.notifier.next(true)
     this.notifier.complete()
   }
-  
-  
 
   draggableFields = [
     "input", 
@@ -125,7 +119,8 @@ export class FormComponent {
     this.store$.dispatch(new currIdAction({currId:i}))
     this.store$.dispatch(new defineElemAction({elem:this.formFields[i].elem}))
     this.store$.dispatch(new defineStyleAction({style:this.currentStateElement.style}))
-    this.store$.subscribe(x => console.log(x))
+    this.store$.pipe(takeUntil(this.notifier))
+    .subscribe(x => console.log(x))
   }
 
   

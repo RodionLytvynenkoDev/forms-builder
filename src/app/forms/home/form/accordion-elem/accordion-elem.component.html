@@ -14,39 +14,33 @@
           Click to {{ accordionItem.expanded ? 'close' : 'open' }}
         </span>
       </div>
-      <div
+      <div *ngIf="index && currentStateElement.elem"
         class="example-accordion-item-body"
         role="region"
         [style.display]="accordionItem.expanded ? '' : 'none'"
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
-        *ngIf="index && currentStateElement.elem=='labelCheck'">
+        >
           {{(currentStateElement.elem)}}<br>
           Id: {{elementId$ | async}}<br>
-          Font Size: <input #fontSize (input)="inputFont(fontSize.value)" [value]="fontSizee"><br>
-          Font Weight: <select #weight (change)="inputWeight(weight.value)" [value]="fontWeight"><option>normal</option><option>bold</option></select><br/>
-          Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr"><br>
-          Background: <input type="color" #bgColor (change)="inputBg(bgColor.value)" [value]="backgroundd">
+          Width: <input type="text" placeholder="%, em, rem, px, vh etc." #elementWidth 
+            (input)="inputParam(elementWidth.value, 'width', styleParams.widthh)"><br>
+          Height: <input type="text" placeholder="%, em, rem, px, vh etc." #elementHeight 
+            (input)="inputParam(elementHeight.value, 'height', styleParams.heightt)"><br>
+          Border Style: <input #border 
+            (input)="inputParam(border.value, 'border', styleParams.borderStyle)"><br>
+          Font Size: <input #fontSize 
+            (input)="inputParam(fontSize.value, 'font-size', styleParams.fontSizee)"><br>
+          Font Weight: <select #weight 
+            (change)="inputParam(weight.value, 'font-weight', styleParams.fontWeight)">
+            <option>normal</option><option>bold</option></select><br/>
+          Color rgb: <input type="color" #color 
+            (change)="inputParam(color.value, 'color', styleParams.colorr)"><br>
+          Background: <input type="color" #bgColor 
+            (change)="inputParam(bgColor.value, 'background-color', styleParams.backgroundd)"><br>
+          Placeholder: <input #placeholder 
+            (input)="inputParam(placeholder.value, 'placeholder', styleParams.placeholderr)"><br>
           <!--<div><button>Set</button></div>-->        
-      </div>
-      
-      <div
-        class="example-accordion-item-body"
-        role="region"
-        [style.display]="accordionItem.expanded ? '' : 'none'"
-        [attr.id]="'accordion-body-' + index"
-        [attr.aria-labelledby]="'accordion-header-' + index"
-        *ngIf="index && (currentStateElement.elem=='button' || currentStateElement.elem=='select')">
-          {{currentStateElement.elem}}<br>
-          Id: {{elementId$ | async}}<br>
-          Width: <input type="text" placeholder="%, em, rem, px, vh etc." #elementWidth (input)="inputWidth(elementWidth.value)" [value]="widthh"><br>
-          Height: <input type="text" placeholder="%, em, rem, px, vh etc." #elementHeight (input)="inputHeight(elementHeight.value)" [value]="heightt"><br>
-          Border Style: <input #border (input)="inputBorder(border.value)" [value]="borderStyle"><br>
-          Font Size: <input #fontSize (input)="inputFont(fontSize.value)" [value]="fontSizee"><br>
-          Font Weight: <select #weight (change)="inputWeight(weight.value)" [value]="fontWeight"><option>normal</option><option>bold</option></select><br/>
-          Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr"><br>
-          Background: <input type="color" #bgColor (change)="inputBg(bgColor.value)" [value]="backgroundd">
-          <!--<div><button>Set</button></div>-->
       </div>
       <div
         class="example-accordion-item-body"
@@ -55,17 +49,12 @@
         [attr.id]="'accordion-body-' + index"
         [attr.aria-labelledby]="'accordion-header-' + index"
         *ngIf="index && (currentStateElement.elem=='input' || currentStateElement.elem=='textarea')">
-          {{currentStateElement.elem}}<br>
-          Id: {{elementId$ | async}}<br>
-          Placeholder: <input #placeholder (input)="inputPlaceholder(placeholder.value)" [value]="placeholderr"><br>
-          Width: <input type="text" placeholder="%, em, rem, px, vh etc." #elementWidth (input)="inputWidth(elementWidth.value)" [value]="widthh"><br>
-          Height: <input type="text" placeholder="%, em, rem, px, vh etc." #elementHeight (input)="inputHeight(elementHeight.value)" [value]="heightt"><br>
-          Required: <select #req (change)="inputReq(req.value)" [value]="required"><option>Nope</option><option>required</option></select><br/>
-          Border Style: <input #border (input)="inputBorder(border.value)" [value]="borderStyle"><br>
-          Font Size: <input #fontSize (input)="inputFont(fontSize.value)" [value]="fontSizee"><br>
-          Font Weight: <select #weight (change)="inputWeight(weight.value)" [value]="fontWeight"><option>normal</option><option>bold</option></select><br/>
-          Color rgb: <input type="color" #color (change)="inputColor(color.value)" [value]="colorr"><br>
-          Background: <input type="color" #bgColor (change)="inputBg(bgColor.value)" [value]="backgroundd">
+          
+          
+          Required: <select #req (change)="inputParam(req.value, 'required', styleParams.required)">
+            <option>Nope</option><option>required</option>
+          </select><br/>
+          
           <!--<div><button>Set</button></div>-->
         
       </div>

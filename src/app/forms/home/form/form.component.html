@@ -4,7 +4,6 @@
     <accordion formControlName="parameters"></accordion>
   </form>
 </div>
-  
   <div class="sect2" [style.width]="form.value.parameters.width ? form.value.parameters.width : '60%'" 
     [style.height]="form.value.parameters.height ? form.value.parameters.height : '60%'" 
     [style.border]="form.value.parameters.border  ? form.value.parameters.border : '#000 solid 2px'"
@@ -26,15 +25,7 @@
     <elems class="htmlElem" *ngFor="let item of draggableFields" cdkDragBoundary=".sect2" cdkDrag elem={{item}}></elems>
   </div>
   
-  <!--<div class="portals-outlet" cdkDragBoundary=".sect2" cdkDrag>
-    <ng-container #virtualContainer cdkPortalOutlet>
-    </ng-container>
-  </div>
   
-  <ng-template #customTemplate let-name="name">
-    <p class="margin-left-8">Custom template with parameter `name`：{{name}}</p>
-  </ng-template>
-    <button (click)="renderTemplate()">Click</button>-->
 
 
 

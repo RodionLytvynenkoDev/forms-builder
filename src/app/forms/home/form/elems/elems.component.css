@@ -21,9 +21,10 @@
 }
 
 .switcher .myLabel {
-    margin-top: 15px;
-    display: block;
     
+    
+    display: flex;
+    align-items: center;
     justify-content: var(--perfect_align);
     margin-left: auto;
     margin-right: auto;

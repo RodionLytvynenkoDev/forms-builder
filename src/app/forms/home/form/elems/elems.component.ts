@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { ElementStyle, StylingState } from '../../../../forms/home/form/reducers/actionsReducers/reducer.component';
@@ -7,7 +7,8 @@ import { selectCurrElementId, selectElementStyleElem, selectElementStyleId, sele
 @Component({
   selector: 'elems',
   templateUrl: './elems.component.html',
-  styleUrls: ['./elems.component.css']
+  styleUrls: ['./elems.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ElemsComponent implements OnChanges{
   
@@ -24,7 +25,7 @@ export class ElemsComponent implements OnChanges{
   currentId: number
   
 
-  constructor(private store$: Store<ElementStyle>){
+  constructor(private store$: Store<ElementStyle>, private cdr: ChangeDetectorRef){
   }
 
   public currentStateElement:ElementStyle={
@@ -32,15 +33,15 @@ export class ElemsComponent implements OnChanges{
     currId: null,
     elem: '',
     style: {
-      elemWidth: "",
-      elemHeight: "",
-      elemPlaceholder: "",
-      elemRequired: "",
-      elemBorder: "",
-      elemFontSize: "",
-      elemFontWeight: "",
-      elemColorInput: "",
-      elemBg: ""
+    'width': "",
+    'height': "",
+    'placeholder': "",
+    'required': "",
+    'border': "",
+    'font-size': "",
+    'font-weight': "",
+    'color': "",
+    'background-color': ""
     }
   }
   public currentState:ElementStyle={
@@ -48,22 +49,38 @@ export class ElemsComponent implements OnChanges{
     currId: null,
     elem: '',
     style: {
-      elemWidth: "",
-      elemHeight: "",
-      elemPlaceholder: "",
-      elemRequired: "",
-      elemBorder: "",
-      elemFontSize: "",
-      elemFontWeight: "",
-      elemColorInput: "",
-      elemBg: ""
+    'width': "",
+    'height': "",
+    'placeholder': "",
+    'required': "",
+    'border': "",
+    'font-size': "",
+    'font-weight': "",
+    'color': "",
+    'background-color': ""
     }
+  }
+
+  public reassign(): void {
+    this.currentStateElement.style = {
+      'width': this.currentStateElement.style['width'],
+      'height': this.currentStateElement.style['height'],
+      'placeholder': this.currentStateElement.style['placeholder'],
+      'required': this.currentStateElement.style['required'],
+      'border': this.currentStateElement.style['border'],
+      'font-size': this.currentStateElement.style['font-size'],
+      'font-weight': this.currentStateElement.style['font-weight'],
+      'color': this.currentStateElement.style['color'],
+      'background-color': this.currentStateElement.style['background-color'],
+    }
+    console.log("Current value", this.currentStateElement.style)
   }
 
 
   notifier = new Subject()
 
   ngOnInit():void{
+    
     this.elem$.pipe(takeUntil(this.notifier))
     .subscribe((elem) => {
       this.currentState.elem = elem
@@ -77,20 +94,21 @@ export class ElemsComponent implements OnChanges{
     .subscribe((currId) => {
       this.currentId = currId
     })
-
-    
-
-    
     
   }
   ngOnChanges(changes: SimpleChanges) :void {
+    
     this.style$.pipe(takeUntil(this.notifier))
     .subscribe((style) => {
-      console.log(this.currentState, "++++")
-      console.log(this.currentState.id == this.id, this.currentState.id, this.id, "0000")
-      console.log(style)
-      if (this.currentState.id == this.id)
-        this.currentStateElement.style = style   
+      
+      if (this.currentState.id == this.id) {
+        this.currentStateElement.style = style 
+        this.cdr.detectChanges()
+      }
+        
+        
+        
+          
     })
     
 

@@ -24,7 +24,16 @@
                     Login
                 </button>
             </div>
-            <div>
+            <!--<div class="portals-outlet" cdkDragBoundary=".sect2" cdkDrag>
+                <ng-container #virtualContainer cdkPortalOutlet>
+                </ng-container>
+              </div>
+              
+              <ng-template #customTemplate let-name="name">
+                <p class="margin-left-8">Custom template with parameter `name`：{{name}}</p>
+              </ng-template>
+                <button (click)="renderTemplate()">Click</button>-->
+            <div class="portalOutlet" cdkPortalOutlet>
                 <div *ngIf="submitted && f.username.errors" >
                     <div  *ngIf="f.username.errors.required">Username is required</div>
                 </div>

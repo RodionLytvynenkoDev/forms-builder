@@ -1,51 +1,23 @@
 <div class="switcher"  [ngSwitch]="elem" >
-    <input *ngSwitchCase='"input"' [id] = 0
-    [style.border]="currentStateElement.style.elemBorder.length > 0 ? currentStateElement.style.elemBorder : ''"
-    [style.width]="currentStateElement.style.elemWidth.length > 0 ? currentStateElement.style.elemWidth : '100%'"
-    [style.height]="currentStateElement.style.elemHeight.length > 0 ? currentStateElement.style.elemHeight : '50%'"
-    [style.font-size]="currentStateElement.style.elemFontSize.length > 0 ? currentStateElement.style.elemFontSize : '100%'" 
-    [style.font-weight]="currentStateElement.style.elemFontWeight.length > 0 ? currentStateElement.style.elemFontWeight : '100%'"
-    [style.color]="currentStateElement.style.elemColorInput.length > 0 ? currentStateElement.style.elemColorInput : '100%'"
-    [style.background-color]="currentStateElement.style.elemBg.length > 0 ? currentStateElement.style.elemBg : 'none'"
-    placeholder={{currentStateElement.style.elemPlaceholder}} 
-    [required]="currentStateElement.style.elemRequired==='required'"
+    <input *ngSwitchCase='"input"'
+    [ngStyle] = 'currentStateElement.style'
+    placeholder={{currentStateElement.style.placeholder}} 
+    [required]="currentStateElement.style.required==='required'"
     >
     <textarea *ngSwitchCase='"textarea"'  
-    [style.border]="currentStateElement.style.elemBorder.length > 0 ? currentStateElement.style.elemBorder : ''"
-    [style.width]="currentStateElement.style.elemWidth.length > 0 ? currentStateElement.style.elemWidth : '100%'"
-    [style.height]="currentStateElement.style.elemHeight.length > 0 ? currentStateElement.style.elemHeight : '100%'"
-    [style.font-size]="currentStateElement.style.elemFontSize.length > 0 ? currentStateElement.style.elemFontSize : '100%'" 
-    [style.font-weight]="currentStateElement.style.elemFontWeight.length > 0 ? currentStateElement.style.elemFontWeight : '100%'"
-    [style.color]="currentStateElement.style.elemColorInput.length > 0 ? currentStateElement.style.elemColorInput : '100%'" 
-    [style.background-color]="currentStateElement.style.elemBg.length > 0 ? currentStateElement.style.elemBg : 'none'"
-    placeholder={{currentStateElement.style.elemPlaceholder}} 
-    [required]="currentStateElement.style.elemRequired==='required'"></textarea>
+    [ngStyle] = 'currentStateElement.style'
+    placeholder={{currentStateElement.style.placeholder}} 
+    [required]="currentStateElement.style.required==='required'"></textarea>
     <button 
-    [style.border]="currentStateElement.style.elemBorder.length > 0 ? currentStateElement.style.elemBorder : ''"
-    [style.width]="currentStateElement.style.elemWidth.length > 0 ? currentStateElement.style.elemWidth : '100%'"
-    [style.height]="currentStateElement.style.elemHeight.length > 0 ? currentStateElement.style.elemHeight : '100%'"
-    [style.font-size]="currentStateElement.style.elemFontSize.length > 0 ? currentStateElement.style.elemFontSize : '100%'" 
-    [style.font-weight]="currentStateElement.style.elemFontWeight.length > 0 ? currentStateElement.style.elemFontWeight : '100%'"
-    [style.color]="currentStateElement.style.elemColorInput.length > 0 ? currentStateElement.style.elemColorInput : '100%'" 
-    [style.background-color]="currentStateElement.style.elemBg.length > 0 ? currentStateElement.style.elemBg : ''"
-    *ngSwitchCase='"button"'>Button</button>
+    [ngStyle] = 'currentStateElement.style'
+    *ngSwitchCase='"button"'>{{currentStateElement.style.placeholder || "Button" }}</button>
     <div 
-    [style.border]="currentStateElement.style.elemBorder.length > 0 ? currentStateElement.style.elemBorder : ''"
-    [style.font-size]="currentStateElement.style.elemFontSize.length > 0 ? currentStateElement.style.elemFontSize : 'large'" 
-    [style.font-weight]="currentStateElement.style.elemFontWeight.length > 0 ? currentStateElement.style.elemFontWeight : '100%'"
-    [style.color]="currentStateElement.style.elemColorInput.length > 0 ? currentStateElement.style.elemColorInput : '100%'"
-    [style.background-color]="currentStateElement.style.elemBg.length > 0 ? currentStateElement.style.elemBg : 'none'"
+    [ngStyle] = 'currentStateElement.style'
     class="myLabel" *ngSwitchCase='"labelCheck"' >
-      <input type="checkbox" id='myCheckbox' [required]="currentStateElement.style.elemRequired==='required'">
-      <label for="myCheckbox">Label</label>
+      <input type="checkbox" id='myCheckbox' [style.width] = "currentStateElement.style['font-size']" [style.height] = "currentStateElement.style['font-size']">
+      <label for="myCheckbox">{{currentStateElement.style.placeholder || "Label" }}</label>
     </div>
     <select 
-    [style.border]="currentStateElement.style.elemBorder.length > 0 ? currentStateElement.style.elemBorder : ''"
-    [style.width]="currentStateElement.style.elemWidth.length > 0 ? currentStateElement.style.elemWidth : '100%'"
-    [style.height]="currentStateElement.style.elemHeight.length > 0 ? currentStateElement.style.elemHeight : '100%'"
-    [style.font-size]="currentStateElement.style.elemFontSize.length > 0 ? currentStateElement.style.elemFontSize : '100%'" 
-    [style.font-weight]="currentStateElement.style.elemFontWeight.length > 0 ? currentStateElement.style.elemFontWeight : '100%'"
-    [style.color]="currentStateElement.style.elemColorInput.length > 0 ? currentStateElement.style.elemColorInput : '100%'" 
-    [style.background-color]="currentStateElement.style.elemBg.length > 0 ? currentStateElement.style.elemBg : 'none'"
-    *ngSwitchCase='"select"'>Button<option>Some value</option></select>
+    [ngStyle] = 'currentStateElement.style'
+    *ngSwitchCase='"select"'><option>{{currentStateElement.style.placeholder || "Some value" }}</option></select>
 </div>

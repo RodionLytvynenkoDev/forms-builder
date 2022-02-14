@@ -37,7 +37,7 @@ export class AccordionElemComponent implements ControlValueAccessor {
     });
   }
 
-  styleParams = {
+  public styleParams = {
     widthh: "",
     heightt: "",
     required: "",
@@ -49,7 +49,7 @@ export class AccordionElemComponent implements ControlValueAccessor {
     placeholderr: ""
   }
   
-  inputParam(value: string, param: string, inputParam: string) {
+  public inputParam(value: string, param: string, inputParam: string): void {
     this.altObj = Object.assign({}, this.currentStateElement.style);
     inputParam = value
     this.altObj[param] = inputParam

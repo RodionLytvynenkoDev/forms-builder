@@ -1,4 +1,5 @@
 <cdk-accordion class="example-accordion" >
+  
     <cdk-accordion-item
       *ngFor="let item of items; let index = index;"
       #accordionItem="cdkAccordionItem"
@@ -14,6 +15,7 @@
           Click to {{ accordionItem.expanded ? 'close' : 'open' }}
         </span>
       </div>
+      
       <div *ngIf="index && currentStateElement.elem"
         class="example-accordion-item-body"
         role="region"
@@ -42,6 +44,7 @@
             (input)="inputParam(placeholder.value, 'placeholder', styleParams.placeholderr)"><br>
           <!--<div><button>Set</button></div>-->        
       </div>
+      
       <div
         class="example-accordion-item-body"
         role="region"
@@ -56,8 +59,9 @@
           </select><br/>
           
           <!--<div><button>Set</button></div>-->
-        
+      
       </div>
+      
       <div [formGroup] = "parameters"
         class="example-accordion-item-body"
         role="region"

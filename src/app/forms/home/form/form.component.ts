@@ -109,7 +109,7 @@ export class FormComponent {
   public elemId: number
   public counter: number = 0
 
-  getIndex(i: number) {
+  public getIndex(i: number) {
     this.elemId = i
     this.elemInd = this.formFields[i].elem
     console.log(this.elemId)
@@ -131,11 +131,10 @@ export class FormComponent {
     console.log(this._currentIndex)
   }*/
 
-  drop(event: CdkDragDrop<string[]>): void {
+  public drop(event: CdkDragDrop<string[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      const tapUsage = of(this.formFields).pipe(tap(val => console.log("Previous: ", val)))
       this.formFields.splice(event.currentIndex, 0, {elem:event.previousContainer.data[event.previousIndex],id:this.counter++})
       console.log(this.formFields)
       console.log(event.currentIndex)

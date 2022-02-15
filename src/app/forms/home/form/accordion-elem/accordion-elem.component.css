@@ -8,7 +8,7 @@
   
 .example-accordion-item {
   display: block;
-  border: solid 1px #ccc;
+  border: solid .1em #ccc;
 }
 
 .example-accordion-item + .example-accordion-item {
@@ -27,14 +27,12 @@
 }
 
 .example-accordion-item-header {
-  padding: 16px;
+  padding: 2vh;
 }
-.example-accordion-item-body {
-  padding: 16px;
-  text-align: center;
 
+.example-accordion-item-body {
+  text-align: center;
   line-height: 2;
-  
 }
 
 .example-accordion-item-header:hover {
@@ -52,8 +50,9 @@
   border-bottom-right-radius: var(--radius);
 }
 
+
 * {
-  --radius: 4px;
+  --radius: .2em;
   --elem_center: auto
 }
 

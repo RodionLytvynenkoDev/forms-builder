@@ -10,6 +10,7 @@ import { User } from '../_models';
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
+    public authValue = false
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
@@ -25,6 +26,8 @@ export class AuthenticationService {
             .pipe(tap(user => {
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
+                this.authValue = true
+                console.log(this.auth(), "AUTH")
                 return user;
             }));
     }
@@ -34,12 +37,20 @@ export class AuthenticationService {
             .pipe(map(user => {
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
+                this.authValue = true
+                console.log(this.auth(), "AUTH")
                 return user;
             }));
+    }
+
+    auth() {
+        return this.authValue
     }
 
     logout() {
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
+        this.authValue = false
+        console.log(this.authValue, "AUTH")
     }
 }

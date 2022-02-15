@@ -23,6 +23,8 @@ import { FormComponent } from './forms/home/form/form.component';
 import { ElemsComponent } from './forms/home/form/elems/elems.component';
 import {AccordionElemComponent} from './forms/home/form/accordion-elem/accordion-elem.component';
 import {FormatPipe} from '../app/forms/home/format.pipe'
+import {AuthEffects} from '../app/auth/reducers/user.effects'
+
 //import {LoginError} from '../app/auth/login/login-error.component'
 
 @NgModule({
@@ -33,7 +35,7 @@ import {FormatPipe} from '../app/forms/home/format.pipe'
         StoreModule.forRoot(reducers, {metaReducers}), 
         StoreModule.forRoot({}, {}),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }), 
-        EffectsModule.forRoot([]), StoreModule.forRoot(reducers, {metaReducers}),
+        EffectsModule.forRoot([AuthEffects]), StoreModule.forRoot(reducers, {metaReducers}),
         DragDropModule, 
         CdkAccordionModule, 
         PortalModule,
@@ -45,7 +47,11 @@ import {FormatPipe} from '../app/forms/home/format.pipe'
         AppComponent,
         HomeComponent,
         LoginComponent,
-       FormComponent, ElemsComponent, AccordionElemComponent, FormatPipe, //LoginError
+        FormComponent, 
+        ElemsComponent, 
+        AccordionElemComponent, 
+        FormatPipe
+        //LoginError
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

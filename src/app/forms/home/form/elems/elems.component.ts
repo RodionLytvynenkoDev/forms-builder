@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { ElementStyle, StylingState } from '../../../../forms/home/form/reducers/actionsReducers/reducer.component';
 import { selectCurrElementId, selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../../../../forms/home/form/reducers/actionsReducers/selector.component';
+import { currentStateElement } from '../form.currentState';
 
 @Component({
   selector: 'elems',
@@ -16,8 +17,6 @@ export class ElemsComponent implements OnChanges{
   @Input() elem: any
   @Input() id: number
 
-  
-
   public style$: Observable<StylingState> = this.store$.pipe(select(selectElementStyleStyle));
   public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
   public id$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
@@ -28,38 +27,8 @@ export class ElemsComponent implements OnChanges{
   constructor(private store$: Store<ElementStyle>, private cdr: ChangeDetectorRef){
   }
 
-  public currentStateElement:ElementStyle={
-    id: null,
-    currId: null,
-    elem: '',
-    style: {
-    'width': "",
-    'height': "",
-    'placeholder': "",
-    'required': "",
-    'border': "",
-    'font-size': "",
-    'font-weight': "",
-    'color': "",
-    'background-color': ""
-    }
-  }
-  public currentState:ElementStyle={
-    id: null,
-    currId: null,
-    elem: '',
-    style: {
-    'width': "",
-    'height': "",
-    'placeholder': "",
-    'required': "",
-    'border': "",
-    'font-size': "",
-    'font-weight': "",
-    'color': "",
-    'background-color': ""
-    }
-  }
+  public currentStateElement = {...currentStateElement}
+  public currentState = {...currentStateElement}
 
   public reassign(): void {
     this.currentStateElement.style = {
@@ -104,11 +73,7 @@ export class ElemsComponent implements OnChanges{
       if (this.currentState.id == this.id) {
         this.currentStateElement.style = style 
         this.cdr.detectChanges()
-      }
-        
-        
-        
-          
+      }          
     })
     
 

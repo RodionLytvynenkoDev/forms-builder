@@ -6,6 +6,9 @@ import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../_services';
 import { CdkPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
 import { LoginError } from './login-error.component';
+import { Store } from '@ngrx/store';
+import { State } from 'src/app/forms/home/form/reducers';
+import {LoginAction, SignupAction} from '../reducers/user.actions'
 
 @Component({ templateUrl: 'login.component.html',
             styleUrls: ['login.component.css'] })
@@ -34,11 +37,12 @@ export class LoginComponent implements OnInit {
     error = '';
 
     constructor(
+        private store$: Store<State>,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService
-    ) { 
+    ){ 
         if (this.authenticationService.currentUserValue) { 
             this.router.navigate(['/']);
         }
@@ -72,7 +76,9 @@ export class LoginComponent implements OnInit {
             }
 
             this.loading = true;
-            this.authenticationService.login(this.f.username.value, this.f.password.value)
+            this.store$.dispatch(new LoginAction({username: this.f.username.value, password:  this.f.password.value}))
+            
+            /*this.authenticationService.login(this.f.username.value, this.f.password.value)
                 .pipe(first())
                 .subscribe(
                     data => {
@@ -81,7 +87,7 @@ export class LoginComponent implements OnInit {
                     error => {
                         this.error = error;
                         this.loading = false;
-                    });
+                    });*/
         }
         if (event.submitter.name == "register") {
             this.submitted = true;
@@ -92,7 +98,8 @@ export class LoginComponent implements OnInit {
             }
 
             this.loading = true;
-            this.authenticationService.register(this.f.username.value, this.f.password.value)
+            this.store$.dispatch(new SignupAction({username: this.f.username.value, password:  this.f.password.value}))
+            /*this.authenticationService.register(this.f.username.value, this.f.password.value)
                 .pipe(first())
                 .subscribe(
                     data => {
@@ -101,7 +108,7 @@ export class LoginComponent implements OnInit {
                     error => {
                         this.error = error;
                         this.loading = false;
-                    });
+                    });*/
         }
         
     }

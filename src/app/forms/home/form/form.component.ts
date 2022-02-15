@@ -11,6 +11,7 @@ import { Observable, Subject, takeUntil, pipe, of, tap } from 'rxjs';
 import { selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../../../forms/home/form/reducers/actionsReducers/selector.component';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
+import {currentStateElement} from './form.currentState'
 
 @Component({
   selector: 'form-project',
@@ -19,9 +20,7 @@ import { CdkPortalOutlet } from '@angular/cdk/portal';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormComponent {
-
   form: FormGroup
-
 
   public elementId$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
   public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
@@ -34,22 +33,7 @@ export class FormComponent {
     });
   }
 
-  private currentStateElement:ElementStyle={
-    id: 0,
-    currId: 0,
-    elem: "",
-    style: {
-    'width': "",
-    'height': "",
-    'placeholder': "",
-    'required': "",
-    'border': "",
-    'font-size': "",
-    'font-weight': "",
-    'color': "",
-    'background-color': ""
-    }
-  }
+  private currentStateElement = {...currentStateElement}
 
 
  /* @ViewChild('virtualContainer', {read: ViewContainerRef, static: false})
@@ -138,8 +122,6 @@ export class FormComponent {
       this.formFields.splice(event.currentIndex, 0, {elem:event.previousContainer.data[event.previousIndex],id:this.counter++})
       console.log(this.formFields)
       console.log(event.currentIndex)
-      
-      
     }
   }
 

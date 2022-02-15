@@ -1,7 +1,7 @@
 .list-item {
   display: flex;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 2vh;
   justify-content: center;
   align-content: center;
   flex-direction: column;
@@ -33,7 +33,7 @@
 .cdk-drag-placeholder {
   background: #ccc;
   border: dotted 3px #999;
-  min-height: 60px;
+  min-height: 8vh;
   transition: var(--transition);
 }
 
@@ -56,7 +56,7 @@
 }
 
 .sect3 {
-  border: #000 solid 2px;
+  border: #000 solid .1em;
   min-height: 10vh;
   margin: auto;
   padding: 0%;
@@ -68,7 +68,7 @@
   background-color: rgb(170, 162, 162);
   border-bottom-left-radius: var(--radius);
   border-bottom-right-radius: var(--radius);
-  margin-bottom: 30px;
+  margin-bottom: 3vh;
 }
 
 
@@ -79,60 +79,25 @@ li {
   justify-content: center;
 }
 
-.container3 {
-  width: 400px;
-  min-width: 200px;
-  border: solid 1px #ccc;
-  min-height: 60px;
-  display: flex;
-  flex-direction: row;
-  background: white;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.container2 {
-  width: 100%;
-  min-height: 60vh;
-
-  display: flex;
-  flex-direction: row;
-  background: white;
-  border-radius: var(--radius);
-  overflow: hidden;
-  margin: auto;
-}
-
 .htmlElem {
   display: flex;
   justify-content: center;
   align-content: center;
   flex-direction: column;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.list {
-  border: solid 1px #ccc;
-  min-height: 60px;
-  min-width: 200px;
-  background: white;
-  border-radius: var(--radius);
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
 }
 
 .list-sect2 {
   display: block;
   width: 100%;
   text-align: center;
-  min-height: 500px;
+  min-height: 70vh;
 }
 
 * {
-  --radius: 4px;
-  --transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  --radius: .2em;
+  --transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 

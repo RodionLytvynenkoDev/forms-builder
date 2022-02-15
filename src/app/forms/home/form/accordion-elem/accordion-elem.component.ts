@@ -5,6 +5,7 @@ import { Observable, Subject, takeUntil, pipe } from 'rxjs';
 import { defineStyleAction } from '../../../../forms/home/form/reducers/actionsReducers/action.component';
 import { ElementStyle, StylingState } from '../../../../forms/home/form/reducers/actionsReducers/reducer.component';
 import {selectElementStyleElem, selectElementStyleId, selectElementStyleStyle} from '../../../../forms/home/form/reducers/actionsReducers/selector.component'
+import { currentStateElement } from '../form.currentState';
 
 /**
  * @title Accordion overview
@@ -38,15 +39,15 @@ export class AccordionElemComponent implements ControlValueAccessor {
   }
 
   public styleParams = {
-    widthh: "",
-    heightt: "",
+    width_style: "",
+    height_style: "",
     required: "",
-    fontSizee: "",
+    fontSize_style: "",
     fontWeight: "",
-    colorr: "",
-    backgroundd: "",
+    color_style: "",
+    background_style: "",
     borderStyle: "",
-    placeholderr: ""
+    placeholder_value: ""
   }
   
   public inputParam(value: string, param: string, inputParam: string): void {
@@ -60,22 +61,7 @@ export class AccordionElemComponent implements ControlValueAccessor {
     .subscribe(x => console.log(x))
   }
 
-  public currentStateElement:ElementStyle={
-    id: 0,
-    currId: null,
-    elem: "",
-    style: {
-    'width': "",
-    'height': "",
-    'placeholder': "",
-    'required': "",
-    'border': "",
-    'font-size': "",
-    'font-weight': "",
-    'color': "",
-    'background-color': ""
-    }
-  }
+  public currentStateElement = {...currentStateElement}
 
   
 

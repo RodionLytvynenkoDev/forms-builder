@@ -10,7 +10,10 @@ export enum actionTypes {
     currId = '[STYLING] currId'
 }
 
-
+/*export const defineIdAction = createAction(
+    actionTypes.defineId,
+    props<{id: number}>()
+)*/
 export class defineIdAction implements Action {
     readonly type = actionTypes.defineId
     constructor (public payload: {

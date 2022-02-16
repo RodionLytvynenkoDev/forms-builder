@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'format'
 })
 export class FormatPipe implements PipeTransform {
-  transform(value: string, args?: any): string {
+  transform(value: string, args?: string): string {
       
     return "Welcome, "+value+"!";
   }

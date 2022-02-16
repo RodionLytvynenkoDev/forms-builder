@@ -7,6 +7,7 @@ export enum actionTypes {
     SIGNUP = '[AUTH] Signup',
     SIGNUP_SUCCESS = '[AUTH] Signup Success',
     SIGNUP_FAILURE = '[AUTH] Signup Failure',
+    DEFINE_ERROR = '[AUTH] Error',
 }
 
 export class LoginAction implements Action {
@@ -39,4 +40,15 @@ export class SignupFailureAction implements Action {
     constructor (public payload: any){}
 }
 
-export type selectAction = LoginAction | LoginSuccessAction | LoginFailureAction | SignupAction | SignupSuccessAction | SignupFailureAction
+export class ErrorAction implements Action {
+    readonly type = actionTypes.DEFINE_ERROR
+    constructor (public payload: any){}
+}
+
+export type selectAction = LoginAction | 
+LoginSuccessAction | 
+LoginFailureAction | 
+SignupAction | 
+SignupSuccessAction | 
+SignupFailureAction | 
+ErrorAction

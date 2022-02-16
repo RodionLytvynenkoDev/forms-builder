@@ -35,7 +35,6 @@ export class FormComponent {
 
   private currentStateElement = {...currentStateElement}
 
-
  /* @ViewChild('virtualContainer', {read: ViewContainerRef, static: false})
     virtualContainer: ViewContainerRef;
 
@@ -45,7 +44,6 @@ export class FormComponent {
     @ViewChild('customTemplate', {static: false})
     customTemplate: TemplateRef<any>;
     
-
     renderTemplate() {
         this.virtualContainer.clear();
         this.virtualContainer.createEmbeddedView(this.customTemplate, {
@@ -53,7 +51,6 @@ export class FormComponent {
         });
     }*/
 
-  
   notifier = new Subject()
   ngOnInit():void{
 
@@ -96,8 +93,8 @@ export class FormComponent {
   public getIndex(i: number) {
     this.elemId = i
     this.elemInd = this.formFields[i].elem
-    console.log(this.elemId)
-    console.log(this.formFields[i])
+    //console.log(this.elemId)
+    //console.log(this.formFields[i])
     
     this.store$.dispatch(new defineIdAction({id:this.formFields[i].id}))
     this.store$.dispatch(new currIdAction({currId:i}))
@@ -106,8 +103,6 @@ export class FormComponent {
     this.store$.pipe(takeUntil(this.notifier))
     .subscribe(x => console.log(x))
   }
-
-  
 
   /*dragStart(event: CdkDragStart) {
     this._currentIndex = this.draggableFields.indexOf(event.source.data); // Get index of dragged type
@@ -120,11 +115,10 @@ export class FormComponent {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
       this.formFields.splice(event.currentIndex, 0, {elem:event.previousContainer.data[event.previousIndex],id:this.counter++})
-      console.log(this.formFields)
-      console.log(event.currentIndex)
+      //console.log(this.formFields)
+      //console.log(event.currentIndex)
     }
   }
-
 
  /* moved(event: CdkDragMove) {
     // Check if stored HTML field is as same as current field

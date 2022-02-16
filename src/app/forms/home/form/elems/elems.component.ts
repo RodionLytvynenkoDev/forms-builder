@@ -14,7 +14,7 @@ import { currentStateElement } from '../form.currentState';
 export class ElemsComponent implements OnChanges{
   
   @Input() elemId: number
-  @Input() elem: any
+  @Input() elem: string
   @Input() id: number
 
   public style$: Observable<StylingState> = this.store$.pipe(select(selectElementStyleStyle));
@@ -23,7 +23,6 @@ export class ElemsComponent implements OnChanges{
   public currId$: Observable<number> = this.store$.pipe(select(selectCurrElementId));
   currentId: number
   
-
   constructor(private store$: Store<ElementStyle>, private cdr: ChangeDetectorRef){
   }
 
@@ -44,7 +43,6 @@ export class ElemsComponent implements OnChanges{
     }
     console.log("Current value", this.currentStateElement.style)
   }
-
 
   notifier = new Subject()
 
@@ -76,7 +74,6 @@ export class ElemsComponent implements OnChanges{
       }          
     })
     
-
   }
   ngOnDestroy() {
     this.notifier.next(true)

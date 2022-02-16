@@ -63,10 +63,7 @@ export class AccordionElemComponent implements ControlValueAccessor {
 
   public currentStateElement = {...currentStateElement}
 
-  
-
   altObj = Object.assign({}, this.currentStateElement.style);
-
   
   ngOnInit():void{
 
@@ -85,7 +82,6 @@ export class AccordionElemComponent implements ControlValueAccessor {
     
   }
   
-  
   items = ['Form Settings', 'Element settings'];
   expandedIndex = 0;
   'width' = 0
@@ -93,10 +89,10 @@ export class AccordionElemComponent implements ControlValueAccessor {
   'border' = 0
   'background-color' = 0
   disabled = false;
-  private onChange = (value: any) => {};
+  private onChange = (value: string) => {};
   private onTouched = () => {};
 
-  registerOnChange(fn: (value: any) => void) {
+  registerOnChange(fn: (value: string) => void) {
     this.parameters.valueChanges.subscribe(fn);
   }
 
@@ -104,18 +100,18 @@ export class AccordionElemComponent implements ControlValueAccessor {
     
   }
 
-  writeValue(value: any) {
+  writeValue(value: string[]) {
     if(value) {
         this.parameters.setValue(value);
     }
   }
 
   updateValue(insideValue: any) {
-    this['width'] = insideValue; // html
-    this['height'] = insideValue; // html
-    this['border'] = insideValue; // html
-    this['background-color'] = insideValue; // html
-    this.onChange(insideValue); // уведомить Forms API
+    this['width'] = insideValue;
+    this['height'] = insideValue;
+    this['border'] = insideValue;
+    this['background-color'] = insideValue; 
+    this.onChange(insideValue); 
     this.onTouched();
   }
 

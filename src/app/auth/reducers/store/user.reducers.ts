@@ -1,14 +1,17 @@
 import { actionTypes, selectAction } from "./user.actions";
-import {User} from '../_models'
 
-export interface State {
+export const ElementStyles = 'user'
+
+export interface UserState {
     isAuthenticated: boolean;
     errorMessage: string | null;
-  }
+    error: string | null
+}
 
-export const initialState: State = {
+export const initialState: UserState = {
     isAuthenticated: false,
-    errorMessage: null
+    errorMessage: null,
+    error: null
 };
 
 export const UserReducer = (state = initialState, action: selectAction) => {
@@ -36,6 +39,12 @@ export const UserReducer = (state = initialState, action: selectAction) => {
             return {
                 ...state,
                 errorMessage: 'User with this email already exists'
+            };
+        }
+        case actionTypes.DEFINE_ERROR: {
+            return {
+                ...state,
+                error: action.payload.error
             };
         }
         default:

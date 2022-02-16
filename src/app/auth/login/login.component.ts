@@ -1,18 +1,22 @@
 import { Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
+import { first, takeUntil } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services';
-import { CdkPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
-import { LoginError } from './login-error.component';
-import { Store } from '@ngrx/store';
-import { State } from 'src/app/forms/home/form/reducers';
-import {LoginAction, SignupAction} from '../reducers/user.actions'
+
+import { select, Store } from '@ngrx/store';
+
+import {LoginAction, SignupAction} from '../reducers/store/user.actions'
+import { Observable, Subject } from 'rxjs';
+import {selectError} from '../reducers/store/user.selectors'
+import { UserState } from '../reducers/store/user.reducers';
 
 @Component({ templateUrl: 'login.component.html',
             styleUrls: ['login.component.css'] })
 export class LoginComponent implements OnInit {
+    public error$: Observable<string> = this.store$.pipe(select(selectError));
+    currentError: string
     //@ViewChild(CdkPortalOutlet) host: CdkPortalOutlet;
     /*@ViewChild('virtualContainer', {read: ViewContainerRef, static: false})
     virtualContainer: ViewContainerRef;
@@ -35,9 +39,9 @@ export class LoginComponent implements OnInit {
     submitted = false;
     returnUrl: string;
     error = '';
-
+    notifier = new Subject()
     constructor(
-        private store$: Store<State>,
+        private store$: Store<UserState>,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
@@ -54,12 +58,30 @@ export class LoginComponent implements OnInit {
     }*/
 
     ngOnInit() {
+        this.store$.pipe(takeUntil(this.notifier))
+        .subscribe((error) => {          
+            
+            console.log(error, "====")                   
+        })
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
         });
 
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
+
+    ngOnChanges() :void {
+        
+        this.error$.pipe(takeUntil(this.notifier))
+        .subscribe((error) => {          
+            this.currentError = error 
+            console.log(error, "--------")                   
+        })
+    }
+    ngOnDestroy() {
+        this.notifier.next(true)
+        this.notifier.complete()
     }
 
 
@@ -70,14 +92,12 @@ export class LoginComponent implements OnInit {
         if (event.submitter.name == "login") {
             this.submitted = true;
 
-
             if (this.loginForm.invalid) {
                 return;
             }
 
             this.loading = true;
             this.store$.dispatch(new LoginAction({username: this.f.username.value, password:  this.f.password.value}))
-            
             /*this.authenticationService.login(this.f.username.value, this.f.password.value)
                 .pipe(first())
                 .subscribe(
@@ -110,6 +130,5 @@ export class LoginComponent implements OnInit {
                         this.loading = false;
                     });*/
         }
-        
     }
 }

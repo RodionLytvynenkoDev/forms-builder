@@ -1,11 +1,13 @@
 import { Observable, of } from "rxjs";
-import { actionTypes, LoginAction, LoginFailureAction, LoginSuccessAction, SignupAction, SignupFailureAction, SignupSuccessAction } from "./user.actions";
-import {AuthenticationService} from '../_services/authentication.service'
+import { actionTypes, ErrorAction, LoginAction, LoginFailureAction, LoginSuccessAction, SignupAction, SignupFailureAction, SignupSuccessAction } from "./user.actions";
+import {AuthenticationService} from '../../_services/authentication.service'
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { User } from "../_models";
+import { User } from "../../_models";
+import { Store } from "@ngrx/store";
+import {UserState} from './user.reducers'
 
 @Injectable()
 export class AuthEffects {
@@ -13,39 +15,33 @@ export class AuthEffects {
     constructor(
         private actions: Actions,
         private authService: AuthenticationService,
-        private router: Router
+        private router: Router,
+        private store$: Store<UserState>
     ) {}
 
-    /*setAuth = createEffect(() => {
-        this.actions.pipe(
-            
-            ofType(actionTypes.LOGIN),
-            switchMap(() => this.authService.login(payload.username, this.payload.password)
-            .pipe(
-                map(() => actionTypes.LOGIN_SUCCESS)
-                
-            ))
-        )
-    })*/
-    ngOnInit(): void {};
-    @Effect()
-        Login: Observable<any> = this.actions.pipe(
+    Login = createEffect(() => {
+        return this.actions.pipe(
             ofType(actionTypes.LOGIN),
             map((action: LoginAction) => action.payload),
             switchMap((payload: User) => {
                 return this.authService.login(payload.username, payload.password).pipe(
                     map((user) => {
                         console.log(user);
-                        return new LoginSuccessAction({token: user.token, email: payload.username});
+                        this.router.navigateByUrl('/');
+                        return new LoginSuccessAction({ token: user.token, email: payload.username });
                     }),
                     catchError((error) => {
                         console.log(error);
+                        //console.log(this.store$)
+                        this.store$.dispatch(new ErrorAction({error: error }))
+                        console.log(this.store$)
                         return of(new LoginFailureAction({ error: error }));
                     })
-                ) 
+                );
             })
         );
-    @Effect({ dispatch: false })
+    });
+   /* @Effect({ dispatch: false })
     LoginSuccess: Observable<any> = this.actions.pipe(
         ofType(actionTypes.LOGIN_SUCCESS),
         tap(() => {
@@ -55,27 +51,30 @@ export class AuthEffects {
     @Effect({ dispatch: false })
         LoginFailure: Observable<any> = this.actions.pipe(
         ofType(actionTypes.LOGIN_FAILURE)
-    );
+    );*/
     
-    @Effect()
-        SignUp: Observable<any> = this.actions.pipe(
+    SignUp = createEffect(() => {
+        return this.actions.pipe(
             ofType(actionTypes.SIGNUP),
             map((action: SignupAction) => action.payload),
             switchMap((payload: User) => {
                 return this.authService.register(payload.username, payload.password).pipe(
                     map((user) => {
                         console.log(user);
-                        return new SignupSuccessAction({token: user.token, email: payload.username});
+                        this.router.navigateByUrl('/');
+                        return new SignupSuccessAction({ token: user.token, email: payload.username });
                     }),
                     catchError((error) => {
                         console.log(error);
+                        
                         return of(new SignupFailureAction({ error: error }));
                     })
-                )
-                
+                );
+
             })
-        )
-        
+        );
+    }) 
+    /*  
     @Effect({ dispatch: false })
     SignUpSuccess: Observable<any> = this.actions.pipe(
         ofType(actionTypes.SIGNUP_SUCCESS),
@@ -86,7 +85,5 @@ export class AuthEffects {
     @Effect({ dispatch: false })
         SignUpFailure: Observable<any> = this.actions.pipe(
             ofType(actionTypes.SIGNUP_FAILURE)
-    );
-    
-
+    );*/
 }

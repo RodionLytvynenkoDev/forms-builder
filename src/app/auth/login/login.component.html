@@ -15,11 +15,11 @@
                 
             </div>
             <div class="buttons">
-                <button type="submit" name="register" [disabled]="loading" >
+                <button type="submit" name="register">
                     <span *ngIf="loading" ></span>
                     Register
                 </button>
-                <button type="submit" name="login" [disabled]="loading" >
+                <button type="submit" name="login">
                     <span *ngIf="loading" ></span>
                     Login
                 </button>
@@ -40,7 +40,7 @@
                 <div *ngIf="submitted && f.password.errors" >
                     <div *ngIf="f.password.errors.required">Password is required</div>
                 </div>
-                <div *ngIf="error">{{error}}</div>
+                <div *ngIf="currentError">{{currentError}}</div>
             </div>
         </form>
     </div>

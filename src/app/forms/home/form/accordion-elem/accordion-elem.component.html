@@ -39,8 +39,7 @@
           Background: <input type="color" #bgColor 
             (change)="inputParam(bgColor.value, 'background-color', styleParams.background_style)"><br>
           Placeholder: <input #placeholder 
-            (input)="inputParam(placeholder.value, 'placeholder', styleParams.placeholder_value)"><br>
-          <!--<div><button>Set</button></div>-->        
+            (input)="inputParam(placeholder.value, 'placeholder', styleParams.placeholder_value)"><br>    
       </div>
       <div
         class="example-accordion-item-body"
@@ -51,8 +50,6 @@
         *ngIf="index && (currentStateElement.elem !=='button' && currentStateElement.elem !=='')">
         Border Style: <input #border 
         (input)="inputParam(border.value, 'border', styleParams.borderStyle)"><br>
-          
-          <!--<div><button>Set</button></div>-->
       </div>
       <div
         class="example-accordion-item-body"
@@ -64,9 +61,6 @@
           Required: <select #req (change)="inputParam(req.value, 'required', styleParams.required)">
             <option>Nope</option><option>required</option>
           </select><br/>
-          
-          <!--<div><button>Set</button></div>-->
-      
       </div>
       
       <div [formGroup] = "parameters"

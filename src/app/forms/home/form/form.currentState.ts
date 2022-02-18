@@ -1,18 +1,18 @@
-import { ElementStyle } from '../form/reducers/actionsReducers/reducer.component'
+import { ElementStyle } from '../form/reducers/actionsReducers/reducer.component';
 
-export const currentStateElement:ElementStyle={
+export const currentStateElement: ElementStyle = {
     id: null,
     currentId: null,
-    element: "",
+    element: '',
     style: {
-    'width': "",
-    'height': "",
-    'placeholder': "",
-    'required': "",
-    'border': "",
-    'font-size': "",
-    'font-weight': "",
-    'color': "",
-    'background-color': ""
-    }
-}
+        width: '',
+        height: '',
+        placeholder: '',
+        required: '',
+        border: '',
+        'font-size': '',
+        'font-weight': '',
+        color: '',
+        'background-color': '',
+    },
+};

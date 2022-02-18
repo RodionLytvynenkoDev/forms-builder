@@ -5,15 +5,11 @@
 .switcher {
     min-width: 100%;
     min-height: 100%;
-    
-    
 }
 
 .switcher input {
     text-align: var(--perfect_align);
 }
-
-
 
 .switcher textarea {
     resize: none;
@@ -21,14 +17,11 @@
 }
 
 .switcher .myLabel {
-    
-    
     display: flex;
     align-items: center;
     justify-content: var(--perfect_align);
     margin-left: auto;
     margin-right: auto;
-    
 }
 
 .switcher input:invalid {
@@ -47,10 +40,9 @@
     background-image: var(--invalid_input);
 }
 
-
 * {
     box-sizing: border-box;
     --perfect_align: center;
     --invalid_input: linear-gradient(to right, pink, lightgreen);
-    --invalid_input_border: .2em dashed red;
+    --invalid_input_border: 0.2em dashed red;
 }

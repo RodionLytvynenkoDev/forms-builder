@@ -1,7 +1,7 @@
-import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { StylingState, ElementStyle } from "./reducer.component";
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { StylingState, ElementStyle } from './reducer.component';
 
-export const selectStyleFeature = createFeatureSelector<ElementStyle>('style')
+export const selectStyleFeature = createFeatureSelector<ElementStyle>('style');
 
 export const selectById = createSelector(
     selectStyleFeature,

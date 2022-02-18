@@ -1,23 +1,37 @@
-<div class="switcher"  [ngSwitch]="element" >
-    <input *ngSwitchCase='"input"'
-    [ngStyle] = 'currentStateElement.style'
-    placeholder={{currentStateElement.style.placeholder}} 
-    [required]="currentStateElement.style.required==='required'"
+<div class="switcher" [ngSwitch]="element">
+    <input
+        *ngSwitchCase="'input'"
+        [ngStyle]="currentStateElement.style"
+        placeholder="{{ currentStateElement.style.placeholder }}"
+        [required]="currentStateElement.style.required === 'required'"
+    />
+    <textarea
+        *ngSwitchCase="'textarea'"
+        [ngStyle]="currentStateElement.style"
+        placeholder="{{ currentStateElement.style.placeholder }}"
+        [required]="currentStateElement.style.required === 'required'"
+    ></textarea>
+    <button [ngStyle]="currentStateElement.style" *ngSwitchCase="'button'">
+        {{ currentStateElement.style.placeholder || "Button" }}
+    </button>
+    <div
+        [ngStyle]="currentStateElement.style"
+        class="myLabel"
+        *ngSwitchCase="'labelCheck'"
     >
-    <textarea *ngSwitchCase='"textarea"'  
-    [ngStyle] = 'currentStateElement.style'
-    placeholder={{currentStateElement.style.placeholder}} 
-    [required]="currentStateElement.style.required==='required'"></textarea>
-    <button 
-    [ngStyle] = 'currentStateElement.style'
-    *ngSwitchCase='"button"'>{{currentStateElement.style.placeholder || "Button" }}</button>
-    <div 
-    [ngStyle] = 'currentStateElement.style'
-    class="myLabel" *ngSwitchCase='"labelCheck"' >
-      <input type="checkbox" id='myCheckbox' [style.width] = "currentStateElement.style['font-size']" [style.height] = "currentStateElement.style['font-size']">
-      <label for="myCheckbox">{{currentStateElement.style.placeholder || "Label" }}</label>
+        <input
+            type="checkbox"
+            id="myCheckbox"
+            [style.width]="currentStateElement.style['font-size']"
+            [style.height]="currentStateElement.style['font-size']"
+        />
+        <label for="myCheckbox">{{
+            currentStateElement.style.placeholder || "Label"
+        }}</label>
     </div>
-    <select 
-    [ngStyle] = 'currentStateElement.style'
-    *ngSwitchCase='"select"'><option>{{currentStateElement.style.placeholder || "Some value" }}</option></select>
+    <select [ngStyle]="currentStateElement.style" *ngSwitchCase="'select'">
+        <option>
+            {{ currentStateElement.style.placeholder || "Some value" }}
+        </option>
+    </select>
 </div>

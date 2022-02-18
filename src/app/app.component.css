@@ -1,40 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans&display=swap");
 
 html {
-    font-family: 'Roboto', sans-serif;
-    
+    font-family: "Roboto", sans-serif;
 }
 
 .app-header {
     background-color: #000;
     height: 8vh;
     border-radius: 4px;
-    
 }
-  
+
 .app-header ul {
     display: flex;
     flex-direction: row;
-    font: 5vh 'Roboto';
+    font: 5vh "Roboto";
     justify-content: space-around;
     margin-top: 2vh;
     padding-top: 1vh;
 }
-  
+
 .app-header a {
     text-decoration: none;
-    color:#fff;
+    color: #fff;
     cursor: pointer;
 }
-  
-  
-  
+
 .app-header li {
-list-style: none;
-margin-top: auto;
-margin-bottom: auto;
-border: none;
+    list-style: none;
+    margin-top: auto;
+    margin-bottom: auto;
+    border: none;
 }
-
-
-

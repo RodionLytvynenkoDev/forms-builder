@@ -1,13 +1,21 @@
-import { Observable, of } from "rxjs";
-import { actionTypes, ErrorAction, LoginAction, LoginFailureAction, LoginSuccessAction, SignupAction, SignupFailureAction, SignupSuccessAction } from "./user.actions";
-import {AuthenticationService} from '../../services/authentication.service'
+import { of } from "rxjs";
+import { actionTypes, 
+    ErrorAction, 
+    LoginAction, 
+    LoginFailureAction, 
+    LoginSuccessAction, 
+    SignupAction, 
+    SignupFailureAction, 
+    SignupSuccessAction 
+} from "./user.actions";
+import {AuthenticationService} from '../services/authentication.service'
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
-import { IUser } from "../../interfaces";
+import { IUser } from "../interfaces";
 import { Store } from "@ngrx/store";
-import {UserState} from './user.reducers'
+import { UserState } from './user.reducers'
 
 @Injectable()
 export class AuthEffects {
@@ -22,16 +30,15 @@ export class AuthEffects {
     Login = createEffect(() => {
         return this.actions.pipe(
             ofType(actionTypes.LOGIN),
-            map((action: LoginAction) => action.payload),
             switchMap((payload: IUser) => {
                 return this.authService.login(payload.username, payload.password).pipe(
                     map((user) => {
                         this.router.navigateByUrl('/');
-                        return new LoginSuccessAction({ token: user.token, email: payload.username });
+                        return LoginSuccessAction({token: user.token, username: payload.username, isAuthenticated: true });
                     }),
                     catchError((error) => {
-                        this.store$.dispatch(new ErrorAction({error: error }))                      
-                        return of(new LoginFailureAction({ error: error }));
+                        this.store$.dispatch(ErrorAction({error: error }))                      
+                        return of(LoginFailureAction({ error: error, errorMessage: error }));
                     })
                 );
             })
@@ -41,15 +48,18 @@ export class AuthEffects {
     SignUp = createEffect(() => {
         return this.actions.pipe(
             ofType(actionTypes.SIGNUP),
-            map((action: SignupAction) => action.payload),
             switchMap((payload: IUser) => {
                 return this.authService.register(payload.username, payload.password).pipe(
                     map((user) => {
                         this.router.navigateByUrl('/');
-                        return new SignupSuccessAction({ token: user.token, email: payload.username });
+                        return SignupSuccessAction({
+                            token: user.token,
+                            username: payload.username,
+                            isAuthenticated: true,
+                        });
                     }),
                     catchError((error) => {
-                        return of(new SignupFailureAction({ error: error }));
+                        return of(SignupFailureAction({ error: error, errorMessage: error }));
                     })
                 );
 

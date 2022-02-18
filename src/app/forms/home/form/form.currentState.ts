@@ -2,8 +2,8 @@ import { ElementStyle } from '../form/reducers/actionsReducers/reducer.component
 
 export const currentStateElement:ElementStyle={
     id: null,
-    currId: null,
-    elem: "",
+    currentId: null,
+    element: "",
     style: {
     'width': "",
     'height': "",

@@ -1,25 +1,20 @@
-// student.module.ts
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EffectsModule } from '@ngrx/effects';
-
 import { LoginComponent } from './login';
-import { AuthEffects } from './reducers/store/user.effects';
-import { StoreModule } from '@ngrx/store';
-import { metaReducers, reducers } from './reducers/index';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [{ path: '', component: LoginComponent }];
 
 @NgModule({
   declarations: [LoginComponent],
   imports: [
+    RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
-    EffectsModule.forRoot([AuthEffects]),
-    StoreModule.forRoot({}, {}),         
-    StoreModule.forRoot(reducers, {metaReducers}),
-  ]
+    ReactiveFormsModule
+  ],
+  exports: [RouterModule]
 })
 export class AuthModule { }

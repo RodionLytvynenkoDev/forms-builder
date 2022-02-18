@@ -1,6 +1,6 @@
 import { actionTypes, selectAction } from "./user.actions";
 
-export const ElementStyles = 'user'
+export const UserAuth = 'user'
 
 export interface UserState {
     isAuthenticated: boolean;

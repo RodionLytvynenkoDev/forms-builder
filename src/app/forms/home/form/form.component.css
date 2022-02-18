@@ -37,25 +37,21 @@
   transition: var(--transition);
 }
 
-.sect1 {
+.section1 {
   width: 60%;
   margin-bottom: 2em;
   margin-left: auto;
   margin-right: auto;
-  
-  
 }
 
-.sect2 {
-  
+.section2 {
   margin-left: auto;
   margin-right: auto;
   border-top-left-radius: var(--radius);
   border-top-right-radius: var(--radius);
-
 }
 
-.sect3 {
+.section3 {
   border: #000 solid .1em;
   min-height: 10vh;
   margin: auto;
@@ -71,15 +67,13 @@
   margin-bottom: 3vh;
 }
 
-
-
 li {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.htmlElem {
+.htmlElement {
   display: flex;
   justify-content: center;
   align-content: center;
@@ -88,7 +82,7 @@ li {
   margin-bottom: 2vh;
 }
 
-.list-sect2 {
+.list-section2 {
   display: block;
   width: 100%;
   text-align: center;

@@ -2,9 +2,9 @@ import {Component, Input, Output, EventEmitter, forwardRef, ChangeDetectionStrat
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil, pipe } from 'rxjs';
-import { defineStyleAction } from '../../../../forms/home/form/reducers/actionsReducers/action.component';
-import { ElementStyle, StylingState } from '../../../../forms/home/form/reducers/actionsReducers/reducer.component';
-import {selectElementStyleElem, selectElementStyleId, selectElementStyleStyle} from '../../../../forms/home/form/reducers/actionsReducers/selector.component'
+import { defineStyleAction } from '../../form/reducers/actionsReducers/action.component';
+import { ElementStyle, StylingState } from '../../form/reducers/actionsReducers/reducer.component';
+import {selectByStyle, selectById, selectByElement} from '../../form/reducers/actionsReducers/selector.component'
 import { currentStateElement } from '../form.currentState';
 
 /**
@@ -22,13 +22,13 @@ import { currentStateElement } from '../form.currentState';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AccordionElemComponent implements ControlValueAccessor {
-  parameters: FormGroup
+  public parameters: FormGroup
   
-  notifier = new Subject()
+  public destroy$ = new Subject()
+  public id$: Observable<number> = this.store$.pipe(select(selectById));
+  public element$: Observable<string> = this.store$.pipe(select(selectByElement));
+  public style$: Observable<StylingState> = this.store$.pipe(select(selectByStyle));
   
-  public elementId$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
-  public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
-  public style$: Observable<StylingState> = this.store$.pipe(select(selectElementStyleStyle));
   constructor(private store$: Store<ElementStyle>, fb: FormBuilder){
     this.parameters = fb.group({
       width:['100%'],
@@ -50,36 +50,32 @@ export class AccordionElemComponent implements ControlValueAccessor {
     placeholder_value: ""
   }
   
-  public inputParam(value: string, param: string, inputParam: string): void {
-    this.altObj = Object.assign({}, this.currentStateElement.style);
-    inputParam = value
-    this.altObj[param] = inputParam
-    this.currentStateElement.style = this.altObj
-    
-    this.store$.dispatch(new defineStyleAction({style: this.currentStateElement.style }))
-    this.store$.pipe(takeUntil(this.notifier))
+  public inputParameter(value: string, parameter: string, inputParameter: string): void {
+    this.styleCopy = Object.assign({}, this.currentStateElement.style);
+    inputParameter = value
+    this.styleCopy[parameter] = inputParameter
+    this.currentStateElement.style = this.styleCopy
+    this.store$.dispatch(defineStyleAction({style: this.currentStateElement.style }))
+    this.store$.pipe(takeUntil(this.destroy$))
     .subscribe(x => console.log(x))
   }
 
   public currentStateElement = {...currentStateElement}
-
-  altObj = Object.assign({}, this.currentStateElement.style);
+  public styleCopy = Object.assign({}, this.currentStateElement.style);
   
   ngOnInit():void{
-
-    this.elem$.pipe(takeUntil(this.notifier))
+    this.element$.pipe(takeUntil(this.destroy$))
     .subscribe((element)=>{
-      this.currentStateElement.elem=element;
+      this.currentStateElement.element=element;
     })
-    this.elementId$.pipe(takeUntil(this.notifier))
+    this.id$.pipe(takeUntil(this.destroy$))
     .subscribe((id) => {
       this.currentStateElement.id = id
     })
-    this.style$.pipe(takeUntil(this.notifier))
+    this.style$.pipe(takeUntil(this.destroy$))
     .subscribe((style) => {
       this.currentStateElement.style = style
     })
-    
   }
   
   items = ['Form Settings', 'Element settings'];

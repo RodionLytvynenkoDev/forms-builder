@@ -1,26 +1,26 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { ElementStyle, StylingState } from '../../../../forms/home/form/reducers/actionsReducers/reducer.component';
-import { selectCurrElementId, selectElementStyleElem, selectElementStyleId, selectElementStyleStyle } from '../../../../forms/home/form/reducers/actionsReducers/selector.component';
+import { ElementStyle, StylingState } from '../reducers/actionsReducers/reducer.component';
+import { selectById, selectByElement, selectByStyle, selectByCurrentId } from '../reducers/actionsReducers/selector.component';
 import { currentStateElement } from '../form.currentState';
 
 @Component({
-  selector: 'elems',
-  templateUrl: './elems.component.html',
-  styleUrls: ['./elems.component.css'],
+  selector: 'elements',
+  templateUrl: './elements.component.html',
+  styleUrls: ['./elements.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ElemsComponent implements OnChanges{
   
-  @Input() elemId: number
-  @Input() elem: string
+  @Input() elementId: number
+  @Input() element: string
   @Input() id: number
 
-  public style$: Observable<StylingState> = this.store$.pipe(select(selectElementStyleStyle));
-  public elem$: Observable<string> = this.store$.pipe(select(selectElementStyleElem));
-  public id$: Observable<number> = this.store$.pipe(select(selectElementStyleId));
-  public currId$: Observable<number> = this.store$.pipe(select(selectCurrElementId));
+  public style$: Observable<StylingState> = this.store$.pipe(select(selectByStyle));
+  public element$: Observable<string> = this.store$.pipe(select(selectByElement));
+  public id$: Observable<number> = this.store$.pipe(select(selectById));
+  public currentId$: Observable<number> = this.store$.pipe(select(selectByCurrentId));
   currentId: number
   
   constructor(private store$: Store<ElementStyle>, private cdr: ChangeDetectorRef){
@@ -41,31 +41,30 @@ export class ElemsComponent implements OnChanges{
       'color': this.currentStateElement.style['color'],
       'background-color': this.currentStateElement.style['background-color'],
     }
-    console.log("Current value", this.currentStateElement.style)
   }
 
-  notifier = new Subject()
+  destroy$ = new Subject()
 
   ngOnInit():void{
     
-    this.elem$.pipe(takeUntil(this.notifier))
-    .subscribe((elem) => {
-      this.currentState.elem = elem
+    this.element$.pipe(takeUntil(this.destroy$))
+    .subscribe((element) => {
+      this.currentState.element = element
     })
     
-    this.id$.pipe(takeUntil(this.notifier))
+    this.id$.pipe(takeUntil(this.destroy$))
     .subscribe((id) => {
       this.currentState.id = id
     })
-    this.currId$.pipe(takeUntil(this.notifier))
-    .subscribe((currId) => {
-      this.currentId = currId
+    this.currentId$.pipe(takeUntil(this.destroy$))
+    .subscribe((currentId) => {
+      this.currentId = currentId
     })
     
   }
   ngOnChanges(changes: SimpleChanges) :void {
     
-    this.style$.pipe(takeUntil(this.notifier))
+    this.style$.pipe(takeUntil(this.destroy$))
     .subscribe((style) => {
       
       if (this.currentState.id == this.id) {
@@ -76,8 +75,8 @@ export class ElemsComponent implements OnChanges{
     
   }
   ngOnDestroy() {
-    this.notifier.next(true)
-    this.notifier.complete()
+    this.destroy$.next(true)
+    this.destroy$.complete()
   }
   
 }

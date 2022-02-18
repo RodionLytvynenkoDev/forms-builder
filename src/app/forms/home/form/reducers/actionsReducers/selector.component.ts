@@ -1,25 +1,24 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import { StylingState, ElementStyle } from "./reducer.component";
 
-const selectElementStyleFeature = createFeatureSelector<ElementStyle>('style')
+export const selectStyleFeature = createFeatureSelector<ElementStyle>('style')
 
-
-export const selectElementStyleId = createSelector(
-    selectElementStyleFeature,
+export const selectById = createSelector(
+    selectStyleFeature,
     (state: ElementStyle): number => state.id
 );
 
-export const selectCurrElementId = createSelector(
-    selectElementStyleFeature,
-    (state: ElementStyle): number => state.currId
+export const selectByCurrentId = createSelector(
+    selectStyleFeature,
+    (state: ElementStyle): number => state.currentId
 );
 
-export const selectElementStyleElem = createSelector(
-    selectElementStyleFeature,
-    (state: ElementStyle): string => state.elem
+export const selectByElement = createSelector(
+    selectStyleFeature,
+    (state: ElementStyle): string => state.element
 );
 
-export const selectElementStyleStyle = createSelector(
-    selectElementStyleFeature,
+export const selectByStyle = createSelector(
+    selectStyleFeature,
     (state: ElementStyle): StylingState => state.style
 );

@@ -1,18 +1,16 @@
-
 <div class="container">
-
     <h1 style="text-align: center; font-size: 50px;">FORM BUILDER</h1>
     <div >
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
             <div class="user-input">
                 <label for="username">Username </label>
-                <input type="email" name="email" ngModel email formControlName="username"  [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-                
+                <input type="email" name="email" ngModel email formControlName="username"  
+                [ngClass]="{ 'is-invalid': isSubmitted && getFormControls.username.errors }" />   
             </div>
             <div class="user-input">
                 <label for="password">Password </label>
-                <input type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                
+                <input type="password" formControlName="password" 
+                [ngClass]="{ 'is-invalid': isSubmitted && getFormControls.password.errors }" /> 
             </div>
             <div class="buttons">
                 <button type="submit" name="register">
@@ -24,25 +22,15 @@
                     Login
                 </button>
             </div>
-            <!--<div class="portals-outlet" cdkDragBoundary=".sect2" cdkDrag>
-                <ng-container #virtualContainer cdkPortalOutlet>
-                </ng-container>
-              </div>
-              
-              <ng-template #customTemplate let-name="name">
-                <p class="margin-left-8">Custom template with parameter `name`：{{name}}</p>
-              </ng-template>
-                <button (click)="renderTemplate()">Click</button>-->
             <div class="portalOutlet" cdkPortalOutlet>
-                <div *ngIf="submitted && f.username.errors" >
-                    <div  *ngIf="f.username.errors.required">Username is required</div>
+                <div *ngIf="isSubmitted && getFormControls.username.errors" >
+                    <div  *ngIf="getFormControls.username.errors.required">Username is required</div>
                 </div>
-                <div *ngIf="submitted && f.password.errors" >
-                    <div *ngIf="f.password.errors.required">Password is required</div>
+                <div *ngIf="isSubmitted && getFormControls.password.errors" >
+                    <div *ngIf="getFormControls.password.errors.required">Password is required</div>
                 </div>
-                <div *ngIf="currentError">{{currentError}}</div>
+                <div *ngIf="error$ ">{{currentError}}</div>
             </div>
         </form>
     </div>
-    
 </div>

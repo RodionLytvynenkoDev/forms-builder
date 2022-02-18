@@ -1,8 +1,5 @@
 import {
-  ActionReducer,
   ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
   MetaReducer
 } from '@ngrx/store';
 import {ElementStyle, ElementStyleReducer, ElementStyles} from './actionsReducers/reducer.component'

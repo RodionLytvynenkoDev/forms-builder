@@ -1,7 +1,7 @@
-import { actionTypes, selectAction } from "./action.component";
+import { createReducer, on } from "@ngrx/store";
+import { actionTypes, defineAllAction, defineStyleAction, defineElementAction, currentIdAction, defineIdAction} from "./action.component";
 
 export const ElementStyles = 'style'
-
 
 export interface StylingState {
     'width': string,
@@ -17,16 +17,15 @@ export interface StylingState {
 
 export interface ElementStyle {
     id: number,
-    currId: number
-    elem: string,
+    currentId: number
+    element: string,
     style: StylingState
 }
 
-
 export const initialState: ElementStyle = {
     id: 0,
-    currId: null,
-    elem: "",
+    currentId: null,
+    element: "",
     style: {
         'width': "",
         'height': "",
@@ -40,39 +39,21 @@ export const initialState: ElementStyle = {
     }
 }
 
-
-export const ElementStyleReducer = (state = initialState, action: selectAction) => {
-
-    switch (action.type){
-        case actionTypes.defineId:
-            return{
-                ...state,
-                id: action.payload.id
-            }
-        case actionTypes.currId:
-            return{
-                ...state,
-                currId: action.payload.currId
-            }
-        case actionTypes.defineElem:
-            return {
-                ...state,
-                elem: action.payload.elem
-            }
-        case actionTypes.defineStyle:
-            return{
-                ...state,
-                style: action.payload.style
-            }
-        case actionTypes.defineAll:
-            return{
-                ...state,
-                id: action.payload.id,
-                currId: action.payload.currId,
-                elem: action.payload.elem,
-                style: action.payload.style
-            }
-        default:
-            return state;
-    }
-}
+export const ElementStyleReducer = createReducer(
+    initialState,
+    on(defineIdAction, (state, {id}) => {
+            return {...state, id: id}
+    }),
+    on(currentIdAction, (state, {currentId}) => {
+        return {...state, currentId: currentId}
+    }),
+    on(defineElementAction, (state, {element}) => {
+        return {...state, element: element}
+    }),
+    on(defineStyleAction, (state, {style}) => {
+        return {...state, style: style}
+    }),
+    on(defineAllAction, (state, {style, id, currentId, element}) => {
+        return {...state, style: style, id: id, currentId: currentId, element: element}
+    }),
+)

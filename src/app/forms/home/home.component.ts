@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 import { first } from 'rxjs/operators';
-
-import { User } from '../../auth/_models';
-import { UserService, AuthenticationService } from '../../auth/_services';
+import { IUser } from '../../auth/interfaces';
+import { UserService, AuthenticationService } from '../../auth/services';
 
 @Component({ templateUrl: 'home.component.html',
             styleUrls: ['home.component.css'] })
 export class HomeComponent {
-    loading = false;
-    users: User[];
-    currentUser: User;
+    public loading = false;
+    public users: IUser[];
+    public currentUser: IUser;
 
     constructor(private userService: UserService, private authenticationService: AuthenticationService) {
         this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
-     }
+    }
 
     ngOnInit() {
         this.loading = true;

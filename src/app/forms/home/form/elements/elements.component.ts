@@ -31,20 +31,20 @@ export class ElemsComponent implements OnChanges {
     @Input() element: string;
     @Input() id: number;
 
-    public style$: Observable<StylingState> = this.store$.pipe(
+    public style$: Observable<StylingState> = this.store.pipe(
         select(selectByStyle)
     );
-    public element$: Observable<string> = this.store$.pipe(
+    public element$: Observable<string> = this.store.pipe(
         select(selectByElement)
     );
-    public id$: Observable<number> = this.store$.pipe(select(selectById));
-    public currentId$: Observable<number> = this.store$.pipe(
+    public id$: Observable<number> = this.store.pipe(select(selectById));
+    public currentId$: Observable<number> = this.store.pipe(
         select(selectByCurrentId)
     );
     currentId: number;
 
     constructor(
-        private store$: Store<ElementStyle>,
+        private store: Store<ElementStyle>,
         private cdr: ChangeDetectorRef
     ) {}
 

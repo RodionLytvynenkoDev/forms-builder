@@ -30,17 +30,17 @@ import { currentStateElement } from './form.currentState';
 export class FormComponent {
     form: FormGroup;
 
-    public elementId$: Observable<number> = this.store$.pipe(
+    public elementId$: Observable<number> = this.store.pipe(
         select(selectById)
     );
-    public elementType$: Observable<string> = this.store$.pipe(
+    public elementType$: Observable<string> = this.store.pipe(
         select(selectByElement)
     );
-    public style$: Observable<StylingState> = this.store$.pipe(
+    public style$: Observable<StylingState> = this.store.pipe(
         select(selectByStyle)
     );
 
-    constructor(private store$: Store<ElementStyle>, fb: FormBuilder) {
+    constructor(private store: Store<ElementStyle>, fb: FormBuilder) {
         this.form = fb.group({
             parameters: [{ width: '', height: '', border: '', background: '' }],
         });
@@ -79,15 +79,15 @@ export class FormComponent {
     public getIndex(i: number) {
         this.elementId = i;
         this.element = this.formFields[i].element;
-        this.store$.dispatch(defineIdAction({ id: this.formFields[i].id }));
-        this.store$.dispatch(currentIdAction({ currentId: i }));
-        this.store$.dispatch(
+        this.store.dispatch(defineIdAction({ id: this.formFields[i].id }));
+        this.store.dispatch(currentIdAction({ currentId: i }));
+        this.store.dispatch(
             defineElementAction({ element: this.formFields[i].element })
         );
-        this.store$.dispatch(
+        this.store.dispatch(
             defineStyleAction({ style: this.currentStateElement.style })
         );
-        this.store$.pipe(takeUntil(this.destroy$)).subscribe();
+        this.store.pipe(takeUntil(this.destroy$)).subscribe();
     }
 
     public drop(event: CdkDragDrop<string[]>): void {

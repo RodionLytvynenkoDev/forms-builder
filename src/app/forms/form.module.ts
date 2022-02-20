@@ -9,7 +9,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home';
 import { FormComponent } from './home/form/form.component';
 import { ElemsComponent } from './home/form/elements/elements.component';
-import { AccordionElemComponent } from './home/form/accordion-elem/accordion-elem.component';
+import { AccordionElemComponent } from './home/form/accordion-elem/accordion-element.component';
 import { FormatPipe } from './home/pipes/format.pipe';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];

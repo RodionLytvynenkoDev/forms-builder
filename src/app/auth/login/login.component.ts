@@ -13,16 +13,15 @@ import { UserState } from '../reducers/user.reducers';
     styleUrls: ['login.component.css'],
 })
 export class LoginComponent implements OnInit {
-    public error$: Observable<string> = this.store$.pipe(select(selectError));
+    public error$: Observable<string> = this.store.pipe(select(selectError));
     public currentError: string;
     public loginForm: FormGroup;
     public isSubmitted = false;
     public returnUrl: string;
-
     public destroy$ = new Subject();
 
     constructor(
-        private store$: Store<UserState>,
+        private store: Store<UserState>,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
@@ -42,11 +41,6 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    ngOnDestroy() {
-        this.destroy$.next(true);
-        this.destroy$.complete();
-    }
-
     public get getFormControls() {
         return this.loginForm.controls;
     }
@@ -59,7 +53,7 @@ export class LoginComponent implements OnInit {
                 return;
             }
 
-            this.store$.dispatch(
+            this.store.dispatch(
                 LoginAction({
                     username: this.getFormControls.username.value,
                     password: this.getFormControls.password.value,
@@ -73,12 +67,17 @@ export class LoginComponent implements OnInit {
                 return;
             }
 
-            this.store$.dispatch(
+            this.store.dispatch(
                 SignupAction({
                     username: this.getFormControls.username.value,
                     password: this.getFormControls.password.value,
                 })
             );
         }
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.complete();
     }
 }

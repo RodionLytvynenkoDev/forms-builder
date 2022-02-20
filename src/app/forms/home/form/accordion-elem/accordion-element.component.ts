@@ -7,25 +7,26 @@ import {
 } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { defineStyleAction } from '../../form/reducers/actionsReducers/action.component';
+import { defineStyleAction } from '../reducers/actionsReducers/action.component';
 import {
     ElementStyle,
     StylingState,
-} from '../../form/reducers/actionsReducers/reducer.component';
+} from '../reducers/actionsReducers/reducer.component';
 import {
     selectByStyle,
     selectById,
     selectByElement,
-} from '../../form/reducers/actionsReducers/selector.component';
+} from '../reducers/actionsReducers/selector.component';
 import { currentStateElement } from '../form.currentState';
+import {styleParameters} from './style-parameters'
 
 /**
  * @title Accordion overview
  */
 @Component({
     selector: 'accordion',
-    templateUrl: 'accordion-elem.component.html',
-    styleUrls: ['accordion-elem.component.css'],
+    templateUrl: 'accordion-element.component.html',
+    styleUrls: ['accordion-element.component.css'],
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -37,17 +38,16 @@ import { currentStateElement } from '../form.currentState';
 })
 export class AccordionElemComponent implements ControlValueAccessor {
     public parameters: FormGroup;
-
     public destroy$ = new Subject();
-    public id$: Observable<number> = this.store$.pipe(select(selectById));
-    public element$: Observable<string> = this.store$.pipe(
+    public id$: Observable<number> = this.store.pipe(select(selectById));
+    public element$: Observable<string> = this.store.pipe(
         select(selectByElement)
     );
-    public style$: Observable<StylingState> = this.store$.pipe(
+    public style$: Observable<StylingState> = this.store.pipe(
         select(selectByStyle)
     );
 
-    constructor(private store$: Store<ElementStyle>, fb: FormBuilder) {
+    constructor(private store: Store<ElementStyle>, fb: FormBuilder) {
         this.parameters = fb.group({
             width: ['100%'],
             height: ['100%'],
@@ -56,17 +56,7 @@ export class AccordionElemComponent implements ControlValueAccessor {
         });
     }
 
-    public styleParams = {
-        width_style: '',
-        height_style: '',
-        required: '',
-        fontSize_style: '',
-        fontWeight: '',
-        color_style: '',
-        background_style: '',
-        borderStyle: '',
-        placeholder_value: '',
-    };
+    public styleParameters = styleParameters
 
     public inputParameter(
         value: string,
@@ -77,10 +67,10 @@ export class AccordionElemComponent implements ControlValueAccessor {
         inputParameter = value;
         this.styleCopy[parameter] = inputParameter;
         this.currentStateElement.style = this.styleCopy;
-        this.store$.dispatch(
+        this.store.dispatch(
             defineStyleAction({ style: this.currentStateElement.style })
         );
-        this.store$.pipe(takeUntil(this.destroy$)).subscribe();
+        this.store.pipe(takeUntil(this.destroy$)).subscribe();
     }
 
     public currentStateElement = { ...currentStateElement };

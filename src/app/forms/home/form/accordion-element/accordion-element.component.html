@@ -1,6 +1,6 @@
 <cdk-accordion class="example-accordion">
     <cdk-accordion-item
-        *ngFor="let item of items; let index = index"
+        *ngFor="let item of accordionParts; let index = index"
         #accordionItem="cdkAccordionItem"
         class="example-accordion-item"
         role="button"
@@ -20,62 +20,38 @@
         </div>
 
         <div
-            *ngIf="index && currentStateElement.element"
+            *ngIf="index && element$"
             class="example-accordion-item-body"
             role="region"
             [style.display]="accordionItem.expanded ? '' : 'none'"
             [attr.id]="'accordion-body-' + index"
             [attr.aria-labelledby]="'accordion-header-' + index"
         >
-            {{ currentStateElement.elem }}<br />
-            Id: {{ elementId$ | async }}<br />
+            {{ element$ | async }}<br />
+            Id: {{ id$ | async }}<br />
             Width:
             <input
                 type="text"
                 placeholder="%, em, rem, px, vh etc."
                 #elementWidth
-                (input)="
-                    inputParameter(
-                        elementWidth.value,
-                        'width',
-                        styleParameters.width_style
-                    )
-                "
+                (input)="changeElementStyles(elementWidth.value, 'width')"
             /><br />
             Height:
             <input
                 type="text"
                 placeholder="%, em, rem, px, vh etc."
                 #elementHeight
-                (input)="
-                    inputParameter(
-                        elementHeight.value,
-                        'height',
-                        styleParameters.height_style
-                    )
-                "
+                (input)="changeElementStyles(elementHeight.value, 'height')"
             /><br />
             Font Size:
             <input
                 #fontSize
-                (input)="
-                    inputParameter(
-                        fontSize.value,
-                        'font-size',
-                        styleParameters.fontSize_style
-                    )
-                "
+                (input)="changeElementStyles(fontSize.value, 'font-size')"
             /><br />
             Font Weight:
             <select
                 #weight
-                (change)="
-                    inputParameter(
-                        weight.value,
-                        'font-weight',
-                        styleParameters.fontWeight
-                    )
-                "
+                (change)="changeElementStyles(weight.value, 'font-weight')"
             >
                 <option>normal</option>
                 <option>bold</option></select
@@ -84,79 +60,59 @@
             <input
                 type="color"
                 #color
-                (change)="
-                    inputParameter(
-                        color.value,
-                        'color',
-                        styleParameters.color_style
-                    )
-                "
+                (change)="changeElementStyles(color.value, 'color')"
             /><br />
             Background:
             <input
                 type="color"
                 #bgColor
                 (change)="
-                    inputParameter(
-                        bgColor.value,
-                        'background-color',
-                        styleParameters.background_style
-                    )
+                    changeElementStyles(bgColor.value, 'background-color')
                 "
             /><br />
             Placeholder:
             <input
                 #placeholder
-                (input)="
-                    inputParameter(
-                        placeholder.value,
-                        'placeholder',
-                        styleParameters.placeholder_value
-                    )
-                "
+                (input)="changeElementStyles(placeholder.value, 'placeholder')"
             /><br />
         </div>
         <div
+            *ngIf="index && element$ !== 'button' && element$ !== ''"
             class="example-accordion-item-body"
             role="region"
             [style.display]="accordionItem.expanded ? '' : 'none'"
             [attr.id]="'accordion-body-' + index"
             [attr.aria-labelledby]="'accordion-header-' + index"
-            *ngIf="
-                index &&
-                currentStateElement.element !== 'button' &&
-                    currentStateElement.element !== ''
-            "
         >
             Border Style:
             <input
                 #border
                 (input)="
-                    inputParameter(
+                    changeElementStyles(
                         border.value,
                         'border',
-                        styleParameters.borderStyle
+                        styleElements.borderStyle
                     )
                 "
             /><br />
         </div>
         <div
+            *ngIf="index && (element$ == 'input' || element$ == 'textarea')"
             class="example-accordion-item-body"
             role="region"
             [style.display]="accordionItem.expanded ? '' : 'none'"
             [attr.id]="'accordion-body-' + index"
             [attr.aria-labelledby]="'accordion-header-' + index"
-            *ngIf="
-                index &&
-                (currentStateElement.element == 'input' ||
-                    currentStateElement.element == 'textarea')
-            "
         >
             Required:
             <select
                 #req
                 (change)="
-                    inputParameter(req.value, 'required', styleParams.required)
+                    changeElementStyles(
+                        req.value,
+                        'required',
+                        styleElements.required
+                    )
                 "
             >
                 <option>Nope</option>
@@ -164,13 +120,13 @@
             ><br />
         </div>
         <div
-            [formGroup]="parameters"
+            *ngIf="!index"
+            [formGroup]="formStyling"
             class="example-accordion-item-body"
             role="region"
             [style.display]="accordionItem.expanded ? '' : 'none'"
             [attr.id]="'accordion-body-' + index"
             [attr.aria-labelledby]="'accordion-header-' + index"
-            *ngIf="!index"
         >
             Width:
             <input

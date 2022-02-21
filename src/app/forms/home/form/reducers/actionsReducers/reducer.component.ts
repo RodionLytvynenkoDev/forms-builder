@@ -3,7 +3,6 @@ import {
     defineAllAction,
     defineStyleAction,
     defineElementAction,
-    currentIdAction,
     defineIdAction,
 } from './action.component';
 
@@ -23,14 +22,12 @@ export interface StylingState {
 
 export interface ElementStyle {
     id: number;
-    currentId: number;
     element: string;
     style: StylingState;
 }
 
 export const initialState: ElementStyle = {
-    id: 0,
-    currentId: null,
+    id: null,
     element: '',
     style: {
         width: '',
@@ -50,9 +47,6 @@ export const ElementStyleReducer = createReducer(
     on(defineIdAction, (state, { id }) => {
         return { ...state, id: id };
     }),
-    on(currentIdAction, (state, { currentId }) => {
-        return { ...state, currentId: currentId };
-    }),
     on(defineElementAction, (state, { element }) => {
         return { ...state, element: element };
     }),
@@ -64,7 +58,6 @@ export const ElementStyleReducer = createReducer(
             ...state,
             style: style,
             id: id,
-            currentId: currentId,
             element: element,
         };
     })

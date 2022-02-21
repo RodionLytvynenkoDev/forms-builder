@@ -8,11 +8,6 @@ export const selectById = createSelector(
     (state: ElementStyle): number => state.id
 );
 
-export const selectByCurrentId = createSelector(
-    selectStyleFeature,
-    (state: ElementStyle): number => state.currentId
-);
-
 export const selectByElement = createSelector(
     selectStyleFeature,
     (state: ElementStyle): string => state.element

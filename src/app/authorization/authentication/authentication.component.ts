@@ -1,21 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
 import { AuthenticationService } from '../services';
-import { LoginAction, SignupAction } from '../reducers/user.actions';
-import { selectError } from '../reducers/user.selectors';
+import { SignInAction, SignupAction } from '../reducers/user.actions';
 import { UserState } from '../reducers/user.reducers';
 
 @Component({
-    templateUrl: 'login.component.html',
-    styleUrls: ['login.component.css'],
+    templateUrl: 'authentication.component.html',
+    styleUrls: ['authentication.component.css'],
 })
-export class LoginComponent implements OnInit {
-    public error$: Observable<string> = this.store.pipe(select(selectError));
-    public currentError: string;
-    public loginForm: FormGroup;
+export class AuthenticationComponent implements OnInit {
+    public authenticationForm: FormGroup;
     public isSubmitted = false;
     public returnUrl: string;
     public destroy$ = new Subject();
@@ -33,7 +30,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loginForm = this.formBuilder.group({
+        this.authenticationForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required],
         });
@@ -42,30 +39,22 @@ export class LoginComponent implements OnInit {
     }
 
     public get getFormControls() {
-        return this.loginForm.controls;
+        return this.authenticationForm.controls;
     }
 
-    onSubmit(event) {
-        if (event.submitter.name == 'login') {
+    onSubmit(event: any): void {
+        if (event.submitter.name == 'signIn') {
             this.isSubmitted = true;
 
-            if (this.loginForm.invalid) {
-                return;
-            }
-
             this.store.dispatch(
-                LoginAction({
+                SignInAction({
                     username: this.getFormControls.username.value,
                     password: this.getFormControls.password.value,
                 })
             );
         }
-        if (event.submitter.name == 'register') {
+        if (event.submitter.name == 'signUp') {
             this.isSubmitted = true;
-
-            if (this.loginForm.invalid) {
-                return;
-            }
 
             this.store.dispatch(
                 SignupAction({

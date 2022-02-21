@@ -1,7 +1,7 @@
 <div class="container">
     <h1 style="text-align: center; font-size: 50px">FORM BUILDER</h1>
     <div>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
+        <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit($event)">
             <div class="user-input">
                 <label for="username">Username </label>
                 <input
@@ -28,8 +28,8 @@
                 />
             </div>
             <div class="buttons">
-                <button type="submit" name="register">Register</button>
-                <button type="submit" name="login">Login</button>
+                <button type="submit" name="signUp">Sign Up</button>
+                <button type="submit" name="signIn">Sign In</button>
             </div>
             <div class="portalOutlet" cdkPortalOutlet>
                 <div *ngIf="isSubmitted && getFormControls.username.errors">
@@ -42,7 +42,6 @@
                         Password is required
                     </div>
                 </div>
-                <div *ngIf="error$">{{ currentError }}</div>
             </div>
         </form>
     </div>

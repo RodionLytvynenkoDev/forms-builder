@@ -18,7 +18,7 @@ import {
     selectByElement,
 } from '../reducers/actionsReducers/selector.component';
 import { currentStateElement } from '../form.currentState';
-import {styleParameters} from './style-parameters'
+
 
 /**
  * @title Accordion overview
@@ -30,14 +30,17 @@ import {styleParameters} from './style-parameters'
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AccordionElemComponent),
+            useExisting: forwardRef(() => AccordionElementComponent),
             multi: true,
         },
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AccordionElemComponent implements ControlValueAccessor {
-    public parameters: FormGroup;
+export class AccordionElementComponent implements ControlValueAccessor {
+    public formStyling: FormGroup;
+    public currentStateElement = { ...currentStateElement };
+    public styleCopy: StylingState;
+    public accordionParts = ['Form Settings', 'Element settings'];
     public destroy$ = new Subject();
     public id$: Observable<number> = this.store.pipe(select(selectById));
     public element$: Observable<string> = this.store.pipe(
@@ -48,7 +51,7 @@ export class AccordionElemComponent implements ControlValueAccessor {
     );
 
     constructor(private store: Store<ElementStyle>, fb: FormBuilder) {
-        this.parameters = fb.group({
+        this.formStyling = fb.group({
             width: ['100%'],
             height: ['100%'],
             border: ['#000 solid 2px'],
@@ -56,16 +59,18 @@ export class AccordionElemComponent implements ControlValueAccessor {
         });
     }
 
-    public styleParameters = styleParameters
+    ngOnInit(): void {
+        this.style$.pipe(takeUntil(this.destroy$)).subscribe((style) => {
+            this.currentStateElement.style = style;
+        });
+    }
 
-    public inputParameter(
-        value: string,
-        parameter: string,
-        inputParameter: string
+    public changeElementStyles(
+        referenceValue: string,
+        cssPropertyName: string
     ): void {
         this.styleCopy = Object.assign({}, this.currentStateElement.style);
-        inputParameter = value;
-        this.styleCopy[parameter] = inputParameter;
+        this.styleCopy[cssPropertyName] = referenceValue;
         this.currentStateElement.style = this.styleCopy;
         this.store.dispatch(
             defineStyleAction({ style: this.currentStateElement.style })
@@ -73,48 +78,32 @@ export class AccordionElemComponent implements ControlValueAccessor {
         this.store.pipe(takeUntil(this.destroy$)).subscribe();
     }
 
-    public currentStateElement = { ...currentStateElement };
-    public styleCopy = Object.assign({}, this.currentStateElement.style);
-
-    ngOnInit(): void {
-        this.element$.pipe(takeUntil(this.destroy$)).subscribe((element) => {
-            this.currentStateElement.element = element;
-        });
-        this.id$.pipe(takeUntil(this.destroy$)).subscribe((id) => {
-            this.currentStateElement.id = id;
-        });
-        this.style$.pipe(takeUntil(this.destroy$)).subscribe((style) => {
-            this.currentStateElement.style = style;
-        });
-    }
-
-    items = ['Form Settings', 'Element settings'];
-    expandedIndex = 0;
-    'width' = 0;
-    'height' = 0;
-    'border' = 0;
-    'background-color' = 0;
     private onChange = (value: string) => {};
     private onTouched = () => {};
 
-    registerOnChange(fn: (value: string) => void) {
-        this.parameters.valueChanges.subscribe(fn);
+    public registerOnChange(formChanges: (value: string) => void): void {
+        this.formStyling.valueChanges.subscribe(formChanges);
     }
 
-    registerOnTouched() {}
+    public registerOnTouched() {}
 
-    writeValue(value: string[]) {
+    public writeValue(value: string[]) {
         if (value) {
-            this.parameters.setValue(value);
+            this.formStyling.setValue(value);
         }
     }
 
-    updateValue(insideValue: any) {
+    public updateValue(insideValue: string): void {
         this['width'] = insideValue;
         this['height'] = insideValue;
         this['border'] = insideValue;
         this['background-color'] = insideValue;
         this.onChange(insideValue);
         this.onTouched();
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.complete();
     }
 }

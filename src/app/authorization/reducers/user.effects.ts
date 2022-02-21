@@ -2,8 +2,8 @@ import { of } from 'rxjs';
 import {
     actionTypes,
     ErrorAction,
-    LoginFailureAction,
-    LoginSuccessAction,
+    SignInFailureAction,
+    SignInSuccessAction,
     SignupFailureAction,
     SignupSuccessAction,
 } from './user.actions';
@@ -25,16 +25,16 @@ export class AuthEffects {
         private store: Store<UserState>
     ) {}
 
-    Login$ = createEffect(() => {
+    SignIn$ = createEffect(() => {
         return this.actions.pipe(
-            ofType(actionTypes.LOGIN),
+            ofType(actionTypes.SIGNIN),
             switchMap((payload: IUser) => {
                 return this.authService
-                    .login(payload.username, payload.password)
+                    .signIn(payload.username, payload.password)
                     .pipe(
                         map((user) => {
                             this.router.navigateByUrl('/');
-                            return LoginSuccessAction({
+                            return SignInSuccessAction({
                                 token: user.token,
                                 username: payload.username,
                                 isAuthenticated: true,
@@ -43,7 +43,7 @@ export class AuthEffects {
                         catchError((error) => {
                             this.store.dispatch(ErrorAction({ error: error }));
                             return of(
-                                LoginFailureAction({
+                                SignInFailureAction({
                                     error: error,
                                     errorMessage: error,
                                 })
@@ -59,7 +59,7 @@ export class AuthEffects {
             ofType(actionTypes.SIGNUP),
             switchMap((payload: IUser) => {
                 return this.authService
-                    .register(payload.username, payload.password)
+                    .signUp(payload.username, payload.password)
                     .pipe(
                         map((user) => {
                             this.router.navigateByUrl('/');

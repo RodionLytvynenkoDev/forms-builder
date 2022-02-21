@@ -1,22 +1,17 @@
 ﻿const config = require("config.json");
 const jwt = require("jsonwebtoken");
-const { from, pipe } = require("rxjs");
-const { filter } = require("rxjs/operators");
 
-let users = [
-    { id: 1, username: "test", password: "test" },
-    { id: 2, username: "Rod", password: "123" },
-];
+let users = [];
 
-counter = 3;
+counter = 1;
 
 module.exports = {
-    authenticate,
-    register,
+    signIn,
+    signUp,
     getAll,
 };
 
-async function authenticate({ username, password }) {
+async function signIn({ username, password }) {
     const user = users.find(
         (u) => u.username === username && u.password === password
     );
@@ -34,7 +29,7 @@ async function authenticate({ username, password }) {
     };
 }
 
-async function register({ username, password }) {
+async function signUp({ username, password }) {
     if (users.filter((e) => e.username === username).length > 0) {
         throw "User with this username already exists";
     }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { AuthenticationService } from './auth/services';
-import { IUser } from './auth/interfaces';
+import { AuthenticationService } from './authorization/services';
+import { IUser } from './authorization/interfaces';
 
 @Component({
     selector: 'app',
@@ -10,8 +10,8 @@ import { IUser } from './auth/interfaces';
     styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-    currentUser: IUser;
-    destroy$ = new Subject();
+    public currentUser: IUser;
+    public destroy$ = new Subject();
 
     constructor(
         private router: Router,
@@ -22,9 +22,9 @@ export class AppComponent {
             .subscribe((x) => (this.currentUser = x));
     }
 
-    logout() {
+    public logout() {
         this.authenticationService.logout();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/signIn']);
     }
 
     ngOnDestroy() {

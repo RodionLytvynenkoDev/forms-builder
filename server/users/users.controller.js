@@ -2,22 +2,22 @@
 const router = express.Router();
 const userService = require("./user.service");
 
-router.post("/authenticate", authenticate);
-router.post("/register", register);
+router.post("/signIn", signIn);
+router.post("/signUp", signUp);
 router.get("/", getAll);
 
 module.exports = router;
 
-function authenticate(req, res, next) {
+function signIn(req, res, next) {
     userService
-        .authenticate(req.body)
+        .signIn(req.body)
         .then((user) => res.json(user))
         .catch(next);
 }
 
-function register(req, res, next) {
+function signUp(req, res, next) {
     userService
-        .register(req.body)
+        .signUp(req.body)
         .then((user) => res.json(user))
         .catch(next);
 }

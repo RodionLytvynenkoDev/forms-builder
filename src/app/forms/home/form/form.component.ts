@@ -6,19 +6,18 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import {
     ElementStyle,
     StylingState,
-} from '../../../forms/home/form/reducers/actionsReducers/reducer.component';
+} from './reducers/actionsReducers/reducer.component';
 import {
-    currentIdAction,
     defineElementAction,
     defineIdAction,
     defineStyleAction,
-} from '../../../forms/home/form/reducers/actionsReducers/action.component';
+} from './reducers/actionsReducers/action.component';
 
 import {
     selectByStyle,
     selectById,
     selectByElement,
-} from '../../../forms/home/form/reducers/actionsReducers/selector.component';
+} from './reducers/actionsReducers/selector.component';
 import { currentStateElement } from './form.currentState';
 
 @Component({
@@ -28,11 +27,21 @@ import { currentStateElement } from './form.currentState';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormComponent {
-    form: FormGroup;
+    public form: FormGroup;
+    public draggableFields = [
+        'input',
+        'textarea',
+        'button',
+        'labelCheck',
+        'select',
+    ];
+    public formFields = [];
+    public element: string;
+    public elementId: number;
+    public counter: number = 0;
+    private currentStateElement = { ...currentStateElement };
 
-    public elementId$: Observable<number> = this.store.pipe(
-        select(selectById)
-    );
+    public elementId$: Observable<number> = this.store.pipe(select(selectById));
     public elementType$: Observable<string> = this.store.pipe(
         select(selectByElement)
     );
@@ -42,52 +51,22 @@ export class FormComponent {
 
     constructor(private store: Store<ElementStyle>, fb: FormBuilder) {
         this.form = fb.group({
-            parameters: [{ width: '', height: '', border: '', background: '' }],
+            formStyling: [
+                { width: '', height: '', border: '', background: '' },
+            ],
         });
     }
 
-    private currentStateElement = { ...currentStateElement };
-
-    destroy$ = new Subject();
-    ngOnInit(): void {
-        this.elementType$
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((element) => {
-                this.currentStateElement.element = element;
-            });
-        this.elementId$.pipe(takeUntil(this.destroy$)).subscribe((id) => {
-            this.currentStateElement.id = id;
-        });
-        this.style$.pipe(takeUntil(this.destroy$)).subscribe((style) => {
-            this.currentStateElement.style = style;
-        });
-    }
-
-    ngOnDestroy() {
-        this.destroy$.next(true);
-        this.destroy$.complete();
-    }
-
-    draggableFields = ['input', 'textarea', 'button', 'labelCheck', 'select'];
-
-    formFields = [];
-
-    public element: string;
-    public elementId: number;
-    public counter: number = 0;
-
-    public getIndex(i: number) {
+    public getIndex(i: number): void {
         this.elementId = i;
         this.element = this.formFields[i].element;
         this.store.dispatch(defineIdAction({ id: this.formFields[i].id }));
-        this.store.dispatch(currentIdAction({ currentId: i }));
         this.store.dispatch(
             defineElementAction({ element: this.formFields[i].element })
         );
         this.store.dispatch(
             defineStyleAction({ style: this.currentStateElement.style })
         );
-        this.store.pipe(takeUntil(this.destroy$)).subscribe();
     }
 
     public drop(event: CdkDragDrop<string[]>): void {

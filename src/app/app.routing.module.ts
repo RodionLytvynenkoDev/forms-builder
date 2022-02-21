@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from './auth/guards';
+import { AuthGuard } from './authorization/guards';
 
 const routes: Routes = [
     {
@@ -10,9 +10,9 @@ const routes: Routes = [
             import('../../src/app/forms/form.module').then((m) => m.FormModule),
     },
     {
-        path: 'login',
+        path: 'signIn',
         loadChildren: () =>
-            import('../../src/app/auth/auth.module').then((m) => m.AuthModule),
+            import('../../src/app/authorization/authorization.module').then((m) => m.AuthorizationModule),
     },
 
     { path: '**', redirectTo: '', pathMatch: 'full' },

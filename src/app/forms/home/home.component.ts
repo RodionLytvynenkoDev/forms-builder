@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { IUser } from '../../auth/interfaces';
-import { UserService, AuthenticationService } from '../../auth/services';
+import { IUser } from '../../authorization/interfaces';
+import { UserService, AuthenticationService } from '../../authorization/services';
 
 @Component({
     templateUrl: 'home.component.html',

@@ -1,8 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
 import {
     ErrorAction,
-    LoginFailureAction,
-    LoginSuccessAction,
+    SignInFailureAction,
+    SignInSuccessAction,
     SignupFailureAction,
     SignupSuccessAction,
 } from './user.actions';
@@ -23,10 +23,10 @@ export const initialState: UserState = {
 
 export const UserReducer = createReducer(
     initialState,
-    on(LoginSuccessAction, (state, { isAuthenticated, username, token }) => {
+    on(SignInSuccessAction, (state, { isAuthenticated, username, token }) => {
         return { ...state, isAuthenticated: true };
     }),
-    on(LoginFailureAction, (state, { errorMessage }) => {
+    on(SignInFailureAction, (state, { errorMessage }) => {
         return { ...state, errorMessage: 'Incorrect email and/or password.' };
     }),
     on(SignupSuccessAction, (state, { isAuthenticated, username, token }) => {

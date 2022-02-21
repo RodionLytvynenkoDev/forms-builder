@@ -1,13 +1,13 @@
 
 <div class="section1">
   <form [formGroup]="form" >
-    <accordion formControlName="parameters"></accordion>
+    <accordion formControlName="formStyling"></accordion>
   </form>
 </div>
-  <div class="section2" [style.width]="form.value.parameters.width ? form.value.parameters.width : '60%'" 
-    [style.height]="form.value.parameters.height ? form.value.parameters.height : '60%'" 
-    [style.border]="form.value.parameters.border  ? form.value.parameters.border : '#000 solid 2px'"
-    [style.backgroundColor]="form.value.parameters.background  ? form.value.parameters.background : '#fff'">
+  <div class="section2" [style.width]="form.value.formStyling.width ? form.value.formStyling.width : '60%'" 
+    [style.height]="form.value.formStyling.height ? form.value.formStyling.height : '60%'" 
+    [style.border]="form.value.formStyling.border  ? form.value.formStyling.border : '#000 solid 2px'"
+    [style.backgroundColor]="form.value.formStyling.background  ? form.value.formStyling.background : '#fff'">
     
     <div cdkDropList #formElements="cdkDropList" [cdkDropListData]="formFields"  [cdkDropListConnectedTo]="htmlElements"
       class="list-section2" (cdkDropListDropped)="drop($event)" >

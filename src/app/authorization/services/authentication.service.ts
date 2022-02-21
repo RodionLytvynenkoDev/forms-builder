@@ -18,9 +18,9 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    public login(username: string, password: string) {
+    public signIn(username: string, password: string) {
         return this.http
-            .post<IUser>(`${environment.apiUrl}/users/authenticate`, {
+            .post<IUser>(`${environment.apiUrl}/users/signIn`, {
                 username,
                 password,
             })
@@ -28,14 +28,13 @@ export class AuthenticationService {
                 tap((user) => {
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
-                    return user;
                 })
             );
     }
 
-    public register(username: string, password: string) {
+    public signUp(username: string, password: string) {
         return this.http
-            .post<any>(`${environment.apiUrl}/users/register`, {
+            .post<IUser>(`${environment.apiUrl}/users/signUp`, {
                 username,
                 password,
             })

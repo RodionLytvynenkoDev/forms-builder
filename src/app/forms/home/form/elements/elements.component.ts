@@ -4,7 +4,6 @@ import {
     Component,
     Input,
     OnChanges,
-    SimpleChanges,
 } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
@@ -16,7 +15,6 @@ import {
     selectById,
     selectByElement,
     selectByStyle,
-    selectByCurrentId,
 } from '../reducers/actionsReducers/selector.component';
 import { currentStateElement } from '../form.currentState';
 
@@ -26,11 +24,14 @@ import { currentStateElement } from '../form.currentState';
     styleUrls: ['./elements.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ElemsComponent implements OnChanges {
-    @Input() elementId: number;
+export class ElementsComponent {
     @Input() element: string;
     @Input() id: number;
 
+    public currentStateElement = { ...currentStateElement };
+    public currentState = { ...currentStateElement };
+
+    public destroy$ = new Subject();
     public style$: Observable<StylingState> = this.store.pipe(
         select(selectByStyle)
     );
@@ -38,51 +39,16 @@ export class ElemsComponent implements OnChanges {
         select(selectByElement)
     );
     public id$: Observable<number> = this.store.pipe(select(selectById));
-    public currentId$: Observable<number> = this.store.pipe(
-        select(selectByCurrentId)
-    );
-    currentId: number;
 
     constructor(
         private store: Store<ElementStyle>,
         private cdr: ChangeDetectorRef
     ) {}
 
-    public currentStateElement = { ...currentStateElement };
-    public currentState = { ...currentStateElement };
-
-    public reassign(): void {
-        this.currentStateElement.style = {
-            width: this.currentStateElement.style['width'],
-            height: this.currentStateElement.style['height'],
-            placeholder: this.currentStateElement.style['placeholder'],
-            required: this.currentStateElement.style['required'],
-            border: this.currentStateElement.style['border'],
-            'font-size': this.currentStateElement.style['font-size'],
-            'font-weight': this.currentStateElement.style['font-weight'],
-            color: this.currentStateElement.style['color'],
-            'background-color':
-                this.currentStateElement.style['background-color'],
-        };
-    }
-
-    destroy$ = new Subject();
-
     ngOnInit(): void {
-        this.element$.pipe(takeUntil(this.destroy$)).subscribe((element) => {
-            this.currentState.element = element;
-        });
-
         this.id$.pipe(takeUntil(this.destroy$)).subscribe((id) => {
             this.currentState.id = id;
         });
-        this.currentId$
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((currentId) => {
-                this.currentId = currentId;
-            });
-    }
-    ngOnChanges(changes: SimpleChanges): void {
         this.style$.pipe(takeUntil(this.destroy$)).subscribe((style) => {
             if (this.currentState.id == this.id) {
                 this.currentStateElement.style = style;
@@ -90,7 +56,8 @@ export class ElemsComponent implements OnChanges {
             }
         });
     }
-    ngOnDestroy() {
+
+    ngOnDestroy(): void {
         this.destroy$.next(true);
         this.destroy$.complete();
     }

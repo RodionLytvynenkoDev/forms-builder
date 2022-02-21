@@ -60,6 +60,7 @@ export class AccordionElementComponent implements ControlValueAccessor {
     }
 
     ngOnInit(): void {
+        
         this.style$.pipe(takeUntil(this.destroy$)).subscribe((style) => {
             this.currentStateElement.style = style;
         });
@@ -82,7 +83,7 @@ export class AccordionElementComponent implements ControlValueAccessor {
     private onTouched = () => {};
 
     public registerOnChange(formChanges: (value: string) => void): void {
-        this.formStyling.valueChanges.subscribe(formChanges);
+        this.formStyling.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(formChanges);
     }
 
     public registerOnTouched() {}

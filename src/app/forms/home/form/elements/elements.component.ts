@@ -3,7 +3,6 @@ import {
     ChangeDetectorRef,
     Component,
     Input,
-    OnChanges,
 } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';

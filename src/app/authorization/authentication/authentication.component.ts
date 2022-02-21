@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { AuthenticationService } from '../services';
 import { SignInAction, SignupAction } from '../reducers/user.actions';
 import { UserState } from '../reducers/user.reducers';
+import { IUser } from '../interfaces';
 
 @Component({
     templateUrl: 'authentication.component.html',

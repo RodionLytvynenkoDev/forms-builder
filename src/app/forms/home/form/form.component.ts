@@ -7,16 +7,12 @@ import {
     ElementStyle,
     StylingState,
 } from './reducers/actionsReducers/reducer.component';
-import {
-    defineElementAction,
-    defineIdAction,
-    defineStyleAction,
-} from './reducers/actionsReducers/action.component';
+import { defineAllAction } from './reducers/actionsReducers/action.component';
 
 import {
-    selectByStyle,
-    selectById,
     selectByElement,
+    selectById,
+    selectByStyle,
 } from './reducers/actionsReducers/selector.component';
 import { currentStateElement } from './form.currentState';
 
@@ -41,6 +37,7 @@ export class FormComponent {
     public counter: number = 0;
     private currentStateElement = { ...currentStateElement };
 
+    public destroy$ = new Subject();
     public elementId$: Observable<number> = this.store.pipe(select(selectById));
     public elementType$: Observable<string> = this.store.pipe(
         select(selectByElement)
@@ -57,15 +54,21 @@ export class FormComponent {
         });
     }
 
+    ngOnInit(): void {
+        this.style$.pipe(takeUntil(this.destroy$)).subscribe((style) => {
+            this.currentStateElement.style = style;
+        });
+    }
+
     public getIndex(i: number): void {
         this.elementId = i;
         this.element = this.formFields[i].element;
-        this.store.dispatch(defineIdAction({ id: this.formFields[i].id }));
         this.store.dispatch(
-            defineElementAction({ element: this.formFields[i].element })
-        );
-        this.store.dispatch(
-            defineStyleAction({ style: this.currentStateElement.style })
+            defineAllAction({
+                id: this.formFields[i].id,
+                element: this.formFields[i].element,
+                style: this.currentStateElement.style,
+            })
         );
     }
 
@@ -82,5 +85,10 @@ export class FormComponent {
                 id: this.counter++,
             });
         }
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.complete();
     }
 }

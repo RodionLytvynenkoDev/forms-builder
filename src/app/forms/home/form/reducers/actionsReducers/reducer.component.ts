@@ -1,10 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import {
-    defineAllAction,
-    defineStyleAction,
-    defineElementAction,
-    defineIdAction,
-} from './action.component';
+import { defineAllAction, defineStyleAction } from './action.component';
 
 export const ElementStyles = 'style';
 
@@ -44,16 +39,10 @@ export const initialState: ElementStyle = {
 
 export const ElementStyleReducer = createReducer(
     initialState,
-    on(defineIdAction, (state, { id }) => {
-        return { ...state, id: id };
-    }),
-    on(defineElementAction, (state, { element }) => {
-        return { ...state, element: element };
-    }),
     on(defineStyleAction, (state, { style }) => {
         return { ...state, style: style };
     }),
-    on(defineAllAction, (state, { style, id, currentId, element }) => {
+    on(defineAllAction, (state, { style, id, element }) => {
         return {
             ...state,
             style: style,

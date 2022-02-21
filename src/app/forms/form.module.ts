@@ -10,7 +10,7 @@ import { HomeComponent } from './home';
 import { FormComponent } from './home/form/form.component';
 import { ElementsComponent } from './home/form/elements/elements.component';
 import { AccordionElementComponent } from './home/form/accordion-element/accordion-element.component';
-import { FormatPipe } from './home/pipes/format.pipe';
+import { UsernamePipe } from './home/pipes/username.pipe';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
@@ -20,7 +20,7 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
         FormComponent,
         ElementsComponent,
         AccordionElementComponent,
-        FormatPipe,
+        UsernamePipe,
     ],
     imports: [
         RouterModule.forChild(routes),

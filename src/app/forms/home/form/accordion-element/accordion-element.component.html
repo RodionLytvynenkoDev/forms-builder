@@ -1,27 +1,24 @@
-<cdk-accordion class="example-accordion">
+<cdk-accordion class="accordion">
     <cdk-accordion-item
         *ngFor="let item of accordionParts; let index = index"
         #accordionItem="cdkAccordionItem"
-        class="example-accordion-item"
+        class="accordion-item"
         role="button"
         tabindex="0"
         [attr.id]="'accordion-header-' + index"
         [attr.aria-expanded]="accordionItem.expanded"
         [attr.aria-controls]="'accordion-body-' + index"
     >
-        <div
-            class="example-accordion-item-header"
-            (click)="accordionItem.toggle()"
-        >
+        <div class="accordion-item-header" (click)="accordionItem.toggle()">
             {{ item }}
-            <span class="example-accordion-item-description">
+            <span class="accordion-item-description">
                 Click to {{ accordionItem.expanded ? "close" : "open" }}
             </span>
         </div>
 
         <div
-            *ngIf="index && element$"
-            class="example-accordion-item-body"
+            *ngIf="index && currentStateElement.element"
+            class="accordion-item-body"
             role="region"
             [style.display]="accordionItem.expanded ? '' : 'none'"
             [attr.id]="'accordion-body-' + index"
@@ -77,8 +74,12 @@
             /><br />
         </div>
         <div
-            *ngIf="index && element$ !== 'button' && element$ !== ''"
-            class="example-accordion-item-body"
+            *ngIf="
+                index &&
+                currentStateElement.element !== 'button' &&
+                currentStateElement.element !== ''
+            "
+            class="accordion-item-body"
             role="region"
             [style.display]="accordionItem.expanded ? '' : 'none'"
             [attr.id]="'accordion-body-' + index"
@@ -87,34 +88,23 @@
             Border Style:
             <input
                 #border
-                (input)="
-                    changeElementStyles(
-                        border.value,
-                        'border',
-                        styleElements.borderStyle
-                    )
-                "
+                (input)="changeElementStyles(border.value, 'border')"
             /><br />
         </div>
         <div
-            *ngIf="index && (element$ == 'input' || element$ == 'textarea')"
-            class="example-accordion-item-body"
+            *ngIf="
+                index &&
+                (currentStateElement.element == 'input' ||
+                    currentStateElement.element == 'textarea')
+            "
+            class="accordion-item-body"
             role="region"
             [style.display]="accordionItem.expanded ? '' : 'none'"
             [attr.id]="'accordion-body-' + index"
             [attr.aria-labelledby]="'accordion-header-' + index"
         >
             Required:
-            <select
-                #req
-                (change)="
-                    changeElementStyles(
-                        req.value,
-                        'required',
-                        styleElements.required
-                    )
-                "
-            >
+            <select #req (change)="changeElementStyles(req.value, 'required')">
                 <option>Nope</option>
                 <option>required</option></select
             ><br />
@@ -122,7 +112,7 @@
         <div
             *ngIf="!index"
             [formGroup]="formStyling"
-            class="example-accordion-item-body"
+            class="accordion-item-body"
             role="region"
             [style.display]="accordionItem.expanded ? '' : 'none'"
             [attr.id]="'accordion-body-' + index"

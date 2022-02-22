@@ -19,7 +19,6 @@ import {
 } from '../reducers/actionsReducers/selector.component';
 import { currentStateElement } from '../form.currentState';
 
-
 /**
  * @title Accordion overview
  */
@@ -50,7 +49,7 @@ export class AccordionElementComponent implements ControlValueAccessor {
         select(selectByStyle)
     );
 
-    constructor(private store: Store<ElementStyle>, fb: FormBuilder) {
+    constructor(private store: Store<ElementStyle>, public fb: FormBuilder) {
         this.formStyling = fb.group({
             width: ['100%'],
             height: ['100%'],
@@ -62,6 +61,9 @@ export class AccordionElementComponent implements ControlValueAccessor {
     ngOnInit(): void {
         this.style$.pipe(takeUntil(this.destroy$)).subscribe((style) => {
             this.currentStateElement.style = style;
+        });
+        this.element$.pipe(takeUntil(this.destroy$)).subscribe((element) => {
+            this.currentStateElement.element = element;
         });
     }
 

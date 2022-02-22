@@ -46,7 +46,7 @@ export class FormComponent {
         select(selectByStyle)
     );
 
-    constructor(private store: Store<ElementStyle>, fb: FormBuilder) {
+    constructor(private store: Store<ElementStyle>, public fb: FormBuilder) {
         this.form = fb.group({
             formStyling: [
                 { width: '', height: '', border: '', background: '' },

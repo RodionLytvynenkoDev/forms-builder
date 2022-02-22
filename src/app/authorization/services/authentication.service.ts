@@ -4,8 +4,9 @@ import { BehaviorSubject } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { IUser } from '../interfaces';
+import { AuthorizationModule } from '../authorization.module';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: AuthorizationModule })
 export class AuthenticationService {
     private currentUserSubject = new BehaviorSubject<IUser>(
         JSON.parse(localStorage.getItem('currentUser'))

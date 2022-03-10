@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AuthenticationService } from './authorization/services';
@@ -8,6 +8,7 @@ import { IUser } from './authorization/interfaces';
     selector: 'app',
     templateUrl: 'app.component.html',
     styleUrls: ['./app.component.css'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent {
     public currentUser: IUser;
@@ -22,7 +23,7 @@ export class AppComponent {
             .subscribe((x) => (this.currentUser = x));
     }
 
-    public logout() {
+    public logout(): void {
         this.authenticationService.logout();
         this.router.navigate(['/signIn']);
     }

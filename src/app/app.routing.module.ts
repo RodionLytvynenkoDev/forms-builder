@@ -15,7 +15,7 @@ const routes: Routes = [
             import('../../src/app/authorization/authorization.module').then((m) => m.AuthorizationModule),
     },
 
-    { path: '**', redirectTo: '', pathMatch: 'full' },
+    { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -81,7 +81,7 @@ export class AccordionElementComponent implements ControlValueAccessor {
     }
 
     private onChange = (value: string): void => {};
-    private onTouched = () => {};
+    private onTouched = (): void => {};
 
     public registerOnChange(formChanges: (value: string) => void): void {
         this.formStyling.valueChanges
@@ -91,7 +91,7 @@ export class AccordionElementComponent implements ControlValueAccessor {
 
     public registerOnTouched() {}
 
-    public writeValue(value: string[]) {
+    public writeValue(value: string[]): void {
         if (value) {
             this.formStyling.setValue(value);
         }

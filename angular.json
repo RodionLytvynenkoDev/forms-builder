@@ -1,32 +1,44 @@
 {
-  "cli": {
-    "analytics": "d012549a-83d3-4b9a-8bbc-6752c64aca9d"
-  },
+    "cli": {
+        "analytics": "d012549a-83d3-4b9a-8bbc-6752c64aca9d"
+    },
     "version": 1,
     "projects": {
-      "helloapp": {
-        "projectType": "application",
-        "root": "",
-        "sourceRoot": "src",
-        "architect": {
-          "build": {
-            "builder": "@angular-devkit/build-angular:browser",
-            "options": {
-              "outputPath": "dist/helloapp",
-              "index": "src/index.html",
-              "main": "src/main.ts",
-              "polyfills": "src/polyfills.ts",
-              "tsConfig": "tsconfig.json",
-              "aot": true
+        "helloapp": {
+            "projectType": "application",
+            "root": "",
+            "sourceRoot": "src",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:browser",
+                    "options": {
+                        "outputPath": "dist/helloapp",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+
+                        "tsConfig": "tsconfig.json",
+                        "aot": true
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "tsconfig.spec.json",
+                        "karmaConfig": "src/karma.conf.js",
+                        "scripts": []
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-devkit/build-angular:dev-server",
+                    "options": {
+                        "browserTarget": "helloapp:build"
+                    }
+                }
             }
-          },
-          "serve": {
-            "builder": "@angular-devkit/build-angular:dev-server",
-            "options": {
-              "browserTarget": "helloapp:build"
-            }
-          }
         }
-      }},
+    },
     "defaultProject": "helloapp"
-  }
+}

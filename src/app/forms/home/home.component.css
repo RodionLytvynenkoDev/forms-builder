@@ -3,3 +3,24 @@ h2 {
     margin-left: auto;
     margin-right: auto;
 }
+
+li {
+    list-style: none;
+}
+
+.logo {
+    position: absolute;
+    right: 5em;
+    top: 7em;
+    border: none;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+img {
+    width: 180%;
+}
+
+* {
+    box-sizing: border-box;
+}

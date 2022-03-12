@@ -1,5 +1,6 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StoreModule } from '@ngrx/store';
+import { currentStateElement } from '../form.currentState';
 import { ElementsComponent } from './elements.component';
 
 describe('ElementsComponent', () => {
@@ -24,5 +25,13 @@ describe('ElementsComponent', () => {
 
     it('should create Elements section', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('Testing id', () => {
+        expect(component.id).toEqual(undefined);
+    });
+
+    it('Testing current styles', () => {
+        expect(component.currentState).toEqual({ ...currentStateElement });
     });
 });

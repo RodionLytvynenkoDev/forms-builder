@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Subject } from 'rxjs';
 import { first, takeUntil } from 'rxjs/operators';
 import { IUser } from '../../authorization/interfaces';
@@ -7,6 +7,7 @@ import { UserService, AuthenticationService } from '../../authorization/services
 @Component({
     templateUrl: 'home.component.html',
     styleUrls: ['home.component.css'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class HomeComponent {
     public users: IUser[];

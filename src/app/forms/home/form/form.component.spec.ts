@@ -8,6 +8,7 @@ import {
 import { StoreModule } from '@ngrx/store';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormComponent } from './form.component';
+import { By } from '@angular/platform-browser';
 
 describe('FormComponent', () => {
     let component: FormComponent;
@@ -22,11 +23,7 @@ describe('FormComponent', () => {
                     ReactiveFormsModule,
                 ],
                 declarations: [FormComponent],
-                providers: [
-                    FormGroup,
-                    FormBuilder,
-                    NG_VALUE_ACCESSOR,
-                ],
+                providers: [FormGroup, FormBuilder, NG_VALUE_ACCESSOR],
             }).compileComponents();
         })
     );
@@ -39,5 +36,12 @@ describe('FormComponent', () => {
 
     it('should create form', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('Testing existence of section3', () => {
+        const htmlElementsSection = fixture.debugElement.query(
+            By.css('.htmlElement')
+        ).nativeElement;
+        expect(htmlElementsSection.innerHTML).not.toBeNull();
     });
 });

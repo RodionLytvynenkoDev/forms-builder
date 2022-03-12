@@ -8,6 +8,7 @@ html {
     background-color: #000;
     height: 8vh;
     border-radius: 4px;
+    width: 100%;
 }
 
 .app-header ul {

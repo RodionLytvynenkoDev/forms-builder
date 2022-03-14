@@ -2,7 +2,10 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Subject } from 'rxjs';
 import { first, takeUntil } from 'rxjs/operators';
 import { IUser } from '../../authorization/interfaces';
-import { UserService, AuthenticationService } from '../../authorization/services';
+import {
+    UserService,
+    AuthenticationService,
+} from '../../authorization/services';
 
 @Component({
     templateUrl: 'home.component.html',
@@ -32,6 +35,10 @@ export class HomeComponent {
             .subscribe((users) => {
                 this.users = users;
             });
+    }
+
+    buttonTest() {
+        console.log(1)
     }
 
     ngOnDestroy() {

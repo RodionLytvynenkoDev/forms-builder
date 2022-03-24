@@ -1,10 +1,12 @@
-<header class="app-header" *ngIf="currentUser">
-    <ul>
-        <li><a routerLink="/">Home</a></li>
-        <li><a (click)="logout()">Logout</a></li>
-    </ul>
-</header>
+<div class="container" [style.background-color]="isDark ? '#13576A' : '#FAF1CF'">
+    <header class="app-header" *ngIf="currentUser">
+        <ul>
+            <li><a routerLink="/">Home</a></li>
+            <li><a (click)="logout()">Logout</a></li>
+        </ul>
+    </header>
 
-<div>
-    <router-outlet></router-outlet>
+    <div>
+        <router-outlet></router-outlet>
+    </div>
 </div>

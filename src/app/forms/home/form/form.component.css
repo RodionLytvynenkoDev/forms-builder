@@ -60,7 +60,6 @@
     background-color: rgb(170, 162, 162);
     border-bottom-left-radius: var(--radius);
     border-bottom-right-radius: var(--radius);
-    margin-bottom: 3vh;
 }
 
 li {

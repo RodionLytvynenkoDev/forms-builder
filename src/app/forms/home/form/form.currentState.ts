@@ -1,4 +1,4 @@
-import { ElementStyle } from '../form/reducers/actionsReducers/reducer.component';
+import { ElementStyle } from './reducers/stylingReducers/reducer.component';
 
 export const currentStateElement: ElementStyle = {
     id: null,

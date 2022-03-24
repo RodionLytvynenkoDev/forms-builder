@@ -7,16 +7,16 @@ import {
 } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { defineStyleAction } from '../reducers/actionsReducers/action.component';
+import { defineStyleAction } from '../reducers/stylingReducers/action.component';
 import {
     ElementStyle,
     StylingState,
-} from '../reducers/actionsReducers/reducer.component';
+} from '../reducers/stylingReducers/reducer.component';
 import {
     selectByStyle,
     selectById,
     selectByElement,
-} from '../reducers/actionsReducers/selector.component';
+} from '../reducers/stylingReducers/selector.component';
 import { currentStateElement } from '../form.currentState';
 
 /**

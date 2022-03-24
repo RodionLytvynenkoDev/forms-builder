@@ -1,25 +1,64 @@
 <div class="section1">
-  <form [formGroup]="form" >
-    <accordion formControlName="formStyling"></accordion>
-  </form>
+    <form [formGroup]="form">
+        <accordion formControlName="formStyling"></accordion>
+    </form>
 </div>
-  <div class="section2" [style.width]="form.value.formStyling.width ? form.value.formStyling.width : '60%'" 
-    [style.height]="form.value.formStyling.height ? form.value.formStyling.height : '60%'" 
-    [style.border]="form.value.formStyling.border  ? form.value.formStyling.border : '#000 solid 2px'"
-    [style.backgroundColor]="form.value.formStyling.background  ? form.value.formStyling.background : '#fff'">
-    
-    <div cdkDropList #formElements="cdkDropList" [cdkDropListData]="formFields"  [cdkDropListConnectedTo]="htmlElements"
-      class="list-section2" (cdkDropListDropped)="drop($event)" >
-      <elements 
-      
-      class="list-item" *ngFor="let item of formFields; let i = index" cdkDragPlaceholder 
-      cdkDragBoundary=".section2" cdkDrag (click)="getIndex(i)" element={{item.element}} id={{item.id}}>
-      </elements>
+<div
+    class="section2"
+    [style.width]="
+        form.value.formStyling.width ? form.value.formStyling.width : '60%'
+    "
+    [style.height]="
+        form.value.formStyling.height ? form.value.formStyling.height : '60%'
+    "
+    [style.border]="
+        form.value.formStyling.border
+            ? form.value.formStyling.border
+            : '#000 solid 2px'
+    "
+    [style.backgroundColor]="
+        form.value.formStyling.background
+            ? form.value.formStyling.background
+            : '#fff'
+    "
+>
+    <div
+        cdkDropList
+        #formElements="cdkDropList"
+        [cdkDropListData]="formFields"
+        [cdkDropListConnectedTo]="htmlElements"
+        class="list-section2"
+        (cdkDropListDropped)="drop($event)"
+    >
+        <elements
+            class="list-item"
+            *ngFor="let item of formFields; let i = index"
+            cdkDragPlaceholder
+            cdkDragBoundary=".section2"
+            cdkDrag
+            (click)="getIndex(i)"
+            element="{{ item.element }}"
+            id="{{ item.id }}"
+        >
+        </elements>
     </div>
-  </div>
-  
-  <div cdkDropList cdkDropListOrientation="horizontal" #htmlElements="cdkDropList" [cdkDropListData]="draggableFields"
-  [cdkDropListConnectedTo]="formElements" (cdkDropListDropped)="drop($event)" cdkDragPlaceholder class="section3">
-    <elements class="htmlElement" *ngFor="let item of draggableFields" cdkDragBoundary=".section2" 
-    cdkDrag element={{item}}></elements>
-  </div>
+</div>
+
+<div
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    #htmlElements="cdkDropList"
+    [cdkDropListData]="draggableFields"
+    [cdkDropListConnectedTo]="formElements"
+    (cdkDropListDropped)="drop($event)"
+    cdkDragPlaceholder
+    class="section3"
+>
+    <elements
+        class="htmlElement"
+        *ngFor="let item of draggableFields"
+        cdkDragBoundary=".section2"
+        cdkDrag
+        element="{{ item }}"
+    ></elements>
+</div>

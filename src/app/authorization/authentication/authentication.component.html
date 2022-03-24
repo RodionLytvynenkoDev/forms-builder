@@ -1,48 +1,56 @@
-<div class="container">
-    <h1 style="text-align: center; font-size: 50px">FORM BUILDER</h1>
-    <div>
-        <form [formGroup]="authenticationForm" (ngSubmit)="onSubmit($event)">
-            <div class="user-input">
-                <label for="username">Username </label>
-                <input
-                    type="email"
-                    name="email"
-                    ngModel
-                    email
-                    formControlName="username"
-                    [ngClass]="{
-                        'is-invalid':
-                            isSubmitted && getFormControls.username.errors
-                    }"
-                />
-            </div>
-            <div class="user-input">
-                <label for="password">Password </label>
-                <input
-                    type="password"
-                    formControlName="password"
-                    [ngClass]="{
-                        'is-invalid':
-                            isSubmitted && getFormControls.password.errors
-                    }"
-                />
-            </div>
-            <div class="buttons">
-                <button type="submit" name="signUp">Sign Up</button>
-                <button type="submit" name="signIn">Sign In</button>
-            </div>
-            <div class="portalOutlet" cdkPortalOutlet>
-                <div *ngIf="isSubmitted && getFormControls.username.errors">
-                    <div *ngIf="getFormControls.username.errors.required">
-                        Username is required
+<div class="page-container">
+    <div
+        class="container"
+        [style.background-color]="isDark ? '#FAF1CF' : '#13576A'"
+    >
+        <h1 style="text-align: center; font-size: 50px">FORM BUILDER</h1>
+        <div>
+            <form
+                [formGroup]="authenticationForm"
+                (ngSubmit)="onSubmit($event)"
+            >
+                <div class="user-input">
+                    <label for="username">Username </label>
+                    <input
+                        type="email"
+                        name="email"
+                        ngModel
+                        email
+                        formControlName="username"
+                        [ngClass]="{
+                            'is-invalid':
+                                isSubmitted && getFormControls.username.errors
+                        }"
+                    />
+                </div>
+                <div class="user-input">
+                    <label for="password">Password </label>
+                    <input
+                        type="password"
+                        formControlName="password"
+                        [ngClass]="{
+                            'is-invalid':
+                                isSubmitted && getFormControls.password.errors
+                        }"
+                    />
+                </div>
+                <div class="buttons">
+                    <button type="submit" name="signUp">Sign Up</button>
+                    <button type="submit" name="signIn">Sign In</button>
+                </div>
+                <div class="portalOutlet" cdkPortalOutlet>
+                    <div *ngIf="isSubmitted && getFormControls.username.errors">
+                        <div *ngIf="getFormControls.username.errors.required">
+                            Username is required
+                        </div>
+                    </div>
+                    <div *ngIf="isSubmitted && getFormControls.password.errors">
+                        <div *ngIf="getFormControls.password.errors.required">
+                            Password is required
+                        </div>
                     </div>
                 </div>
-                <div *ngIf="isSubmitted && getFormControls.password.errors">
-                    <div *ngIf="getFormControls.password.errors.required">
-                        Password is required
-                    </div>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>

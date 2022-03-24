@@ -6,15 +6,16 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import {
     ElementStyle,
     StylingState,
-} from './reducers/actionsReducers/reducer.component';
-import { defineAllAction } from './reducers/actionsReducers/action.component';
+} from './reducers/stylingReducers/reducer.component';
+import { defineAllAction } from './reducers/stylingReducers/action.component';
 
 import {
     selectByElement,
     selectById,
     selectByStyle,
-} from './reducers/actionsReducers/selector.component';
+} from './reducers/stylingReducers/selector.component';
 import { currentStateElement } from './form.currentState';
+import { selectByTheme } from './reducers/darkThemeReducers/selector.component';
 
 @Component({
     selector: 'form-project',
@@ -45,6 +46,7 @@ export class FormComponent {
     public style$: Observable<StylingState> = this.store.pipe(
         select(selectByStyle)
     );
+    
 
     constructor(private store: Store<ElementStyle>, public fb: FormBuilder) {
         this.form = fb.group({

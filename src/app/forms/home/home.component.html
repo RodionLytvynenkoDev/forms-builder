@@ -1,8 +1,16 @@
 <div>
     <h2>{{ currentUser.username | usernamePipe }}</h2>
 
-    <button class="logo" (click)="buttonTest()">
-        <img src="https://www.svgrepo.com/show/309493/dark-theme.svg" alt="Dark theme logo" width="50%"/>
+    <button
+        class="logo"
+        (click)="changeTheme()"
+        [style.background-color]="isDark ? '#13576A' : '#FAF1CF'"
+    >
+        <img
+            src="https://www.svgrepo.com/show/309493/dark-theme.svg"
+            alt="Dark theme logo"
+            width="50%"
+        />
     </button>
 
     <form-project></form-project>

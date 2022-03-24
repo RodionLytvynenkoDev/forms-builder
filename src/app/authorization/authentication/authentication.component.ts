@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
-import { Subject } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { AuthenticationService } from '../services';
 import { SignInAction, SignupAction } from '../reducers/user.actions';
 import { UserState } from '../reducers/user.reducers';
+import { ThemeState } from 'src/app/forms/home/form/reducers/darkThemeReducers/reducer.component';
+import { selectByTheme } from 'src/app/forms/home/form/reducers/darkThemeReducers/selector.component';
 
 @Component({
     templateUrl: 'authentication.component.html',
@@ -16,12 +18,18 @@ export class AuthenticationComponent implements OnInit {
     public isSubmitted = false;
     public returnUrl: string;
     public destroy$ = new Subject();
+    public isDark$: Observable<boolean> = this.store.pipe(
+        select(selectByTheme)
+    );
+    public isDark: boolean;
 
     constructor(
         private store: Store<UserState>,
+        private themeStore: Store<ThemeState>,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
+
         private authenticationService: AuthenticationService
     ) {
         if (this.authenticationService.currentUserValue) {
@@ -36,6 +44,10 @@ export class AuthenticationComponent implements OnInit {
         });
 
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+        this.isDark$.pipe(takeUntil(this.destroy$)).subscribe((theme) => {
+            this.isDark = theme;
+        });
     }
 
     public get getFormControls() {

@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { defineAllAction, defineStyleAction } from './action.component';
 
 export const ElementStyles = 'style';
+export const featureName = 'styling';
 
 export interface StylingState {
     width: string;

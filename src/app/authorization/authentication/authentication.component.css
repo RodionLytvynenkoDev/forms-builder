@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans&display=swap");
 
+.page-container {
+    height: 85vh;
+}
+
 .container {
     margin-top: 15vh;
     border: 0.2em solid #000;
@@ -8,7 +12,7 @@
     margin-right: auto;
     padding: 5%;
     border-radius: 0.5em;
-    background-image: url("https://www.publicdomainpictures.net/pictures/300000/nahled/gradient-background-1556383404PZm.jpg");
+
 }
 
 .user-input {
@@ -18,7 +22,7 @@
 
 .user-input input {
     border-radius: 0.5em;
-    border: 0.2em #000 solid;
+    border: 0.15em #000 solid;
     height: 4vh;
 }
 
@@ -30,7 +34,7 @@
 .buttons button {
     width: 40%;
     height: 8vh;
-    border: 0.15em #000 solid;
+    border: 0.1em #000 solid;
     background-color: #fff;
     border-radius: 0.5em;
     font-family: "Roboto", sans-serif;

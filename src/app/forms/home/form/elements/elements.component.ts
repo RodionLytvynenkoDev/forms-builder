@@ -9,12 +9,12 @@ import { Observable, Subject, takeUntil } from 'rxjs';
 import {
     ElementStyle,
     StylingState,
-} from '../reducers/actionsReducers/reducer.component';
+} from '../reducers/stylingReducers/reducer.component';
 import {
     selectById,
     selectByElement,
     selectByStyle,
-} from '../reducers/actionsReducers/selector.component';
+} from '../reducers/stylingReducers/selector.component';
 import { currentStateElement } from '../form.currentState';
 
 @Component({
